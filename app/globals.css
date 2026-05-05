@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #131313;
+  --background-v2: #101010;
+  --foreground: #ededed;
+  --accent: #fe5f55;
+  --muted: #959595;
+  --muted-v2: #545454;
+
+  --gap: 0.5rem;
+}
+
+html {
+  background: var(--background-v2);
+  color: var(--foreground);
+  text-rendering: optimizeLegibility;
+}
+
+#scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+#scroll-container {
+  mask-image: url("../assets/images/r48.svg");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: calc(100% - var(--gap) * 2) calc(100% - var(--gap) * 2);
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+main::before {
+  top: 0;
+  left: 0;
+  content: "";
+  opacity: 0.02;
+  z-index: 1;
+  pointer-events: none;
+  background: url("../assets/other/noise.gif");
+  background-size: contain;
+}
+
+main::before {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-v2: var(--background-v2);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-muted-v2: var(--muted-v2);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-chakra: var(--font-chakra);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  ::selection {
+    background-color: var(--accent);
+    color: var(--foreground);
+  }
+
+  ::-moz-selection {
+    background-color: var(--accent);
+    color: var(--foreground);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .center-absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .mx {
+    margin-inline: calc(var(--gap) * 4);
+  }
+
+  .grid-12 {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto;
+    grid-column-gap: var(--gap);
+  }
 }
