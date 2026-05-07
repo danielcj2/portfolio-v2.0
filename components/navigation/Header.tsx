@@ -131,19 +131,20 @@ const Header: React.FC = () => {
             {isStacked && (
               <>
                 <motion.div
-                  className="bg-background-v2/90 mask-200 absolute inset-0 -z-1 h-full w-full backdrop-blur-[2px]"
+                  id="menu"
+                  className="glass-v2 absolute inset-0 -z-1 h-full w-full"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: isStacked ? 1 : 0 }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                 />
                 <motion.div
-                  className="bg-background-v2/90 absolute top-0 right-full -z-1 aspect-square h-auto w-1/6 mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)] backdrop-blur-[2px]"
+                  className="glass-v2 absolute top-0 right-full -z-1 aspect-square h-auto w-1/6 mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)]"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: isStacked ? 1 : 0 }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                 />
                 <motion.div
-                  className="bg-background-v2/90 absolute top-full right-0 -z-1 aspect-square h-auto w-1/6 mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)] backdrop-blur-[2px]"
+                  className="glass-v2 absolute top-full right-0 -z-1 aspect-square h-auto w-1/6 mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)]"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: isStacked ? 1 : 0 }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}

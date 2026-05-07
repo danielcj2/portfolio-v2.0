@@ -29,7 +29,7 @@ const LogoSpin = ({ text, ...props }: LogoSpinProps) => {
           </div>
         </motion.div>
         <motion.svg
-          className="absolute top-1/2 left-1/2 -z-1 h-16 w-16 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+          className="center-xy -z-1 h-16 w-16 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
           viewBox="0 0 100 100"
           animate={reduceMotion ? undefined : { rotate: 360 }}
           transition={{ duration: 30, ease: "linear", repeat: Infinity }}

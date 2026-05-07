@@ -89,7 +89,7 @@ const HeroText = React.memo(({ progress }: HeroTextProps) => {
         </div>
       </div>
       <MotionImage
-        className="fade-mask pointer-events-none relative isolate mx-auto mask-cover drop-shadow-[0_0_40px_rgba(255,255,255,0.15)] select-none"
+        className="fade-mask pointer-events-none relative isolate mx-auto h-auto w-auto mask-cover drop-shadow-[0_0_40px_rgba(255,255,255,0.15)] select-none"
         style={{ maskImage, WebkitMaskImage: maskImage, scale }}
         src={portrait}
         alt="portrait"
