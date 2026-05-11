@@ -18,6 +18,8 @@ const carouselBg =
   "bg-linear-[150deg,#186ebd,#1d6bb8,#2e5596,#272b4a,#1c1c24,transparent_70%]";
 
 const r2Url = process.env.NEXT_PUBLIC_BLUEWAVE;
+const outline =
+  "bg-foreground/10 absolute -inset-2 -z-1 w-auto rounded-3xl hidden md:block";
 
 const slides = [
   <Wrapper key="monitors">
@@ -29,7 +31,7 @@ const slides = [
         height={605}
         alt="Bluewave Uptime screenshot 1"
       />
-      <div className="bg-foreground/10 absolute -inset-2 -z-1 w-auto rounded-3xl" />
+      <div className={outline} />
     </div>
   </Wrapper>,
   <Wrapper key="integrations">
@@ -41,7 +43,7 @@ const slides = [
         height={650}
         alt="Bluewave Uptime screenshot 2"
       />
-      <div className="bg-foreground/10 absolute -inset-2 -z-1 w-auto rounded-3xl" />
+      <div className={outline} />
     </div>
   </Wrapper>,
   <Wrapper key="monitors-create">
@@ -53,7 +55,7 @@ const slides = [
         height={563}
         alt="Bluewave Uptime screenshot 3"
       />
-      <div className="bg-foreground/10 absolute -inset-2 -z-1 w-auto rounded-3xl" />
+      <div className={outline} />
     </div>
   </Wrapper>,
   <Wrapper key="maintenance">
@@ -65,7 +67,7 @@ const slides = [
         height={563}
         alt="Bluewave Uptime screenshot 4"
       />
-      <div className="bg-foreground/10 absolute -inset-2 -z-1 w-auto rounded-3xl" />
+      <div className={outline} />
     </div>
   </Wrapper>,
 ];
@@ -78,7 +80,7 @@ const BluewaveModal = ({
 }: ModalContentProps) => (
   <>
     <Card
-      className="h-full min-h-104 flex-1"
+      className="h-80 md:h-full md:min-h-104 md:flex-1"
       layoutId={`card-${projectId}`}
       transition={{ duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] }}
       theme="light"
@@ -87,7 +89,7 @@ const BluewaveModal = ({
       <Carousel items={slides} />
     </Card>
     <Card
-      className="h-full min-h-50 w-125 rounded-[20px] bg-neutral-900/70"
+      className="h-full min-h-50 w-full rounded-[20px] bg-neutral-900/70 md:w-125"
       theme="stacked"
       initial={{ y: 200, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -95,7 +97,10 @@ const BluewaveModal = ({
       transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
     >
       <ModalHeader name={name} year={year} onClose={onClose} />
-      <Card className="flex h-full flex-col gap-6 rounded-xl p-5" theme="light">
+      <Card
+        className="flex h-full flex-col gap-6 overflow-auto rounded-xl p-5 pb-12"
+        theme="light"
+      >
         <Paragraph>
           An organization building <Highlight>web-based tools</Highlight> across
           multiple teams and projects. I worked on{" "}

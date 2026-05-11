@@ -18,7 +18,6 @@ html {
 }
 
 #scroll-container,
-#screen,
 #disk {
   mask-position: center;
   mask-repeat: no-repeat;
@@ -29,7 +28,6 @@ html {
 }
 
 #menu,
-#screen,
 #scroll-container {
   mask-image: url("../assets/images/r48.svg");
 }
@@ -45,10 +43,6 @@ html {
   mask-size: 200% 200%;
   mask-position: bottom left;
   mask-repeat: no-repeat;
-}
-
-#screen {
-  mask-size: 100% 100%;
 }
 
 #disk {
@@ -90,10 +84,10 @@ main::before {
 
 #tv {
   box-shadow:
-    rgba(149, 149, 149, 0.35) 0px 30px,
-    rgba(149, 149, 149, 0.3) 0px 60px,
-    rgba(149, 149, 149, 0.2) 0px 90px,
-    rgba(149, 149, 149, 0.1) 0px 120px,
+    rgba(102, 102, 102, 1) 0px 30px,
+    rgba(79, 79, 79, 1) 0px 60px,
+    rgba(52, 52, 52, 1) 0px 90px,
+    rgba(30, 30, 30, 1) 0px 120px,
     rgba(0, 0, 0, 0.05) -1px -1px 0px 0px inset,
     rgba(255, 255, 255, 0.15) 0.5px 0.5px 0px 0px inset,
     rgba(0, 0, 0, 0.01) 1px 1px 1.5px 0px,
@@ -144,12 +138,16 @@ main::before {
   }
 
   .glass-v2 {
-    background-color: color-mix(in srgb, var(--background-v2) 90%, transparent);
-    backdrop-filter: blur(2px);
+    background-color: color-mix(in srgb, var(--background-v2) 80%, transparent);
+    backdrop-filter: blur(4px);
   }
 
   .mx {
     margin-inline: calc(var(--gap) * 4);
+  }
+
+  .p-gap {
+    padding: var(--gap);
   }
 
   .grid-12 {
@@ -158,5 +156,20 @@ main::before {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-template-rows: auto;
     grid-column-gap: var(--gap);
+  }
+}
+
+@media (max-width: 767px) {
+  .mx {
+    margin-inline: calc(var(--gap) * 2.5);
+  }
+
+  #menu,
+  #scroll-container {
+    mask-image: url("../assets/images/r36.svg");
+  }
+
+  .grid-12 {
+    gap: 0;
   }
 }

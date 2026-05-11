@@ -2,13 +2,15 @@
 
 import Card from "@/ui/Card";
 import Modal from "@/ui/Modal";
-import { motion } from "motion/react";
-import { useEffect, useMemo, useRef, useState } from "react";
-
 import QuickQRModal from "./QuickQRModal";
 import BluewaveModal from "./BluewaveModal";
 import BogueModal from "./BogueModal";
+
+import { motion } from "motion/react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { type ModalContentProps } from "./shared";
+import { useMediaQuery } from "@/providers/MediaQueryContext";
+import Image from "next/image";
 
 type Project = {
   id: "quickqr" | "bluewave" | "bogue";
@@ -18,7 +20,8 @@ type Project = {
   subtitle: string;
   color: string;
   overlay: string;
-  video: string | null;
+  video: string;
+  placeholder: string;
 };
 
 const r2Url = process.env.NEXT_PUBLIC_PORTFOLIO;
@@ -31,8 +34,9 @@ const PROJECTS: Project[] = [
     title: "Reimagining QR Codes",
     subtitle: "All-in-One Business Tool",
     color: "bg-[#CF1736]",
-    overlay: "bg-[#CF1736]/80",
+    overlay: "bg-[#CF1736]/70",
     video: `${r2Url}/quickqr.webm`,
+    placeholder: `${r2Url}/quickqr-placeholder.png`,
   },
   {
     id: "bluewave",
@@ -41,8 +45,9 @@ const PROJECTS: Project[] = [
     title: "Tracking Uptime",
     subtitle: "for Websites & APIs",
     color: "bg-[#1777CF]",
-    overlay: "bg-[#1777CF]/90",
+    overlay: "bg-[#1777CF]/70",
     video: `${r2Url}/bluewave.webm`,
+    placeholder: `${r2Url}/bluewave-placeholder.png`,
   },
   {
     id: "bogue",
@@ -51,8 +56,9 @@ const PROJECTS: Project[] = [
     title: "Modern Commerce",
     subtitle: "A Personal Retail Experiment",
     color: "bg-[#CF9117]",
-    overlay: "bg-[#CF9117]/80",
+    overlay: "bg-[#CF9117]/70",
     video: `${r2Url}/bogue.webm`,
+    placeholder: `${r2Url}/bogue-placeholder.png`,
   },
 ];
 
@@ -65,9 +71,10 @@ const MODAL_CONTENT: Record<
   bogue: BogueModal,
 };
 
-const SPACING = ["pr-4", "px-4", "pl-4"] as const;
+const SPACING = ["pr-0 md:pr-4", "px-0 md:px-4", "pl-0 md:pl-4"] as const;
 
 const WorkModals = () => {
+  const { isMobile } = useMediaQuery();
   const [activeProjectId, setActiveProjectId] = useState<Project["id"] | null>(
     null,
   );
@@ -84,6 +91,8 @@ const WorkModals = () => {
   );
 
   useEffect(() => {
+    if (isMobile) return;
+
     PROJECTS.forEach((project) => {
       const video = videoRefs.current[project.id];
 
@@ -99,13 +108,13 @@ const WorkModals = () => {
 
       video.pause();
     });
-  }, [hoveredProjectId, activeProjectId]);
+  }, [hoveredProjectId, activeProjectId, isMobile]);
 
   const ModalContent = activeProject ? MODAL_CONTENT[activeProject.id] : null;
 
   return (
     <>
-      <div className="bg-background mx relative z-1 flex">
+      <div className="bg-background mx relative z-1 flex flex-col gap-4 md:flex-row md:gap-0">
         {PROJECTS.map((project, index) => {
           const isActive = activeProjectId === project.id;
 
@@ -115,6 +124,7 @@ const WorkModals = () => {
               className={`h-min w-full flex-1 cursor-pointer outline-none ${SPACING[index]} ${isActive ? "opacity-0" : ""}`}
               layout
               initial="initial"
+              // animate={isMobile ? "hovered" : "initial"}
               whileHover="hovered"
               whileFocus="hovered"
               tabIndex={0}
@@ -131,7 +141,7 @@ const WorkModals = () => {
               variants={{ initial: { flex: 1 }, hovered: { flex: 1.5 } }}
             >
               <Card
-                className="h-190 w-full will-change-transform"
+                className="h-130 w-full will-change-transform md:h-190"
                 theme="stacked"
               >
                 <Card
@@ -158,23 +168,31 @@ const WorkModals = () => {
                   layoutId={`card-${project.id}`}
                   theme="light"
                 >
-                  {!!project.video && (
-                    <motion.div
-                      className="relative flex size-full justify-center"
-                      variants={{
-                        initial: {
-                          opacity: 0.3,
-                          filter: "grayscale(100%)",
-                          scale: 1,
-                        },
-                        hovered: {
-                          opacity: 1,
-                          filter: "grayscale(0%)",
-                          scale: 1.2,
-                        },
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
+                  <motion.div
+                    className="relative flex size-full justify-center"
+                    variants={{
+                      initial: {
+                        opacity: 0.3,
+                        filter: "grayscale(100%)",
+                        scale: 1,
+                      },
+                      hovered: {
+                        opacity: 1,
+                        filter: "grayscale(0%)",
+                        scale: 1.2,
+                      },
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {isMobile ? (
+                      <Image
+                        className="h-full w-full object-cover"
+                        width={1920}
+                        height={1080}
+                        src={project.placeholder}
+                        alt={project.name}
+                      />
+                    ) : (
                       <video
                         ref={(element) => {
                           videoRefs.current[project.id] = element;
@@ -190,8 +208,8 @@ const WorkModals = () => {
                         aria-hidden="true"
                         tabIndex={-1}
                       />
-                    </motion.div>
-                  )}
+                    )}
+                  </motion.div>
                   <motion.div
                     className={`absolute inset-0 -z-1 ${project.overlay}`}
                     variants={{
@@ -211,7 +229,7 @@ const WorkModals = () => {
         })}
       </div>
       <Modal
-        className="flex gap-4 overflow-clip"
+        className="flex flex-col gap-4 overflow-clip md:flex-row"
         aria-labelledby=""
         aria-describedby=""
         isOpen={!!activeProject}

@@ -11,7 +11,7 @@ export const ModalHeader = ({ name, year, onClose }: ModalHeaderProps) => (
       theme="light"
     >
       <p className="text-lg font-medium tracking-tight">{name}</p>
-      <p className="font-chakra text-lg font-bold tracking-tight text-muted">
+      <p className="font-chakra text-muted font-bold tracking-tight md:text-lg">
         {year}
       </p>
     </Card>
@@ -43,7 +43,7 @@ export const Paragraph = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const Subheading = ({ children }: { children: string }) => (
-  <p className="font-chakra text-foreground text-xs font-medium tracking-wider uppercase">
+  <p className="font-chakra text-foreground text-[0.8125rem] font-medium tracking-wider uppercase">
     {children}
   </p>
 );

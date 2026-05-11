@@ -7,12 +7,14 @@ import TextFlip from "../animations/TextFlip";
 
 import { useScrollContainer } from "@/providers/ScrollContext";
 import { useLenisScroll } from "@/providers/LenisContext";
+import { useMediaQuery } from "@/providers/MediaQueryContext";
 
-const FOOTER_HEIGHT = "75vh";
+const FOOTER_HEIGHT = "40vh";
 const TOP = "175vh";
 
 const Footer = () => {
   const container = useScrollContainer();
+  const { isMobile } = useMediaQuery();
   const { scrollTo } = useLenisScroll();
   const { scrollYProgress } = useScroll({
     container,
@@ -21,9 +23,6 @@ const Footer = () => {
 
   const opacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
   const y = useTransform(scrollYProgress, [0, 0.75], [250, 0]);
-  const pointerEvents = useTransform(scrollYProgress, (v) =>
-    v >= 0.25 ? "auto" : "none",
-  );
 
   return (
     <>
@@ -33,9 +32,8 @@ const Footer = () => {
         style={{ height: FOOTER_HEIGHT }}
       />
       <motion.footer
-        className="fixed bottom-0 z-1 flex w-screen origin-bottom flex-col items-center overflow-clip"
+        className="pointer-events-none fixed bottom-0 z-1 flex w-screen origin-bottom flex-col items-center"
         style={{
-          pointerEvents,
           height: FOOTER_HEIGHT,
           opacity,
           y,
@@ -45,24 +43,28 @@ const Footer = () => {
           <div
             className="mx grid-12 relative h-full gap-y-2"
             style={{
-              gridTemplateRows: `1fr auto 0.5fr`,
+              gridTemplateRows: `0.5fr auto 1fr`,
             }}
           >
-            <div className="pointer-events-none absolute inset-0 col-start-1 col-end-13 flex justify-between opacity-70">
-              <LineFade count={7} duration={7} direction="vertical" />
+            <div className="pointer-events-none absolute bottom-0 left-0 flex h-screen w-full justify-around opacity-70 md:justify-between">
+              <LineFade
+                count={isMobile ? 3 : 7}
+                duration={7}
+                direction="vertical"
+              />
             </div>
-            <div className="col-start-1 col-end-3 self-end px-1.5 text-wrap capitalize">
-              <p className="text-muted-v2 text-4xl font-semibold">
+            <div className="col-start-1 col-end-10 self-end px-1.5 py-2 text-3xl text-wrap capitalize md:py-0 md:text-4xl">
+              <p className="text-muted-v2 pointer-events-auto font-semibold">
                 Scroll complete
               </p>
-              <p className="text-muted-v2 text-4xl font-semibold">
+              <p className="text-muted-v2 pointer-events-auto font-semibold">
                 <span className="text-foreground">Dan</span> signing off
               </p>
             </div>
             <div className="col-start-10 col-end-13 self-end justify-self-end px-1.5 text-right">
               <button
                 type="button"
-                className="text-muted-v2 font-chakra block w-min cursor-pointer! text-xs font-bold tracking-widest italic"
+                className="text-muted-v2 font-chakra pointer-events-auto block w-min cursor-pointer! py-2 text-xs font-bold tracking-widest italic md:py-0"
                 onClick={() => scrollTo("#hero")}
               >
                 <TextFlip>back to top &#8593;</TextFlip>
@@ -71,8 +73,8 @@ const Footer = () => {
             <div className="col-span-full">
               <div className="h-1 w-full bg-[rgba(255,255,255,0.02)]" />
             </div>
-            <div className="col-start-1 col-end-3 row-start-3 px-1.5">
-              <p className="text-sm">
+            <div className="col-start-1 col-end-13 row-start-3 px-1.5 py-2 text-sm md:py-0 md:text-base">
+              <p className="pointer-events-auto text-sm">
                 © 2026
                 <span className="mx-1">&#8226;</span>
                 by me

@@ -15,7 +15,7 @@ const WorkStatus = ({ status = "NA" }: { status?: WorkStatusValue }) => {
   const config = statusMap[status];
 
   return (
-    <div className="font-chakra px-4 py-1.75 font-medium">
+    <div className="font-chakra hidden px-4 py-1.75 font-medium md:block">
       <p className="text-muted mb-1 text-xs font-bold">Current Status</p>
       <div className="flex flex-row items-center gap-1.5">
         <span className="relative inline-flex items-center justify-center">

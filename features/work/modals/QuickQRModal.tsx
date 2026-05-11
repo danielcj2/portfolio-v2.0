@@ -29,11 +29,11 @@ const slides = [
         height={465}
         alt="quickQR screenshot 1"
       />
-      <div className="bg-foreground/10 absolute -inset-3 -z-1 w-auto rounded-tl-3xl rounded-tr-[46px] rounded-b-[46px]" />
+      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden w-auto rounded-tl-3xl rounded-tr-[46px] rounded-b-[46px] md:block" />
     </div>
   </Wrapper>,
   <Wrapper key="mockup-2">
-    <div className="absolute bottom-25 h-[130%] w-auto">
+    <div className="absolute bottom-10 h-auto w-[70%] md:bottom-25 md:h-[130%] md:w-auto">
       <Image
         className="h-full w-auto object-cover select-none"
         src={`${r2Url}/mockup2.png`}
@@ -41,7 +41,7 @@ const slides = [
         height={940}
         alt="quickQR screenshot 2"
       />
-      <div className="bg-foreground/10 absolute -inset-3 -z-1 w-auto rounded-b-[46px]" />
+      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden w-auto rounded-b-[46px] md:block" />
     </div>
   </Wrapper>,
   <Wrapper key="requests">
@@ -53,7 +53,7 @@ const slides = [
         height={583}
         alt="quickQR screenshot 3"
       />
-      <div className="bg-foreground/10 absolute -inset-3 -z-1 w-auto rounded-tl-3xl rounded-tr-[38px] rounded-b-[38px]" />
+      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden w-auto rounded-tl-3xl rounded-tr-[38px] rounded-b-[38px] md:block" />
     </div>
   </Wrapper>,
   <Wrapper key="coa">
@@ -76,7 +76,7 @@ const slides = [
           alt="quickQR screenshot 4 dark"
         />
       </div>
-      <div className="from-foreground/20 via-foreground/5 absolute -inset-3 -z-1 w-auto rounded-tl-3xl rounded-tr-[38px] rounded-b-[38px] bg-linear-to-r from-0% via-50% to-[#cac9cd]/3 to-100%" />
+      <div className="from-foreground/20 via-foreground/5 absolute -inset-3 -z-1 hidden w-auto rounded-tl-3xl rounded-tr-[38px] rounded-b-[38px] bg-linear-to-r from-0% via-50% to-[#cac9cd]/3 to-100% md:block" />
     </div>
   </Wrapper>,
 ];
@@ -89,7 +89,7 @@ const QuickQRModal = ({
 }: ModalContentProps) => (
   <>
     <Card
-      className="h-full min-h-104 flex-1"
+      className="h-80 md:h-full md:min-h-104 md:flex-1"
       layoutId={`card-${projectId}`}
       transition={{ duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] }}
       theme="light"
@@ -98,7 +98,7 @@ const QuickQRModal = ({
       <Carousel items={slides} />
     </Card>
     <Card
-      className="h-full min-h-50 w-125 rounded-[20px] bg-neutral-900/70"
+      className="h-full min-h-50 w-full rounded-[20px] bg-neutral-900/70 md:w-125"
       theme="stacked"
       initial={{ y: 200, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -106,7 +106,10 @@ const QuickQRModal = ({
       transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
     >
       <ModalHeader name={name} year={year} onClose={onClose} />
-      <Card className="flex h-full flex-col gap-6 rounded-xl p-5" theme="light">
+      <Card
+        className="flex h-full flex-col gap-6 overflow-auto rounded-xl p-5 pb-12"
+        theme="light"
+      >
         <Paragraph>
           A QR code platform that brings{" "}
           <Highlight>eight microservices</Highlight> into one single system,

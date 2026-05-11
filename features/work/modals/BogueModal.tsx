@@ -29,7 +29,7 @@ const slides = ["", 2, 3, 4].map((src, index) => (
         height={905}
         alt={`Bogue screenshot ${index + 1}`}
       />
-      <div className="bg-foreground/10 absolute -inset-2 -z-1 w-auto" />
+      <div className="bg-foreground/10 absolute -inset-2 -z-1 hidden w-auto md:block" />
     </div>
   </Wrapper>
 ));
@@ -37,7 +37,7 @@ const slides = ["", 2, 3, 4].map((src, index) => (
 const BogueModal = ({ projectId, name, year, onClose }: ModalContentProps) => (
   <>
     <Card
-      className="h-full min-h-104 flex-1"
+      className="h-80 md:h-full md:min-h-104 md:flex-1"
       layoutId={`card-${projectId}`}
       transition={{ duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] }}
       theme="light"
@@ -46,7 +46,7 @@ const BogueModal = ({ projectId, name, year, onClose }: ModalContentProps) => (
       <Carousel items={slides} />
     </Card>
     <Card
-      className="h-full min-h-50 w-125 rounded-[20px] bg-neutral-900/70"
+      className="h-full min-h-50 w-full rounded-[20px] bg-neutral-900/70 md:w-125"
       theme="stacked"
       initial={{ y: 200, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -54,7 +54,10 @@ const BogueModal = ({ projectId, name, year, onClose }: ModalContentProps) => (
       transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
     >
       <ModalHeader name={name} year={year} onClose={onClose} />
-      <Card className="flex h-full flex-col gap-6 rounded-xl p-5" theme="light">
+      <Card
+        className="flex h-full flex-col gap-6 overflow-auto rounded-xl p-5 pb-12"
+        theme="light"
+      >
         <Paragraph>
           A <Highlight>personal e-commerce project</Highlight> built from
           scratch, covering the core pieces of a modern online store. It

@@ -22,7 +22,7 @@ const variants = cva("relative h-full w-full", {
     theme: {
       default: "border border-neutral-900 bg-neutral-900 rounded-4xl",
       stacked:
-        "border border-foreground/5 bg-neutral-900 p-2 gap-2.5 flex flex-col rounded-3xl",
+        "border border-foreground/5 bg-neutral-900 p-2 gap-2 md:gap-2.5 flex flex-col rounded-3xl",
       light:
         "border border-foreground/6 bg-foreground/3 rounded-2xl h-auto overflow-hidden",
       button:
