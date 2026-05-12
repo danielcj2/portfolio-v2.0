@@ -21,8 +21,6 @@ const Introduction = () => {
   const { scrollTo } = useLenisScroll();
   const { isMobile, isLg } = useMediaQuery();
 
-  console.log(isLg);
-
   return (
     <section id="intro" className="relative z-0 h-min w-full py-10 md:py-24">
       <div className="mx grid-12 relative gap-x-0">
@@ -88,7 +86,7 @@ const Introduction = () => {
           />
         </div>
       </div>
-      {!isMobile && !isLg && <BentoBox />}
+      {!isMobile && isLg && <BentoBox />}
     </section>
   );
 };

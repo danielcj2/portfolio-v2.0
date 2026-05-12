@@ -122,7 +122,11 @@ main::before {
 }
 
 @layer base {
-  ::selection,
+  ::selection {
+    background-color: var(--accent);
+    color: var(--foreground);
+  }
+
   ::-moz-selection {
     background-color: var(--accent);
     color: var(--foreground);

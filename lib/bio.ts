@@ -3,6 +3,7 @@ export type BioRowCellType = "number" | "text" | "heading";
 export type BioRow = Array<{
   type: BioRowCellType;
   content: string;
+  fill?: boolean;
 }>;
 
 export const experience: BioRow[] = [
@@ -40,6 +41,7 @@ export const services: BioRow[] = [
     { type: "heading", content: "Web Development" },
     {
       type: "text",
+      fill: true,
       content:
         "Building React apps from the ground up—focused on performance, structure, and getting the details right.",
     },
@@ -49,6 +51,7 @@ export const services: BioRow[] = [
     { type: "heading", content: "Web Design" },
     {
       type: "text",
+      fill: true,
       content:
         "Designing clean, modern interfaces that feel good to use without overcomplicating things.",
     },
@@ -58,6 +61,7 @@ export const services: BioRow[] = [
     { type: "heading", content: "UI/UX" },
     {
       type: "text",
+      fill: true,
       content:
         "Designing interfaces that are clear, consistent, and easy to navigate.",
     },
@@ -67,6 +71,7 @@ export const services: BioRow[] = [
     { type: "heading", content: "Motion & Interaction" },
     {
       type: "text",
+      fill: true,
       content:
         "Adding subtle motion and feedback that make the interface feel smoother, guide attention, and improve usability.",
     },
@@ -76,6 +81,7 @@ export const services: BioRow[] = [
     { type: "heading", content: "API Integration" },
     {
       type: "text",
+      fill: true,
       content:
         "Connecting frontends to APIs—handling data, edge cases, and loading states.",
     },

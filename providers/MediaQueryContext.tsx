@@ -14,7 +14,7 @@ const MediaQueryContext = createContext<MediaQueryContextType | undefined>(
 );
 
 const MOBILE_QUERY = "(max-width: 767px)";
-const LG_QUERY = "(max-width: 1024px)";
+const LG_QUERY = "(min-width: 1024px)";
 
 export const MediaQueryProvider = ({
   children,

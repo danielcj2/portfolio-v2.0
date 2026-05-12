@@ -8,9 +8,7 @@ import TextFlip from "../animations/TextFlip";
 import { useScrollContainer } from "@/providers/ScrollContext";
 import { useLenisScroll } from "@/providers/LenisContext";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
-
-const FOOTER_HEIGHT = "40vh";
-const TOP = "175vh";
+import { FOOTER_HEIGHT, FOOTER_SCROLL_TOP_OFFSET } from "@/lib/layoutHeights";
 
 const Footer = () => {
   const container = useScrollContainer();
@@ -18,7 +16,7 @@ const Footer = () => {
   const { scrollTo } = useLenisScroll();
   const { scrollYProgress } = useScroll({
     container,
-    offset: [`end ${TOP}`, `end ${FOOTER_HEIGHT}`],
+    offset: [`end ${FOOTER_SCROLL_TOP_OFFSET}`, `end ${FOOTER_HEIGHT}`],
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);

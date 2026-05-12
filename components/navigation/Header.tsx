@@ -17,7 +17,10 @@ import { useState } from "react";
 import { useLenisScroll } from "@/providers/LenisContext";
 import { useScrollContainer } from "@/providers/ScrollContext";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
-import Blur from "../ui/Blur";
+import {
+  CONTACT_HEIGHT,
+  HEADER_SCROLL_START_OFFSET,
+} from "@/lib/layoutHeights";
 
 type NavProps = {
   scrollTo: (target: SectionHref) => void;
@@ -280,8 +283,8 @@ const Header: React.FC = () => {
 
   const { scrollYProgress } = useScroll({
     container,
-    offset: ["end 340vh", "end 240vh"],
-  }); // where 240vh is height of contact section
+    offset: [`end ${HEADER_SCROLL_START_OFFSET}`, `end ${CONTACT_HEIGHT}`],
+  });
 
   const transform = useTransform(scrollYProgress, [0, 1], [0, -300]);
   const y = useSpring(transform, { stiffness: 400, damping: 90 });
