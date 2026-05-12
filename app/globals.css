@@ -155,7 +155,6 @@ main::before {
     grid-auto-columns: minmax(0, 1fr);
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-template-rows: auto;
-    grid-column-gap: var(--gap);
   }
 }
 
@@ -167,9 +166,5 @@ main::before {
   #menu,
   #scroll-container {
     mask-image: url("../assets/images/r36.svg");
-  }
-
-  .grid-12 {
-    gap: 0;
   }
 }

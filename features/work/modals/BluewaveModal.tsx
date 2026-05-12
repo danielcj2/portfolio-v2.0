@@ -19,7 +19,7 @@ const carouselBg =
 
 const r2Url = process.env.NEXT_PUBLIC_BLUEWAVE;
 const outline =
-  "bg-foreground/10 absolute -inset-2 -z-1 w-auto rounded-3xl hidden md:block";
+  "bg-foreground/10 absolute -inset-2 -z-1 w-auto rounded-3xl hidden xl:block";
 
 const slides = [
   <Wrapper key="monitors">
@@ -80,7 +80,7 @@ const BluewaveModal = ({
 }: ModalContentProps) => (
   <>
     <Card
-      className="h-80 md:h-full md:min-h-104 md:flex-1"
+      className="h-80 lg:h-150 xl:h-full xl:min-h-104 xl:flex-1"
       layoutId={`card-${projectId}`}
       transition={{ duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] }}
       theme="light"
@@ -89,7 +89,7 @@ const BluewaveModal = ({
       <Carousel items={slides} />
     </Card>
     <Card
-      className="h-full min-h-50 w-full rounded-[20px] bg-neutral-900/70 md:w-125"
+      className="h-full min-h-50 w-full rounded-[20px] bg-neutral-900/70 xl:w-125"
       theme="stacked"
       initial={{ y: 200, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}

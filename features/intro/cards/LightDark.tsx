@@ -54,7 +54,7 @@ const LightDark = () => {
 
   return (
     <Card
-      className="col-span-4 row-span-4 overflow-hidden"
+      className="col-start-1 col-end-7 row-start-13 row-end-17 xl:row-span-4 overflow-hidden xl:col-start-5 xl:col-end-9 xl:row-start-9 xl:row-end-13"
       onHoverEnd={() => setHovered(null)}
     >
       <Caret

@@ -10,7 +10,7 @@ import { motion } from "motion/react";
 const ZoomGradient = () => {
   return (
     <Card
-      className="group border-muted/10 col-span-2 row-span-6 overflow-hidden"
+      className="group border-muted/10 col-span-2 row-span-6 hidden overflow-hidden 2xl:block"
       whileHover="hovered"
       initial="initial"
     >

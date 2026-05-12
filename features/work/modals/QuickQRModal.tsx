@@ -29,11 +29,11 @@ const slides = [
         height={465}
         alt="quickQR screenshot 1"
       />
-      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden w-auto rounded-tl-3xl rounded-tr-[46px] rounded-b-[46px] md:block" />
+      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden w-auto rounded-[clamp(0.75rem,2.3vw,3rem)] rounded-tl-[clamp(0.5rem,1.5vw,1.5rem)] xl:block" />
     </div>
   </Wrapper>,
   <Wrapper key="mockup-2">
-    <div className="absolute bottom-10 h-auto w-[70%] md:bottom-25 md:h-[130%] md:w-auto">
+    <div className="absolute bottom-10 h-auto w-[70%] lg:w-[50%] xl:bottom-25 xl:h-[130%] xl:w-auto">
       <Image
         className="h-full w-auto object-cover select-none"
         src={`${r2Url}/mockup2.png`}
@@ -41,7 +41,7 @@ const slides = [
         height={940}
         alt="quickQR screenshot 2"
       />
-      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden w-auto rounded-b-[46px] md:block" />
+      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden rounded-b-[clamp(0.75rem,2.3vw,3rem)] xl:block" />
     </div>
   </Wrapper>,
   <Wrapper key="requests">
@@ -53,7 +53,7 @@ const slides = [
         height={583}
         alt="quickQR screenshot 3"
       />
-      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden w-auto rounded-tl-3xl rounded-tr-[38px] rounded-b-[38px] md:block" />
+      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden w-auto rounded-[clamp(0.25rem,2vw,2.5rem)] rounded-tl-[clamp(0.5rem,1.5vw,1.5rem)] xl:block" />
     </div>
   </Wrapper>,
   <Wrapper key="coa">
@@ -76,7 +76,7 @@ const slides = [
           alt="quickQR screenshot 4 dark"
         />
       </div>
-      <div className="from-foreground/20 via-foreground/5 absolute -inset-3 -z-1 hidden w-auto rounded-tl-3xl rounded-tr-[38px] rounded-b-[38px] bg-linear-to-r from-0% via-50% to-[#cac9cd]/3 to-100% md:block" />
+      <div className="from-foreground/20 via-foreground/5 absolute -inset-2 -z-1 hidden w-auto rounded-tl-3xl rounded-tr-[38px] rounded-b-[38px] bg-linear-to-r from-0% via-50% to-[#cac9cd]/3 to-100% xl:-inset-3 xl:block" />
     </div>
   </Wrapper>,
 ];
@@ -89,7 +89,7 @@ const QuickQRModal = ({
 }: ModalContentProps) => (
   <>
     <Card
-      className="h-80 md:h-full md:min-h-104 md:flex-1"
+      className="h-80 lg:h-150 xl:h-full xl:min-h-104 xl:flex-1"
       layoutId={`card-${projectId}`}
       transition={{ duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] }}
       theme="light"
@@ -98,7 +98,7 @@ const QuickQRModal = ({
       <Carousel items={slides} />
     </Card>
     <Card
-      className="h-full min-h-50 w-full rounded-[20px] bg-neutral-900/70 md:w-125"
+      className="h-full min-h-50 w-full rounded-[20px] bg-neutral-900/70 xl:w-125"
       theme="stacked"
       initial={{ y: 200, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}

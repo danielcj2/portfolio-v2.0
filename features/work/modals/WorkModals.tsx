@@ -71,7 +71,7 @@ const MODAL_CONTENT: Record<
   bogue: BogueModal,
 };
 
-const SPACING = ["pr-0 md:pr-4", "px-0 md:px-4", "pl-0 md:pl-4"] as const;
+const SPACING = ["pr-0 xl:pr-4", "px-0 xl:px-4", "pl-0 xl:pl-4"] as const;
 
 const WorkModals = () => {
   const { isMobile } = useMediaQuery();
@@ -114,7 +114,7 @@ const WorkModals = () => {
 
   return (
     <>
-      <div className="bg-background mx relative z-1 flex flex-col gap-4 md:flex-row md:gap-0">
+      <div className="bg-background mx relative z-1 flex flex-col gap-4 xl:flex-row xl:gap-0">
         {PROJECTS.map((project, index) => {
           const isActive = activeProjectId === project.id;
 
@@ -229,7 +229,7 @@ const WorkModals = () => {
         })}
       </div>
       <Modal
-        className="flex flex-col gap-4 overflow-clip md:flex-row"
+        className="flex flex-col gap-4 overflow-clip xl:flex-row"
         aria-labelledby=""
         aria-describedby=""
         isOpen={!!activeProject}

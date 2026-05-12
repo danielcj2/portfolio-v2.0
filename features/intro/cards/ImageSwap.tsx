@@ -32,7 +32,7 @@ const swapLayers: SwapLayer[] = [
 const ImageSwap = () => {
   return (
     <Card
-      className="z-0 col-span-2 row-span-6 overflow-hidden bg-[#F2F3F0]/70"
+      className="z-0 col-span-3 xl:col-span-2 row-start-9 row-end-15 xl:row-span-6 overflow-hidden bg-[#F2F3F0]/70"
       initial="initial"
       whileHover="hovered"
     >

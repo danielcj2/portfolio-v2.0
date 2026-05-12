@@ -7,7 +7,6 @@ import Logo from "@/images/logo.svg";
 import { motion, type Variants } from "motion/react";
 import { useEffect, useRef, useState, useCallback } from "react";
 
-
 // TODO - Refactor variants
 //      - 9x9 grid, where odd numbers are slides, evens are bentos
 //      - Move by 2 cells per stage in one direction

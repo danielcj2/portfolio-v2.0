@@ -42,12 +42,12 @@ const MobileScroller = () => {
   return (
     <Card
       ref={cardRef}
-      className="col-span-2 row-span-5 overflow-hidden bg-[#302E3C]/80"
+      className="col-start-1 col-end-4 row-start-8 row-end-13 overflow-hidden bg-[#302E3C]/80 xl:col-end-3"
     >
       <div className="pointer-events-none absolute inset-0 z-0 bg-[repeating-linear-gradient(30deg,#3E3E4C_0,#3E3E4C_2px,transparent_2px,transparent_12px,#1e1e24_12px,#1e1e24_14px,transparent_14px,transparent_40px)]" />
       <motion.div
         ref={contentRef}
-        className="relative flex h-min w-full flex-col items-center gap-6 py-8 px-10 will-change-transform"
+        className="relative flex h-min w-full flex-col items-center gap-6 px-10 py-8 will-change-transform"
         onHoverStart={() => {
           setTargetScrollDistance(scrollDistance);
           setIsHovered(true);

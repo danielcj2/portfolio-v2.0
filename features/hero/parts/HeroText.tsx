@@ -41,13 +41,13 @@ const HeroText = React.memo(({ progress }: HeroTextProps) => {
 
   return (
     <div className="mx relative mt-auto flex items-center pt-12 uppercase md:my-auto md:justify-center md:pt-0">
-      <div className="absolute z-10 flex w-min cursor-default flex-col gap-3 font-[450] text-nowrap whitespace-nowrap">
+      <div className="absolute z-10 flex w-min cursor-default flex-col gap-3 font-[450] text-nowrap whitespace-nowrap overflow-hidden">
         <div className="flex justify-between gap-4 font-mono">
           <motion.p style={{ y: yNeg }} className={TEXTSTYLE}>
             Heya
           </motion.p>
           <LogoSpin
-            className="-translate-x-1/2 -translate-y-full md:absolute md:-translate-x-2/3 md:-translate-y-3/7"
+            className="-translate-x-1/2 -translate-y-full md:absolute md:-translate-x-1/3 md:-translate-y-3/7"
             style={{ y: yXtra }}
           />
           <motion.p

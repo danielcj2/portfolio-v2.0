@@ -19,7 +19,9 @@ import { useMediaQuery } from "@/providers/MediaQueryContext";
 
 const Introduction = () => {
   const { scrollTo } = useLenisScroll();
-  const { isMobile } = useMediaQuery();
+  const { isMobile, isLg } = useMediaQuery();
+
+  console.log(isLg);
 
   return (
     <section id="intro" className="relative z-0 h-min w-full py-10 md:py-24">
@@ -86,7 +88,7 @@ const Introduction = () => {
           />
         </div>
       </div>
-      {!isMobile && <BentoBox />}
+      {!isMobile && !isLg && <BentoBox />}
     </section>
   );
 };

@@ -8,7 +8,7 @@ const r2Url = process.env.NEXT_PUBLIC_QUICKQR;
 
 const QQRLogo = () => {
   return (
-    <Card className="col-span-2 row-span-4 overflow-hidden">
+    <Card className="col-span-2 row-span-4 hidden overflow-hidden xl:block">
       <motion.div
         className="group relative h-full w-full"
         initial={{ backgroundColor: "#402e7c" }}

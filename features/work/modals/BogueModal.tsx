@@ -29,7 +29,7 @@ const slides = ["", 2, 3, 4].map((src, index) => (
         height={905}
         alt={`Bogue screenshot ${index + 1}`}
       />
-      <div className="bg-foreground/10 absolute -inset-2 -z-1 hidden w-auto md:block" />
+      <div className="bg-foreground/10 absolute -inset-2 -z-1 hidden w-auto xl:block" />
     </div>
   </Wrapper>
 ));
@@ -37,7 +37,7 @@ const slides = ["", 2, 3, 4].map((src, index) => (
 const BogueModal = ({ projectId, name, year, onClose }: ModalContentProps) => (
   <>
     <Card
-      className="h-80 md:h-full md:min-h-104 md:flex-1"
+      className="h-80 lg:h-150 xl:h-full xl:min-h-104 xl:flex-1"
       layoutId={`card-${projectId}`}
       transition={{ duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] }}
       theme="light"
@@ -46,7 +46,7 @@ const BogueModal = ({ projectId, name, year, onClose }: ModalContentProps) => (
       <Carousel items={slides} />
     </Card>
     <Card
-      className="h-full min-h-50 w-full rounded-[20px] bg-neutral-900/70 md:w-125"
+      className="h-full min-h-50 w-full rounded-[20px] bg-neutral-900/70 xl:w-125"
       theme="stacked"
       initial={{ y: 200, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}

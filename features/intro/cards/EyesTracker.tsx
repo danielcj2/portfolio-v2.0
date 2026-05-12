@@ -161,7 +161,7 @@ const EyesTracker = () => {
 
   return (
     <Card
-      className="border-muted/10 col-span-2 row-span-4 overflow-hidden"
+      className="border-muted/10 col-start-4 col-end-7 row-start-9 row-end-13 overflow-hidden xl:col-start-3 xl:col-end-5"
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >

@@ -15,7 +15,7 @@ const MoodParallax = () => {
 
   return (
     <Card
-      className="border-muted/10 col-span-4 row-span-2"
+      className="border-muted/10 col-span-3 row-span-2 xl:col-span-8 2xl:col-span-4"
       initial="initial"
       whileHover="hovered"
     >

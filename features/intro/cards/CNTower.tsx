@@ -153,7 +153,7 @@ const CNTower = () => {
 
   return (
     <Card
-      className="border-muted/10 col-span-2 row-span-7"
+      className="border-muted/10 col-start-1 col-end-4 row-span-7 xl:col-end-3"
       initial="initial"
       whileHover="hovered"
       onHoverStart={handleReveal}
