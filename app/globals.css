@@ -17,37 +17,13 @@ html {
   text-rendering: optimizeLegibility;
 }
 
-#scroll-container,
-#disk {
-  mask-position: center;
-  mask-repeat: no-repeat;
-}
-
 #scroll-container::-webkit-scrollbar {
   display: none;
 }
 
-#menu,
 #scroll-container {
-  mask-image: url("../assets/images/r48.svg");
-}
-
-#scroll-container {
-  mask-size: calc(100% - var(--gap) * 2) calc(100% - var(--gap) * 2);
-
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-#menu {
-  mask-size: 200% 200%;
-  mask-position: bottom left;
-  mask-repeat: no-repeat;
-}
-
-#disk {
-  mask-image: url("../assets/images/disk.svg");
-  mask-size: 100% 100%;
 }
 
 main::before,
@@ -165,10 +141,5 @@ main::before {
 @media (max-width: 767px) {
   .mx {
     margin-inline: calc(var(--gap) * 2.5);
-  }
-
-  #menu,
-  #scroll-container {
-    mask-image: url("../assets/images/r36.svg");
   }
 }
