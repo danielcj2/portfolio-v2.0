@@ -36,9 +36,9 @@ const Interlude = () => {
   const fade = useTransform(transform, [-100, -120, -160, -180], [0, 1, 0, 0]);
 
   return (
-    <div className="mx relative z-0 lg:-mt-24 xl:mt-32 h-[350vh]" ref={target}>
+    <div className="mx relative z-0 lg:-mt-24 xl:mt-12 2xl:mt-32 h-[350vh]" ref={target}>
       <div className="sticky top-0 h-screen w-full">
-        <div className="relative top-1/2 grid aspect-square h-auto w-full -translate-y-1/2 grid-cols-6 grid-rows-4 overflow-hidden p-18">
+        <div className="relative top-1/2 grid aspect-square h-auto w-full -translate-y-1/2 grid-cols-6 grid-rows-4 overflow-hidden lg:p-12 xl:p-18">
           <motion.div
             className="pointer-events-none absolute inset-0 z-1"
             style={{ rotate }}
@@ -56,7 +56,7 @@ const Interlude = () => {
             </div>
           </motion.div>
           <StaggerReveal progress={scrollYProgress} />
-          <div className="text-muted-v2 -z-2 col-start-1 col-end-7 row-start-3 mt-8 grid grid-cols-subgrid text-4xl leading-snug font-medium tracking-tighter">
+          <div className="text-muted-v2 -z-2 col-start-1 col-end-7 row-start-3 lg:mt-4 xl:mt-8 grid grid-cols-subgrid lg:text-3xl xl:text-4xl leading-snug font-medium tracking-tighter">
             <p className="col-start-1 col-end-4">Beyond the screens...</p>
             <p className="col-start-4 col-end-7 text-end">
               Meet <span className="text-muted mr-0.5 italic">the humble</span>{" "}
@@ -75,7 +75,7 @@ const Interlude = () => {
               className="bg-background pointer-events-none absolute bottom-0 h-1/2 w-full origin-top"
               style={{ rotate }}
             />
-            <div className="center-xy pointer-events-none h-1/4 w-1/4">
+            <div className="center-xy pointer-events-none h-1/4 w-1/4 min-h-80 min-w-80">
               <motion.div
                 className="h-full w-full"
                 style={{ rotate, clipPath: "inset(50% 0% 0% 0%)" }}

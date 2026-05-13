@@ -3,6 +3,7 @@
 import ScrollTracker from "@/ui/ScrollTracker";
 import AnimatedLogo from "@/animations/AnimatedLogo";
 import Logo from "@/images/logo.svg";
+import r48Mask from "@/images/r48.svg?url";
 
 import {
   useScroll,
@@ -165,6 +166,16 @@ const DesktopNav = ({ scrollTo, scrollY }: NavProps) => {
               <motion.div
                 id="menu"
                 className="glass-v2 absolute inset-0 -z-1 h-full w-full"
+                style={{
+                  maskImage: `url(${r48Mask})`,
+                  WebkitMaskImage: `url(${r48Mask})`,
+                  maskSize: "200% 200%",
+                  WebkitMaskSize: "200% 200%",
+                  maskPosition: "bottom left",
+                  WebkitMaskPosition: "bottom left",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskRepeat: "no-repeat",
+                }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isStacked ? 1 : 0 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}

@@ -8,7 +8,7 @@ import { education, experience, services, techstack } from "@/lib/bio";
 export const ShortBio = () => (
   <div className="mx relative h-min overflow-clip lg:h-240">
     <div className="grid-12 relative pt-24 lg:pt-64">
-      <div className="text-muted-v2 relative top-12 col-start-1 col-end-13 flex flex-col gap-2 text-[28px] leading-tight font-medium text-pretty text-center lg:text-left lg:sticky lg:col-start-5 lg:gap-4 lg:px-4 md:text-[36px] lg:text-[32px] lg:text-balance">
+      <div className="text-muted-v2 relative top-12 col-start-1 col-end-13 flex flex-col gap-2 text-[28px] leading-tight font-medium text-pretty md:text-center lg:text-left lg:sticky lg:col-start-5 lg:gap-4 lg:px-4 md:text-[32px] lg:text-[32px] lg:text-balance">
         <p>
           Frontend Developer based in <TextFade>Toronto</TextFade>, Canada.
         </p>
