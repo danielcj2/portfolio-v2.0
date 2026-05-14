@@ -10,7 +10,7 @@ import { useMediaQuery } from "@/providers/MediaQueryContext";
 type AccordionProps = {
   title: string;
   caption?: string;
-  length: number;
+  length?: number;
   offset?: "top" | "bottom";
   children: React.ReactNode;
 };
@@ -37,13 +37,13 @@ const AccordionNumber = ({ children }: { children?: React.ReactNode }) => {
 
 const AccordionText = ({ children }: { children?: React.ReactNode }) => (
   <div className="mb-12 py-3 md:mb-0 md:min-h-20 md:p-4">
-    <p className="text-[0.8125rem] max-w-[50ch]">{children}</p>
+    <p className="max-w-[50ch] text-[0.8125rem]">{children}</p>
   </div>
 );
 
 const AccordionHeading = ({ children }: { children?: React.ReactNode }) => (
   <div className="py-3 md:min-h-20 md:p-4">
-    <p className="text-[0.9375rem] font-semibold">{children}</p>
+    <p className="text-sm font-semibold">{children}</p>
   </div>
 );
 
@@ -71,22 +71,25 @@ export const AccordionItem = ({ row }: AccordionItemProps) => {
 
     return (
       <>
-        {first && (
-          <div key={`${first.type}-0`}>
-            {React.createElement(CELL_RENDERERS[first.type], {
-              children: first.content,
-            })}
-          </div>
-        )}
+        {first &&
+          (() => {
+            const Cell = CELL_RENDERERS[first.type];
+            return (
+              <div key={`${first.type}-0`}>
+                <Cell>{first.content}</Cell>
+              </div>
+            );
+          })()}
         {rest.length > 0 && (
           <div className={`flex ${restAreBlocks ? "flex-col pb-24" : ""}`}>
-            {rest.map((col, index) => (
-              <div key={`${col.type}-${index + 1}`} className="flex-1">
-                {React.createElement(CELL_RENDERERS[col.type], {
-                  children: col.content,
-                })}
-              </div>
-            ))}
+            {rest.map((col, index) => {
+              const Cell = CELL_RENDERERS[col.type];
+              return (
+                <div key={`${col.type}-${index + 1}`} className="flex-1">
+                  <Cell>{col.content}</Cell>
+                </div>
+              );
+            })}
           </div>
         )}
       </>
@@ -124,7 +127,7 @@ export const AccordionItem = ({ row }: AccordionItemProps) => {
 const DesktopView = ({
   title,
   caption,
-  length,
+  length = 1,
   offset = "top",
   children,
 }: AccordionProps) => {
@@ -212,7 +215,7 @@ const DesktopView = ({
   );
 };
 
-const MobileView = ({ title, length, children }: AccordionProps) => {
+const MobileView = ({ title, children }: AccordionProps) => {
   return (
     <div className="mx relative flex flex-col">
       <div className="text-muted-v2 font-chakra relative flex w-full cursor-default border-b-4 border-[rgba(255,255,255,0.02)] py-2 text-sm font-semibold tracking-wider uppercase">

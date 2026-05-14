@@ -1,9 +1,6 @@
 import Card from "@/ui/Card";
 import Image from "next/image";
 
-import dashboard from "@/images/quickQR/accounting-short.png";
-import dashboardDark from "@/images/quickQR/accounting-dark-short.png";
-
 import { CaretRightIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { useState } from "react";

@@ -9,6 +9,9 @@ const CHANNEL_BARS = Array.from(
   (_, index) => `bar-${index + 1}`,
 );
 
+const linkedInUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL ?? "";
+const emailHref = process.env.NEXT_PUBLIC_EMAIL_URL ?? "";
+
 const TVButtons = () => {
   const { scrollTo } = useLenisScroll();
   const shouldReduceMotion = useReducedMotion();
@@ -95,7 +98,7 @@ const TVButtons = () => {
         }}
       >
         <div className="bg-background flex h-full w-min gap-1 overflow-hidden rounded-xl px-1 py-1">
-          <Button aspect="square">
+          <Button as="a" aspect="square" href={emailHref} aria-label="Email">
             <EnvelopeIcon
               className="text-background h-16 w-16"
               weight="duotone"
@@ -105,7 +108,14 @@ const TVButtons = () => {
               }}
             />
           </Button>
-          <Button aspect="square">
+          <Button
+            as="a"
+            aspect="square"
+            href={linkedInUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
             <LinkedinLogoIcon
               className="text-background h-16 w-16"
               weight="duotone"

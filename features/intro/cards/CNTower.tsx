@@ -92,7 +92,7 @@ const CNTower = () => {
     const delay = 1000;
     const timer = setTimeout(() => setRevealStage((s) => s + 1), delay);
     return () => clearTimeout(timer);
-  }, [revealStage]);
+  }, [revealStage, messages.length]);
 
   const handleReveal = async () => {
     if (hasRequestedWeather.current) return;
@@ -116,7 +116,7 @@ const CNTower = () => {
       .then(() => revealStage === 0 && setRevealStage(1))
       .catch(() => {
         setMessages([{ text: "Weather unavailable 🌨️" }]);
-        revealStage === 0 && setRevealStage(1);
+        if (revealStage === 0) setRevealStage(1);
       });
   };
 

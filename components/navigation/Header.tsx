@@ -200,7 +200,11 @@ const DesktopNav = ({ scrollTo, scrollY }: NavProps) => {
   );
 };
 
-const MobileNav = ({ scrollTo, scrollY }: NavProps) => {
+const MobileNav = ({
+  scrollTo,
+}: {
+  scrollTo: (target: SectionHref) => void;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -306,7 +310,7 @@ const Header: React.FC = () => {
       style={{ y }}
     >
       {isMobile ? (
-        <MobileNav scrollTo={scrollTo} scrollY={scrollY} />
+        <MobileNav scrollTo={scrollTo} />
       ) : (
         <DesktopNav scrollTo={scrollTo} scrollY={scrollY} />
       )}

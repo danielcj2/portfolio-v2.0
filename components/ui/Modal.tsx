@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, HTMLMotionProps, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { FocusTrap } from "focus-trap-react";
 import { useLenisRef } from "@/providers/LenisContext";
@@ -21,35 +21,32 @@ const Modal = ({
   children,
   ...props
 }: ModalProps) => {
-  const [isClient, setIsClient] = useState(false);
   const lenisRef = useLenisRef();
 
   const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const canUseDOM = typeof document !== "undefined";
 
   useEffect(() => {
     if (!isOpen) return;
+    const lenis = lenisRef.current;
 
     const scrollContainer = document.getElementById("scroll-container");
     if (scrollContainer)
       (scrollContainer as HTMLElement & { inert?: boolean }).inert = true;
 
-    lenisRef.current?.stop();
+    lenis?.stop();
 
     return () => {
       if (scrollContainer)
         (scrollContainer as HTMLElement & { inert?: boolean }).inert = false;
 
-      lenisRef.current?.start();
+      lenis?.start();
     };
   }, [isOpen, lenisRef]);
 
   return (
     <>
-      {isClient &&
+      {canUseDOM &&
         createPortal(
           <AnimatePresence>
             {isOpen && (

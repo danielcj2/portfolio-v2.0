@@ -113,16 +113,22 @@ const EyesTracker = () => {
     }
   }, []);
 
+  const handleHoverStart = useCallback(() => {
+    clearTimer();
+    setIsHovered(true);
+    setStage("reveal1");
+  }, [clearTimer]);
+
+  const handleHoverEnd = useCallback(() => {
+    clearTimer();
+    setIsHovered(false);
+    setStage("idle");
+  }, [clearTimer]);
+
   useEffect(() => {
     if (!isHovered) {
       clearTimer();
-      setStage("idle");
       return;
-    }
-
-    if (stage === "idle") {
-      setStage("reveal1");
-      return clearTimer;
     }
 
     timerRef.current = setTimeout(
@@ -162,8 +168,8 @@ const EyesTracker = () => {
   return (
     <Card
       className="border-muted/10 col-start-4 col-end-7 row-start-9 row-end-13 overflow-hidden xl:col-start-3 xl:col-end-5"
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+      onHoverStart={handleHoverStart}
+      onHoverEnd={handleHoverEnd}
     >
       <div
         ref={containerRef}

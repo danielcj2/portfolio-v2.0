@@ -38,7 +38,7 @@ const ScrollWrapper = ({ children }: { children: React.ReactNode }) => {
       lenisRef.current = null;
       lenis.destroy();
     };
-  }, []);
+  }, [lenisRef, wrapper]);
 
   return (
     <div

@@ -126,14 +126,24 @@ const MainShuffle = () => {
     }
   }, []);
 
+  const handleHoverStart = useCallback(() => {
+    clearTimer();
+    setIsHovered(true);
+    setStage("first");
+  }, [clearTimer]);
+
+  const handleHoverEnd = useCallback(() => {
+    clearTimer();
+    setIsHovered(false);
+    setStage("first");
+  }, [clearTimer]);
+
   useEffect(() => {
     if (!isHovered) {
       clearTimer();
-      setStage("first");
       return;
     }
 
-    setStage("first");
     timerRef.current = setTimeout(() => setStage("second"), PAUSE_DURATION);
     return clearTimer;
   }, [isHovered, clearTimer]);
@@ -165,8 +175,8 @@ const MainShuffle = () => {
         fourth: { backgroundColor: "rgba(54, 61, 74, 0.75)" },
       }}
       transition={TRANSITION}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+      onHoverStart={handleHoverStart}
+      onHoverEnd={handleHoverEnd}
     >
       <motion.div
         aria-hidden="true"
