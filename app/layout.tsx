@@ -2,6 +2,7 @@ import "./globals.css";
 
 import Header from "@/navigation/Header";
 import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import type { Metadata } from "next";
 import { geistSans, geistMono, chakraPetch } from "@/lib/fonts";
@@ -86,6 +87,7 @@ export default async function RootLayout({
             </MediaQueryProvider>
           </ScrollProvider>
         </LenisProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
