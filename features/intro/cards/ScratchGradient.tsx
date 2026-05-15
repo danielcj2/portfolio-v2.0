@@ -16,10 +16,6 @@ const Canvas = ({
   const canvas = useRef<HTMLCanvasElement>(null);
   const maskCanvas = useRef<HTMLCanvasElement | null>(null);
 
-  useEffect(() => {
-    dimension.width > 0 && init();
-  }, [dimension]);
-
   const init = () => {
     const main = canvas.current;
     if (!main) return;
@@ -67,6 +63,10 @@ const Canvas = ({
     ctx.textBaseline = "middle";
     ctx.fillText(REVEAL_TEXT, dimension.width / 2, dimension.height / 2);
   };
+
+  useEffect(() => {
+    if (dimension.width > 0) init();
+  }, [dimension, init]);
 
   const manageMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const rect = canvas.current?.getBoundingClientRect();

@@ -21,7 +21,7 @@ const MoodParallax = () => {
     >
       <TextParallax items={items} options={{ baseVelocity: 60 }} />
       <motion.div
-        className="text-muted-v2 font-chakra absolute top-1/2 left-[calc(100%+15px)] -translate-x-1/2 -translate-y-1/2 rotate-90 text-[0.625rem] font-bold tracking-wider whitespace-nowrap uppercase"
+        className="text-muted-v2 font-chakra absolute top-1/2 left-[calc(100%+15px)] -translate-x-1/2 -translate-y-1/2 rotate-90 text-[0.625rem] font-bold tracking-wider whitespace-nowrap uppercase xl:hidden 2xl:block"
         variants={{ initial: { opacity: 0 }, hovered: { opacity: 1 } }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >

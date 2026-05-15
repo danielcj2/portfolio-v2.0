@@ -10,7 +10,6 @@ import Song from "./Song";
 import { Education, Experience, Services, ShortBio, Techstack } from "./Bio";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
 
-
 const About = () => {
   const { isMobile, isLg } = useMediaQuery();
 
@@ -63,8 +62,11 @@ const About = () => {
         </div>
         {(isMobile || !isLg) && (
           <div
-            className="mx flex justify-center pt-12"
-            style={{ contentVisibility: "auto", containIntrinsicSize: "0 540px" }}
+            className="mx flex justify-center pt-12 pb-2"
+            style={{
+              contentVisibility: "auto",
+              containIntrinsicSize: "0 540px",
+            }}
           >
             <div className="flex w-[80%] rotate-3 justify-center">
               <Photo1 />
@@ -77,7 +79,10 @@ const About = () => {
         {(isMobile || !isLg) && (
           <div
             className="mx flex justify-center pt-12 pb-24"
-            style={{ contentVisibility: "auto", containIntrinsicSize: "0 540px" }}
+            style={{
+              contentVisibility: "auto",
+              containIntrinsicSize: "0 540px",
+            }}
           >
             <div className="flex w-[80%] -rotate-3 justify-center">
               <Photo2 />
@@ -88,7 +93,10 @@ const About = () => {
         {(isMobile || !isLg) && (
           <div
             className="mx flex justify-center pt-18 pb-24 md:pb-18"
-            style={{ contentVisibility: "auto", containIntrinsicSize: "0 540px" }}
+            style={{
+              contentVisibility: "auto",
+              containIntrinsicSize: "0 540px",
+            }}
           >
             <div className="flex w-[70%] max-w-80 rotate-3 justify-center">
               <Photo4 />
@@ -97,9 +105,7 @@ const About = () => {
         )}
         {!isMobile && <Techstack />}
       </div>
-      <div className="overflow-clip">
-      <Song />
-      </div>
+      <div className="overflow-clip">{!isMobile && <Song />} </div>
     </section>
   );
 };

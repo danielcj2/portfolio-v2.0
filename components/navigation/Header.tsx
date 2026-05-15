@@ -170,7 +170,7 @@ const DesktopNav = ({ scrollTo, scrollY }: NavProps) => {
             <>
               <motion.div
                 id="menu"
-                className="glass-v2 absolute inset-0 -z-1 h-full w-full pointer-events-auto"
+                className="glass-v2 pointer-events-auto absolute inset-0 -z-1 h-full w-full"
                 style={{
                   maskImage: `url(${r48Mask})`,
                   WebkitMaskImage: `url(${r48Mask})`,
@@ -255,7 +255,7 @@ const MobileNav = ({
             transition={{ duration: 0.4, ease: "easeInOut" }}
           />
         </div>
-        <div className="relative flex w-full flex-col items-end overflow-hidden">
+        <div className="relative w-full h-200 overflow-hidden flex flex-col items-end">
           <motion.button
             type="button"
             className="relative aspect-square size-14 cursor-pointer"
@@ -265,7 +265,7 @@ const MobileNav = ({
           </motion.button>
           <AnimatePresence>
             {isOpen && (
-              <motion.nav className="relative flex h-min w-min flex-col gap-5 px-3">
+              <motion.nav className="absolute top-14 right-0 flex h-min w-min flex-col gap-5 px-3">
                 {SECTIONS.map(({ text, href }, index) => (
                   <motion.div
                     key={text}
@@ -288,8 +288,8 @@ const MobileNav = ({
                 ))}
               </motion.nav>
             )}
-          </AnimatePresence>{" "}
-        </div>{" "}
+          </AnimatePresence>
+        </div>
       </motion.div>
     </div>
   );

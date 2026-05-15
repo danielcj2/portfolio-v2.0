@@ -12,12 +12,16 @@ import { FOOTER_HEIGHT, FOOTER_SCROLL_TOP_OFFSET } from "@/lib/layoutHeights";
 
 const MobileView = ({ children }: { children: React.ReactNode }) => {
   return (
-    <footer
-      className="bg-background relative z-1 w-screen flex-col items-center"
-      style={{ height: FOOTER_HEIGHT }}
-    >
-      {children}
-    </footer>
+    <>
+      <div className="bg-background fixed bottom-0 z-1 h-screen" />
+      <footer
+        id="end-buffer"
+        className="bg-background relative z-1 w-screen flex-col items-center"
+        style={{ height: FOOTER_HEIGHT }}
+      >
+        {children}
+      </footer>
+    </>
   );
 };
 
@@ -65,7 +69,11 @@ const Footer = () => {
         }}
       >
         <div className="pointer-events-none absolute bottom-0 left-0 flex h-screen w-full justify-around opacity-70 md:justify-between">
-          <LineFade count={isMobile ? 3 : 7} duration={7} direction="vertical" />
+          <LineFade
+            count={isMobile ? 3 : 7}
+            duration={7}
+            direction="vertical"
+          />
         </div>
         <div className="col-start-1 col-end-10 self-end px-1.5 py-2 text-3xl text-wrap capitalize md:py-0 md:text-4xl">
           <p className="text-muted-v2 pointer-events-auto font-semibold">
