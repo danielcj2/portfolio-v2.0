@@ -10,6 +10,7 @@ const Polaroid = ({ ...props }: PolaroidProps) => {
         <Image
           {...props}
           alt={props.alt || "Polaroid image"}
+          loading="eager"
           placeholder="empty"
           className="h-auto w-full object-cover opacity-80 grayscale"
           sizes="(max-width: 768px) 80vw, (max-width: 1280px) 28vw, 24rem"

@@ -16,7 +16,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="h-min w-full pt-24 md:pt-42 lg:-mt-48 xl:-mt-24"
+      className="h-min w-full overflow-hidden pt-24 md:pt-42 lg:-mt-48 xl:-mt-24"
     >
       <div className="relative z-0 m-auto w-min pb-8 md:pb-32">
         {!isMobile && <HeadingFade text="02" />}

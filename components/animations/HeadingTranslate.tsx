@@ -32,14 +32,18 @@ const HeadingTranslate = ({ text, direction, ...props }: HeadingProps) => {
   const offset = isMobile ? 80 : 200;
 
   const ratio = useTransform(scrollYProgress, [0, 0.3], [offset, 0]);
-  const spring = useSpring(ratio, { stiffness: 200, damping: 100 });
-  const x = useTransform(spring, (v) => `${direction === "left" ? -v : v}px`);
+  const x = useTransform(ratio, (v) => `${direction === "left" ? -v : v}px`);
+  const spring = useSpring(x, { stiffness: 200, damping: 100 });
 
   return (
     <motion.div
       ref={target}
-      className="backface-hidden"
-      style={reduceMotion ? style : { ...style, x }}
+      className="will-change-transform backface-hidden"
+      style={
+        reduceMotion
+          ? style
+          : { ...style, x: spring, transform: "translateZ(0)" }
+      }
       {...restProps}
     >
       <p className="leading-[100%]">{text}</p>
