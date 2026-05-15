@@ -6,6 +6,7 @@ import Logo from "@/images/logo.svg";
 import {
   motion,
   useReducedMotion,
+  useInView,
   useScroll,
   useSpring,
   useTransform,
@@ -55,6 +56,11 @@ const TextParallax = ({ className, items, options }: ParallaxProps) => {
   const baseX = useMotionValue(0);
   const directionFactor = useRef<number>(direction === "right" ? 1 : -1);
   const reduceMotion = !!useReducedMotion();
+  const scrollContainer = useScrollContainer();
+  const isInView = useInView(containerRef, {
+    amount: 0.2,
+    root: scrollContainer,
+  });
 
   // NOTE: Cache track width so the transform calculation avoids per-frame layout reads.
   useLayoutEffect(() => {
@@ -96,6 +102,7 @@ const TextParallax = ({ className, items, options }: ParallaxProps) => {
   // NOTE: Update baseX based on scroll direction and velocity
   useAnimationFrame((_, delta) => {
     if (reduceMotion) return;
+    if (!isInView) return;
     if (!containerRef.current) return;
 
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);

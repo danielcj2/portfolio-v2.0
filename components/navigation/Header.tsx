@@ -35,18 +35,23 @@ type NavLinkProps = {
   onNavigate: (target: SectionHref) => void;
 };
 
-type SectionHref = "#hero" | "#work" | "#about" | "#contact";
+type SectionHref = "#hero" | "#work" | "#about" | "#end-buffer";
 
 const SECTIONS = [
   { text: "my work", href: "#work" },
   { text: "about me", href: "#about" },
-  { text: "reach out", href: "#contact" },
+  { text: "reach out", href: "#end-buffer" },
 ] as const;
 
+const MENU_TRANSITION = {
+  duration: 0.3,
+  ease: [0.43, 0.13, 0.23, 0.96] as const,
+};
+
 const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
-  <div className="relative size-7">
+  <div className="absolute top-2 right-2 size-7 min-h-7 min-w-7">
     <motion.span
-      className="absolute top-1 left-0 block h-0.5 w-3 rounded-full bg-white"
+      className="absolute top-1 block h-0.5 w-3 rounded-full bg-white"
       animate={
         isOpen
           ? {
@@ -57,9 +62,9 @@ const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
               width: 20,
               rotate: 45,
             }
-          : { top: "0.25rem", left: 0, x: 0, y: 0, width: 12, rotate: 0 }
+          : { top: 4, left: 0, x: 0, y: 0, width: 12, rotate: 0 }
       }
-      transition={{ duration: 0.3, ease: [0.43, 0.13, 0.23, 0.96] }}
+      transition={MENU_TRANSITION}
     />
     <motion.span
       className="absolute top-1/2 left-0 block h-0.5 w-7 -translate-y-1/2 rounded-full bg-white"
@@ -68,12 +73,12 @@ const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
           ? { left: "50%", x: "-50%", width: 20, rotate: -45 }
           : { left: 0, x: 0, width: 28, rotate: 0 }
       }
-      transition={{ duration: 0.3, ease: [0.43, 0.13, 0.23, 0.96] }}
+      transition={MENU_TRANSITION}
     />
     <motion.span
       className="bg-muted-v2 absolute top-5.5 right-0 block h-0.5 w-3 rounded-full"
       animate={isOpen ? { opacity: 0, x: 6 } : { opacity: 1, x: 0 }}
-      transition={{ duration: 0.3, ease: [0.43, 0.13, 0.23, 0.96] }}
+      transition={MENU_TRANSITION}
     />
   </div>
 );
@@ -165,7 +170,7 @@ const DesktopNav = ({ scrollTo, scrollY }: NavProps) => {
             <>
               <motion.div
                 id="menu"
-                className="glass-v2 absolute inset-0 -z-1 h-full w-full"
+                className="glass-v2 absolute inset-0 -z-1 h-full w-full pointer-events-auto"
                 style={{
                   maskImage: `url(${r48Mask})`,
                   WebkitMaskImage: `url(${r48Mask})`,
@@ -253,7 +258,7 @@ const MobileNav = ({
         <div className="relative flex w-full flex-col items-end overflow-hidden">
           <motion.button
             type="button"
-            className="flex aspect-square size-14 cursor-pointer items-center justify-center pb-2.5 pl-2.5"
+            className="relative aspect-square size-14 cursor-pointer"
             onClick={() => setIsOpen((prev) => !prev)}
           >
             <MenuIcon isOpen={isOpen} />

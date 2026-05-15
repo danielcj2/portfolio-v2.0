@@ -78,6 +78,7 @@ const LightDark = () => {
             width={1440}
             height={930}
             className="pointer-events-none h-full w-auto max-w-none object-contain select-none"
+            sizes="(max-width: 1280px) 40vw, 24vw"
           />
           <div className="bg-foreground/20 absolute -inset-1.5 -z-1 w-auto rounded-lg" />
         </div>
@@ -96,6 +97,7 @@ const LightDark = () => {
             width={1440}
             height={930}
             className="pointer-events-none h-full w-auto max-w-none object-contain select-none"
+            sizes="(max-width: 1280px) 40vw, 24vw"
           />
           <div className="bg-background/30 absolute -inset-1 -z-1 w-auto rounded-lg" />
         </div>

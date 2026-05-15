@@ -25,6 +25,7 @@ const QQRLogo = () => {
           }}
           width={125}
           height={125}
+          sizes="125px"
         />
       </motion.div>
     </Card>

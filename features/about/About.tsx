@@ -62,7 +62,10 @@ const About = () => {
           <div className="bg-background absolute bottom-0 left-0 h-32 w-full -scale-y-100 [clip-path:polygon(95%_0,90%_35%,50%_100%,10%_35%,5%_0)]" />
         </div>
         {(isMobile || !isLg) && (
-          <div className="mx flex justify-center pt-12">
+          <div
+            className="mx flex justify-center pt-12"
+            style={{ contentVisibility: "auto", containIntrinsicSize: "0 540px" }}
+          >
             <div className="flex w-[80%] rotate-3 justify-center">
               <Photo1 />
             </div>
@@ -72,7 +75,10 @@ const About = () => {
         <Experience />
         <Education />
         {(isMobile || !isLg) && (
-          <div className="mx flex justify-center pt-12 pb-24">
+          <div
+            className="mx flex justify-center pt-12 pb-24"
+            style={{ contentVisibility: "auto", containIntrinsicSize: "0 540px" }}
+          >
             <div className="flex w-[80%] -rotate-3 justify-center">
               <Photo2 />
             </div>
@@ -80,7 +86,10 @@ const About = () => {
         )}
         <Services />
         {(isMobile || !isLg) && (
-          <div className="mx flex justify-center pt-18 pb-24 md:pb-18">
+          <div
+            className="mx flex justify-center pt-18 pb-24 md:pb-18"
+            style={{ contentVisibility: "auto", containIntrinsicSize: "0 540px" }}
+          >
             <div className="flex w-[70%] max-w-80 rotate-3 justify-center">
               <Photo4 />
             </div>

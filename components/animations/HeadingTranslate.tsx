@@ -34,6 +34,7 @@ const HeadingTranslate = ({ text, direction, ...props }: HeadingProps) => {
   return (
     <motion.div
       ref={target}
+      className="will-change-transform backface-hidden"
       style={reduceMotion ? style : { ...style, x }}
       {...restProps}
     >
