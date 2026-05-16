@@ -39,6 +39,7 @@ const HeadingTranslate = ({ text, direction, ...props }: HeadingProps) => {
     <motion.div
       ref={target}
       className="will-change-transform backface-hidden"
+      transformTemplate={({ x }) => `translate3d(${x},0,0)`}
       style={
         reduceMotion
           ? style
@@ -46,7 +47,9 @@ const HeadingTranslate = ({ text, direction, ...props }: HeadingProps) => {
       }
       {...restProps}
     >
-      <p className="leading-[100%]">{text}</p>
+      <div>
+        <p className="leading-[100%]">{text}</p>
+      </div>
     </motion.div>
   );
 };

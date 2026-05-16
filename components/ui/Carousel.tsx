@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, Variants } from "motion/react";
 import { CaretRightIcon } from "@phosphor-icons/react";
 
-type CarouselProps = { items: React.ReactNode[] };
+type CarouselProps = {
+  items: React.ReactNode[];
+  bg?: string;
+  isLoading?: boolean;
+};
 type CaretProps = { direction: "left" | "right"; onClick: () => void };
 type PaginationProps = {
   current: number;
@@ -80,50 +84,95 @@ const Pagination = ({ current, total, onPageChange }: PaginationProps) => {
   );
 };
 
+const dotVariants: Variants = {
+  jump: {
+    y: -15,
+    transition: {
+      duration: 0.6,
+      repeat: Infinity,
+      repeatType: "mirror",
+      ease: "easeInOut",
+    },
+  },
+};
+
+const LoadingState = () => (
+  <motion.div
+    className="flex h-full items-center justify-center gap-1"
+    animate="jump"
+    transition={{ staggerChildren: -0.2, staggerDirection: -1 }}
+  >
+    {Array.from({ length: 3 }).map((_, index) => (
+      <motion.div
+        key={index}
+        className="bg-foreground size-1.75 rounded-full will-change-transform"
+        variants={dotVariants}
+      />
+    ))}
+  </motion.div>
+);
+
 const slideVariants = {
   enter: (direction: number) => ({ x: direction > 0 ? "100%" : "-100%" }),
   center: { x: 0 },
   exit: (direction: number) => ({ x: direction > 0 ? "-100%" : "100%" }),
 };
 
-const Carousel = ({ items }: CarouselProps) => {
+const Carousel = ({ items, bg, isLoading = false }: CarouselProps) => {
   const itemCount = items.length;
   const canLoop = itemCount > 1;
   const [page, setPage] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const goRight = () => {
+  const navigate = (dir: 1 | -1) => {
     if (isAnimating) return;
-    setDirection(1);
-    setPage((p) => (p + 1) % itemCount);
-  };
-
-  const goLeft = () => {
-    if (isAnimating) return;
-    setDirection(-1);
-    setPage((p) => (p - 1 + itemCount) % itemCount);
+    setDirection(dir);
+    setPage((p) => (p + dir + itemCount) % itemCount);
   };
 
   return (
     <div className="relative size-full overflow-hidden">
-      <AnimatePresence initial={false} custom={direction} mode="popLayout">
-        <motion.div
-          key={page}
-          custom={direction}
-          variants={slideVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ type: "tween", duration: 0.4, ease: "easeInOut" }}
-          className="absolute inset-0"
-          onAnimationStart={() => setIsAnimating(true)}
-          onAnimationComplete={() => setIsAnimating(false)}
-        >
-          {items[page]}
-        </motion.div>
+      <motion.div
+        className={`absolute inset-0 -z-1 ${bg}`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoading ? 0 : 1 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      />
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <LoadingState />
+        ) : (
+          <motion.div
+            className="size-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            <AnimatePresence
+              initial={false}
+              custom={direction}
+              mode="popLayout"
+            >
+              <motion.div
+                key={page}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ type: "tween", duration: 0.4, ease: "easeInOut" }}
+                className="absolute inset-0"
+                onAnimationStart={() => setIsAnimating(true)}
+                onAnimationComplete={() => setIsAnimating(false)}
+              >
+                {items[page]}
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        )}
       </AnimatePresence>
-      {canLoop && (
+      {canLoop && !isLoading && (
         <>
           <Pagination
             current={page}
@@ -134,8 +183,8 @@ const Carousel = ({ items }: CarouselProps) => {
               setPage(slide);
             }}
           />
-          <Caret direction="left" onClick={goLeft} />
-          <Caret direction="right" onClick={goRight} />
+          <Caret direction="left" onClick={() => navigate(-1)} />
+          <Caret direction="right" onClick={() => navigate(1)} />
         </>
       )}
     </div>

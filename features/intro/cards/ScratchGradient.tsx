@@ -2,7 +2,7 @@
 
 import Card from "@/ui/Card";
 import Gradient from "@/images/gradient.svg";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const REVEAL_TEXT = "Scroll to discover";
 const REVEAL_FONT_SIZE = 14;
@@ -16,7 +16,37 @@ const Canvas = ({
   const canvas = useRef<HTMLCanvasElement>(null);
   const maskCanvas = useRef<HTMLCanvasElement | null>(null);
 
-  const init = () => {
+  const drawRevealText = useCallback(
+    (ctx: CanvasRenderingContext2D) => {
+      const chakraFamily = getComputedStyle(document.body)
+        .getPropertyValue("--font-chakra")
+        .trim();
+      const fontFamily = chakraFamily || "sans-serif";
+
+      ctx.fillStyle = "white";
+      ctx.font = `500 ${REVEAL_FONT_SIZE}px ${fontFamily}`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(REVEAL_TEXT, dimension.width / 2, dimension.height / 2);
+    },
+    [dimension],
+  );
+
+  const render = useCallback(
+    (ctx: CanvasRenderingContext2D, mask: HTMLCanvasElement) => {
+      ctx.clearRect(0, 0, dimension.width, dimension.height);
+      ctx.drawImage(mask, 0, 0);
+      ctx.save();
+      ctx.globalCompositeOperation = "source-atop";
+      drawRevealText(ctx);
+      ctx.restore();
+    },
+    [dimension, drawRevealText],
+  );
+
+  useEffect(() => {
+    if (dimension.width === 0) return;
+
     const main = canvas.current;
     if (!main) return;
 
@@ -36,37 +66,7 @@ const Canvas = ({
     maskCtx.clearRect(0, 0, dimension.width, dimension.height);
 
     render(ctx, mask);
-  };
-
-  const render = (ctx: CanvasRenderingContext2D, mask: HTMLCanvasElement) => {
-    ctx.clearRect(0, 0, dimension.width, dimension.height);
-
-    // Draw painted circles from the mask.
-    ctx.drawImage(mask, 0, 0);
-
-    // Render text only inside painted areas.
-    ctx.save();
-    ctx.globalCompositeOperation = "source-atop";
-    drawRevealText(ctx);
-    ctx.restore();
-  };
-
-  const drawRevealText = (ctx: CanvasRenderingContext2D) => {
-    const chakraFamily = getComputedStyle(document.body)
-      .getPropertyValue("--font-chakra")
-      .trim();
-    const fontFamily = chakraFamily || "sans-serif";
-
-    ctx.fillStyle = "white";
-    ctx.font = `500 ${REVEAL_FONT_SIZE}px ${fontFamily}`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(REVEAL_TEXT, dimension.width / 2, dimension.height / 2);
-  };
-
-  useEffect(() => {
-    if (dimension.width > 0) init();
-  }, [dimension, init]);
+  }, [dimension, render]);
 
   const manageMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const rect = canvas.current?.getBoundingClientRect();
