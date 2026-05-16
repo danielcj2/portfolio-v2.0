@@ -10,14 +10,13 @@ import Song from "./Song";
 import { Education, Experience, Services, ShortBio, Techstack } from "./Bio";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
 
-
 const About = () => {
   const { isMobile, isLg } = useMediaQuery();
 
   return (
     <section
       id="about"
-      className="h-min w-full pt-24 md:pt-42 lg:-mt-48 xl:-mt-24"
+      className="h-min w-full overflow-hidden pt-24 md:pt-42 lg:-mt-48 xl:-mt-24"
     >
       <div className="relative z-0 m-auto w-min pb-8 md:pb-32">
         {!isMobile && <HeadingFade text="02" />}
@@ -62,7 +61,13 @@ const About = () => {
           <div className="bg-background absolute bottom-0 left-0 h-32 w-full -scale-y-100 [clip-path:polygon(95%_0,90%_35%,50%_100%,10%_35%,5%_0)]" />
         </div>
         {(isMobile || !isLg) && (
-          <div className="mx flex justify-center pt-12">
+          <div
+            className="mx flex justify-center pt-12 pb-2"
+            style={{
+              contentVisibility: "auto",
+              containIntrinsicSize: "0 540px",
+            }}
+          >
             <div className="flex w-[80%] rotate-3 justify-center">
               <Photo1 />
             </div>
@@ -72,7 +77,13 @@ const About = () => {
         <Experience />
         <Education />
         {(isMobile || !isLg) && (
-          <div className="mx flex justify-center pt-12 pb-24">
+          <div
+            className="mx flex justify-center pt-12 pb-24"
+            style={{
+              contentVisibility: "auto",
+              containIntrinsicSize: "0 540px",
+            }}
+          >
             <div className="flex w-[80%] -rotate-3 justify-center">
               <Photo2 />
             </div>
@@ -80,7 +91,13 @@ const About = () => {
         )}
         <Services />
         {(isMobile || !isLg) && (
-          <div className="mx flex justify-center pt-18 pb-24 md:pb-18">
+          <div
+            className="mx flex justify-center pt-18 pb-24 md:pb-18"
+            style={{
+              contentVisibility: "auto",
+              containIntrinsicSize: "0 540px",
+            }}
+          >
             <div className="flex w-[70%] max-w-80 rotate-3 justify-center">
               <Photo4 />
             </div>
@@ -88,9 +105,7 @@ const About = () => {
         )}
         {!isMobile && <Techstack />}
       </div>
-      <div className="overflow-clip">
-      <Song />
-      </div>
+      <div className="overflow-clip">{!isMobile && <Song />} </div>
     </section>
   );
 };

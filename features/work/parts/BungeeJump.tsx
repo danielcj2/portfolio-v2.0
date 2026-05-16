@@ -108,7 +108,7 @@ const BungeeJump = ({ rotate, pendulumProgress }: BungeeProps) => {
           className="h-auto w-full opacity-60"
           src={imgSrc}
           alt="Jump"
-          priority
+          fetchPriority="high"
         />
       </div>
     </motion.div>

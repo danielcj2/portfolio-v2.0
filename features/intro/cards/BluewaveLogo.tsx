@@ -15,6 +15,7 @@ const BluewaveLogo = () => {
           className="pointer-events-none absolute inset-0 m-auto transition-transform duration-500 ease-in-out select-none group-hover:scale-115"
           width={125}
           height={125}
+          sizes="125px"
         />
       </div>
     </Card>

@@ -12,7 +12,10 @@ const Work = () => {
   const { isMobile, isLg } = useMediaQuery();
 
   return (
-    <section id="work" className="relative z-0 h-min w-full pt-24 md:pt-40">
+    <section
+      id="work"
+      className="relative z-0 h-min w-full overflow-hidden pt-24 pb-10 md:pt-40 md:pb-0"
+    >
       <div className="relative mx-auto mb-6 w-min md:mb-0">
         {!isMobile && <HeadingFade text="01" />}{" "}
         <div className="flex justify-center gap-1 uppercase md:gap-0">
@@ -33,7 +36,7 @@ const Work = () => {
         </div>
       </div>
       {!isMobile && (
-        <div className="relative mt-8 flex items-center justify-center pt-28 pb-20 overflow-clip">
+        <div className="relative mt-8 flex items-center justify-center overflow-clip pt-28 pb-20">
           <div className="absolute top-0 h-full">
             <LineFade duration={3} direction="vertical" hasBadge="start" />
           </div>

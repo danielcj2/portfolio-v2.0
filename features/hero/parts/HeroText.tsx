@@ -32,7 +32,7 @@ const HeroText = React.memo(({ progress }: HeroTextProps) => {
   const yXtra = useTransform(spring, (v) => `${-v * PADDING * 2}%`);
 
   // Portrait effects
-  const opacity = useTransform(imageRatio, [1, 2], [0.55, 0.95]);
+  const opacity = useTransform(imageRatio, [1, 2], [0.55, 0.9]);
   const scale = useTransform(imageRatio, [1, 2], [1, 1.1]);
   const maskImage = useMotionTemplate`radial-gradient(circle at center, rgba(0, 0, 0, ${opacity}) 0%, rgba(0, 0, 0, 0.1) 70%, rgba(0, 0, 0, 0) 75%)`;
 
@@ -41,7 +41,7 @@ const HeroText = React.memo(({ progress }: HeroTextProps) => {
 
   return (
     <div className="mx relative mt-auto flex items-center pt-12 uppercase md:my-auto md:justify-center md:pt-0">
-      <div className="absolute z-10 flex w-min cursor-default flex-col gap-3 font-[450] text-nowrap whitespace-nowrap overflow-hidden">
+      <div className="absolute z-10 flex w-min cursor-default flex-col gap-3 overflow-hidden font-[450] text-nowrap whitespace-nowrap">
         <div className="flex justify-between gap-4 font-mono">
           <motion.p style={{ y: yNeg }} className={TEXTSTYLE}>
             Heya
@@ -102,7 +102,8 @@ const HeroText = React.memo(({ progress }: HeroTextProps) => {
         alt="portrait"
         width={600}
         height={600}
-        priority
+        loading="eager"
+        fetchPriority="high"
         draggable={false}
       />
     </div>

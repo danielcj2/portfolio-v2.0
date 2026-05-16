@@ -1,5 +1,6 @@
 import TextParallax from "@/animations/TextParallax";
 import r48Mask from "@/images/r48.svg?url";
+import { useMediaQuery } from "@/providers/MediaQueryContext";
 
 import {
   motion,
@@ -52,6 +53,7 @@ const ScreenBlock = ({ progress, animStart, animEnd }: ScreenBlockProps) => {
 
 const Screen = ({ progress }: ScreenProps) => {
   const opacity = useTransform(progress, [0.5, 1], [0, 1]);
+  const { isMobile } = useMediaQuery();
   const [isMaskEnabled, setIsMaskEnabled] = useState(false);
   const maskEnabledRef = useRef(false);
 
@@ -94,7 +96,7 @@ const Screen = ({ progress }: ScreenProps) => {
   return (
     <div
       id="screen"
-      className="bg-background border-background-v2 relative z-0 h-screen min-w-screen w-auto aspect-video overflow-hidden"
+      className="bg-background border-background-v2 relative z-0 aspect-video h-screen w-auto min-w-screen overflow-hidden"
       style={{
         maskImage: isMaskEnabled ? `url(${r48Mask})` : "none",
         WebkitMaskImage: isMaskEnabled ? `url(${r48Mask})` : "none",
@@ -106,9 +108,13 @@ const Screen = ({ progress }: ScreenProps) => {
         WebkitMaskSize: "100% 100%",
       }}
     >
-      <div className="grid h-full grid-cols-12 grid-rows-12">
-        {blockRows.map((blocks, row) => getBlocks(row, blocks))}
-      </div>
+      {isMobile ? (
+        <div className="bg-foreground/75 size-full" />
+      ) : (
+        <div className="grid h-full grid-cols-12 grid-rows-12">
+          {blockRows.map((blocks, row) => getBlocks(row, blocks))}
+        </div>
+      )}
       <motion.div
         className="pointer-events-none absolute inset-0 rounded-[48px]"
         aria-hidden

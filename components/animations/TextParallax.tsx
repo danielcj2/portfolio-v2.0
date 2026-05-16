@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import Logo from "@/images/logo.svg";
 
 import {
   motion,
   useReducedMotion,
+  useInView,
   useScroll,
   useSpring,
   useTransform,
@@ -55,6 +56,14 @@ const TextParallax = ({ className, items, options }: ParallaxProps) => {
   const baseX = useMotionValue(0);
   const directionFactor = useRef<number>(direction === "right" ? 1 : -1);
   const reduceMotion = !!useReducedMotion();
+  const isInView = useInView(containerRef, { margin: "0px 0px -50px 0px" });
+  const updateLoopWidth = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const contentWidth = el.scrollWidth / 2;
+    loopWidthRef.current = contentWidth > 0 ? contentWidth + gap : 0;
+  }, [gap]);
 
   // NOTE: Cache track width so the transform calculation avoids per-frame layout reads.
   useLayoutEffect(() => {
@@ -62,18 +71,22 @@ const TextParallax = ({ className, items, options }: ParallaxProps) => {
     const el = containerRef.current;
     if (!el) return;
 
-    const updateLoopWidth = () => {
-      const contentWidth = el.scrollWidth / 2;
-      loopWidthRef.current = contentWidth + gap;
-    };
-
     updateLoopWidth();
 
     const observer = new ResizeObserver(updateLoopWidth);
     observer.observe(el);
 
     return () => observer.disconnect();
-  }, [gap, items]);
+  }, [items, updateLoopWidth]);
+
+  // NOTE: Some layouts report zero width until the section is visible.
+  // Re-measure when entering view so motion can begin immediately.
+  useEffect(() => {
+    if (!isInView) return;
+
+    const rafId = requestAnimationFrame(updateLoopWidth);
+    return () => cancelAnimationFrame(rafId);
+  }, [isInView, updateLoopWidth]);
 
   const container = useScrollContainer();
   const { scrollY } = useScroll({ container });
@@ -96,7 +109,13 @@ const TextParallax = ({ className, items, options }: ParallaxProps) => {
   // NOTE: Update baseX based on scroll direction and velocity
   useAnimationFrame((_, delta) => {
     if (reduceMotion) return;
+    if (!isInView) return;
     if (!containerRef.current) return;
+
+    if (loopWidthRef.current <= 0) {
+      updateLoopWidth();
+      if (loopWidthRef.current <= 0) return;
+    }
 
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
     const vf = velocityFactor.get();
