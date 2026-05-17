@@ -22,6 +22,7 @@ import {
   CONTACT_HEIGHT,
   HEADER_SCROLL_START_OFFSET,
 } from "@/lib/layoutHeights";
+import { usePathname } from "next/navigation";
 
 type NavProps = {
   scrollTo: (target: SectionHref) => void;
@@ -300,6 +301,8 @@ const Header: React.FC = () => {
   const container = useScrollContainer();
   const { scrollY } = useScroll({ container });
   const { isMobile } = useMediaQuery();
+  const path = usePathname();
+  const isHome = path === "/" || path.startsWith("/#");
 
   const { scrollYProgress } = useScroll({
     container,
@@ -312,7 +315,7 @@ const Header: React.FC = () => {
   return (
     <motion.header
       className="pointer-events-none fixed z-50 flex w-full items-start justify-between font-sans"
-      style={{ y }}
+      style={{ y, opacity: isHome ? 1 : 0 }}
     >
       {isMobile ? (
         <MobileNav scrollTo={scrollTo} />
