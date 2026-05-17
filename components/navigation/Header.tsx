@@ -36,12 +36,12 @@ type NavLinkProps = {
   onNavigate: (target: SectionHref) => void;
 };
 
-type SectionHref = "#hero" | "#work" | "#about" | "#end-buffer";
+type SectionHref = "#hero" | "#work" | "#about" | "#footer";
 
 const SECTIONS = [
   { text: "my work", href: "#work" },
   { text: "about me", href: "#about" },
-  { text: "reach out", href: "#end-buffer" },
+  { text: "reach out", href: "#footer" },
 ] as const;
 
 const MENU_TRANSITION = {
