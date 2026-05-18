@@ -256,7 +256,7 @@ const MobileNav = ({
             transition={{ duration: 0.4, ease: "easeInOut" }}
           />
         </div>
-        <div className="relative w-full h-200 overflow-hidden flex flex-col items-end">
+        <div className="relative flex h-200 w-full flex-col items-end overflow-hidden">
           <motion.button
             type="button"
             className="relative aspect-square size-14 cursor-pointer"
