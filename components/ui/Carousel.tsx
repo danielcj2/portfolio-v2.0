@@ -105,7 +105,7 @@ const LoadingState = () => (
     {Array.from({ length: 3 }).map((_, index) => (
       <motion.div
         key={index}
-        className="bg-foreground size-1.75 rounded-full will-change-transform"
+        className="bg-foreground size-1.75 rounded-full"
         variants={dotVariants}
       />
     ))}

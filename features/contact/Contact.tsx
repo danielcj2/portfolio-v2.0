@@ -1,4 +1,8 @@
-import TVWrapper from "./tv/TVWrapper";
+"use client";
+
+import dynamic from "next/dynamic";
+
+const TVWrapper = dynamic(() => import("./tv/TVWrapper"));
 
 const Contact = () => {
   return (

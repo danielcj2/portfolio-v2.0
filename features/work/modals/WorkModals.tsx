@@ -2,9 +2,7 @@
 
 import Card from "@/ui/Card";
 import Modal from "@/ui/Modal";
-import QuickQRModal from "./QuickQRModal";
-import BluewaveModal from "./BluewaveModal";
-import BogueModal from "./BogueModal";
+import dynamic from "next/dynamic";
 
 import { motion } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -61,6 +59,10 @@ const PROJECTS: Project[] = [
     placeholder: `${r2Url}/bogue-placeholder.png`,
   },
 ];
+
+const QuickQRModal = dynamic(() => import("./QuickQRModal"));
+const BluewaveModal = dynamic(() => import("./BluewaveModal"));
+const BogueModal = dynamic(() => import("./BogueModal"));
 
 const MODAL_CONTENT: Record<
   Project["id"],
@@ -141,7 +143,7 @@ const WorkModals = () => {
               variants={{ initial: { flex: 1 }, hovered: { flex: 1.5 } }}
             >
               <Card
-                className="h-130 w-full will-change-transform md:h-190"
+                className="h-130 w-full md:h-190"
                 theme="stacked"
               >
                 <Card
@@ -164,7 +166,7 @@ const WorkModals = () => {
                   </p>
                 </Card>
                 <Card
-                  className="h-full"
+                  className="h-full will-change-transform"
                   layoutId={`card-${project.id}`}
                   theme="light"
                 >
