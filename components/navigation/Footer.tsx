@@ -1,116 +1,75 @@
 "use client";
 
-import { useScroll, motion, useTransform } from "motion/react";
-
 import LineFade from "../animations/LineFade";
 import TextFlip from "../animations/TextFlip";
 
-import { useScrollContainer } from "@/providers/ScrollContext";
 import { useLenisScroll } from "@/providers/LenisContext";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
-import { FOOTER_HEIGHT, FOOTER_SCROLL_TOP_OFFSET } from "@/lib/layoutHeights";
-
-const MobileView = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <>
-      <div className="bg-background fixed bottom-0 z-1 h-screen" />
-      <footer
-        id="end-buffer"
-        className="bg-background relative z-1 w-screen flex-col items-center"
-        style={{ height: FOOTER_HEIGHT }}
-      >
-        {children}
-      </footer>
-    </>
-  );
-};
-
-const DesktopView = ({ children }: { children: React.ReactNode }) => {
-  const container = useScrollContainer();
-  const { scrollYProgress } = useScroll({
-    container,
-    offset: [`end ${FOOTER_SCROLL_TOP_OFFSET}`, `end ${FOOTER_HEIGHT}`],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
-  const y = useTransform(scrollYProgress, [0, 0.75], [250, 0]);
-
-  return (
-    <>
-      <div
-        id="end-buffer"
-        className="bg-background relative z-1"
-        style={{ height: FOOTER_HEIGHT }}
-      />
-      <motion.footer
-        className="pointer-events-none fixed bottom-0 z-1 flex w-screen origin-bottom flex-col items-center"
-        style={{
-          height: FOOTER_HEIGHT,
-          opacity,
-          y,
-        }}
-      >
-        {children}
-      </motion.footer>
-    </>
-  );
-};
+import { FOOTER_HEIGHT, FOOTER_REVEAL_BUFFER } from "@/lib/layoutHeights";
 
 const Footer = () => {
   const { isMobile } = useMediaQuery();
   const { scrollTo } = useLenisScroll();
 
-  const content = (
-    <div className="size-full">
+  return (
+    <footer
+      id="footer"
+      className="relative z-1 md:[clip-path:polygon(0%_0,100%_0,100%_200%,0_200%)]"
+      style={{
+        top: isMobile ? 0 : `-${FOOTER_REVEAL_BUFFER}`,
+        height: FOOTER_HEIGHT,
+      }}
+    >
       <div
-        className="mx grid-12 relative h-full gap-y-2"
-        style={{
-          gridTemplateRows: `0.5fr auto 1fr`,
-        }}
+        className="bg-background pointer-events-none relative z-1 w-screen md:fixed md:bottom-0"
+        style={{ height: FOOTER_HEIGHT }}
       >
-        <div className="pointer-events-none absolute bottom-0 left-0 flex h-screen w-full justify-around opacity-70 md:justify-between">
+        <div className="pointer-events-none absolute bottom-0 left-0 flex h-screen w-screen justify-around opacity-70 md:justify-between">
           <LineFade
             count={isMobile ? 3 : 7}
             duration={7}
             direction="vertical"
           />
         </div>
-        <div className="col-start-1 col-end-10 self-end px-1.5 py-2 text-3xl text-wrap capitalize md:py-0 md:text-4xl">
-          <p className="text-muted-v2 pointer-events-auto font-semibold">
-            Scroll complete
-          </p>
-          <p className="text-muted-v2 pointer-events-auto font-semibold">
-            <span className="text-foreground">Dan</span> signing off
-          </p>
-        </div>
-        <div className="col-start-10 col-end-13 self-end justify-self-end px-1.5 text-right">
-          <button
-            type="button"
-            className="text-muted-v2 font-chakra pointer-events-auto block w-min cursor-pointer! py-2 text-xs font-bold tracking-widest italic md:py-0"
-            onClick={() => scrollTo("#hero")}
-          >
-            <TextFlip>back to top &#8593;</TextFlip>
-          </button>
-        </div>
-        <div className="col-span-full">
-          <div className="h-1 w-full bg-[rgba(255,255,255,0.02)]" />
-        </div>
-        <div className="col-start-1 col-end-13 row-start-3 px-1.5 py-2 text-sm md:py-0 md:text-base">
-          <p className="pointer-events-auto text-sm">
-            © 2026
-            <span className="mx-1">&#8226;</span>
-            by me
-            <span className="mx-1">&#8226;</span>
-            all rights reserved
-          </p>
+        <div
+          className="mx grid-12 relative h-full gap-y-2"
+          style={{
+            gridTemplateRows: `0.5fr auto 1fr`,
+          }}
+        >
+          <div className="col-start-1 col-end-10 self-end px-1.5 py-2 text-3xl text-wrap capitalize md:py-0 md:text-4xl">
+            <p className="text-muted-v2 pointer-events-auto font-semibold">
+              Scroll complete
+            </p>
+            <p className="text-muted-v2 pointer-events-auto font-semibold">
+              <span className="text-foreground">Dan</span> signing off
+            </p>
+          </div>
+          <div className="col-start-10 col-end-13 self-end justify-self-end px-1.5 text-right">
+            <button
+              type="button"
+              className="text-muted-v2 font-chakra pointer-events-auto block w-min cursor-pointer! py-2 text-xs font-bold tracking-widest italic md:py-0"
+              onClick={() => scrollTo("#hero")}
+            >
+              <TextFlip>back to top &#8593;</TextFlip>
+            </button>
+          </div>
+          <div className="col-span-full">
+            <div className="h-1 w-full bg-[rgba(255,255,255,0.02)]" />
+          </div>
+          <div className="col-start-1 col-end-13 row-start-3 px-1.5 py-2 text-sm md:py-0 md:text-base">
+            <p className="pointer-events-auto text-sm">
+              © 2026
+              <span className="mx-1">&#8226;</span>
+              by me
+              <span className="mx-1">&#8226;</span>
+              all rights reserved
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
-
-  if (isMobile) return <MobileView>{content}</MobileView>;
-
-  return <DesktopView>{content}</DesktopView>;
 };
 
 export default Footer;

@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Dimensions = { width: number; height: number };
 
+const cache = new Map<string, Dimensions[]>();
+
 export const useImagePreloader = (srcs: string[], minDelay = 0) => {
-  const cachedRef = useRef<{ dimensions: Dimensions[] } | null>(null);
-  const [isReady, setIsReady] = useState(false);
-  const [dimensions, setDimensions] = useState<Dimensions[]>([]);
+  const cacheKey = srcs.join("|");
+  const [isReady, setIsReady] = useState(() => cache.has(cacheKey));
+  const [dimensions, setDimensions] = useState<Dimensions[]>(() => cache.get(cacheKey) ?? []);
 
   useEffect(() => {
-    if (cachedRef.current) {
-      setDimensions(cachedRef.current.dimensions);
-      setIsReady(true);
+    if (cache.has(cacheKey)) {
       return;
     }
 
@@ -41,7 +41,7 @@ export const useImagePreloader = (srcs: string[], minDelay = 0) => {
       .finally(async () => {
         if (!cancelled) {
           const dims = await Promise.all(dimensionPromises);
-          cachedRef.current = { dimensions: dims };
+          cache.set(cacheKey, dims);
           setDimensions(dims);
           setIsReady(true);
         }

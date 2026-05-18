@@ -21,7 +21,7 @@ const Eye = ({ mouseX, mouseY }: EyeProps) => {
   return (
     <div className="bg-muted/35 ring-muted/20 relative h-8 w-6 overflow-hidden rounded-[50%] border-none ring-1 ring-inset">
       <motion.div
-        className="bg-background absolute top-1/2 left-1/2 h-6 w-4 rounded-[50%]"
+        className="bg-background absolute top-1/2 left-1/2 h-6 w-4 rounded-[50%] will-change-transform"
         style={{ x, y }}
       >
         <div className="bg-foreground/80 absolute top-1 right-1/2 h-1 w-1 translate-x-1/2 rounded-full" />

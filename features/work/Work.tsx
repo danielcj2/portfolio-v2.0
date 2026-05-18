@@ -14,10 +14,10 @@ const Work = () => {
   return (
     <section
       id="work"
-      className="relative z-0 h-min w-full overflow-hidden pt-24 pb-10 md:pt-40 md:pb-0"
+      className="relative z-0 h-min w-full overflow-x-clip pt-24 pb-10 md:pt-40 md:pb-0"
     >
       <div className="relative mx-auto mb-6 w-min md:mb-0">
-        {!isMobile && <HeadingFade text="01" />}{" "}
+        {!isMobile && <HeadingFade text="01" />}
         <div className="flex justify-center gap-1 uppercase md:gap-0">
           <HeadingTranslate
             className="min-w-0 text-right font-mono text-[clamp(1rem,12.5vw,11rem)] font-light tracking-tighter"

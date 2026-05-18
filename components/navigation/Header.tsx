@@ -22,6 +22,7 @@ import {
   CONTACT_HEIGHT,
   HEADER_SCROLL_START_OFFSET,
 } from "@/lib/layoutHeights";
+import { usePathname } from "next/navigation";
 
 type NavProps = {
   scrollTo: (target: SectionHref) => void;
@@ -35,12 +36,12 @@ type NavLinkProps = {
   onNavigate: (target: SectionHref) => void;
 };
 
-type SectionHref = "#hero" | "#work" | "#about" | "#end-buffer";
+type SectionHref = "#hero" | "#work" | "#about" | "#footer";
 
 const SECTIONS = [
   { text: "my work", href: "#work" },
   { text: "about me", href: "#about" },
-  { text: "reach out", href: "#end-buffer" },
+  { text: "reach out", href: "#footer" },
 ] as const;
 
 const MENU_TRANSITION = {
@@ -255,7 +256,7 @@ const MobileNav = ({
             transition={{ duration: 0.4, ease: "easeInOut" }}
           />
         </div>
-        <div className="relative w-full h-200 overflow-hidden flex flex-col items-end">
+        <div className="relative flex h-200 w-full flex-col items-end overflow-hidden">
           <motion.button
             type="button"
             className="relative aspect-square size-14 cursor-pointer"
@@ -300,6 +301,8 @@ const Header: React.FC = () => {
   const container = useScrollContainer();
   const { scrollY } = useScroll({ container });
   const { isMobile } = useMediaQuery();
+  const path = usePathname();
+  const isHome = path === "/" || path.startsWith("/#");
 
   const { scrollYProgress } = useScroll({
     container,
@@ -312,7 +315,7 @@ const Header: React.FC = () => {
   return (
     <motion.header
       className="pointer-events-none fixed z-50 flex w-full items-start justify-between font-sans"
-      style={{ y }}
+      style={{ y, opacity: isHome ? 1 : 0 }}
     >
       {isMobile ? (
         <MobileNav scrollTo={scrollTo} />

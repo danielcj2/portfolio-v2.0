@@ -4,115 +4,20 @@ import Card from "@/ui/Card";
 import Image from "next/image";
 import Logo from "@/images/logo.svg";
 
-import { motion, type Variants } from "motion/react";
+import { motion } from "motion/react";
 import { useEffect, useRef, useState, useCallback } from "react";
 
-// TODO - Refactor variants
-//      - 9x9 grid, where odd numbers are slides, evens are bentos
-//      - Move by 2 cells per stage in one direction
+type TextState = "first" | "second" | "third";
 
-type TextState = "first" | "second" | "third" | "fourth";
-type ShuffleLayer = {
-  src: Parameters<typeof Image>[0]["src"];
-  alt: string;
-  className: string;
-  variants: Variants;
-};
+const shuffle = {
+  first: { x: "0%", y: "0%" },
+  second: { x: "0%", y: "-50%" },
+  third: { x: "-50%", y: "-50%" },
+} as const;
 
 const TRANSITION = { duration: 1.5, ease: [0.65, 0, 0.35, 1] as const };
-const PAUSE_DURATION = 3500; // time to read
+const PAUSE_DURATION = 3000; // time to read
 const r2Url = process.env.NEXT_PUBLIC_QUICKQR;
-
-const shuffleLayers: ShuffleLayer[] = [
-  {
-    src: `${r2Url}/slide1.png`,
-    alt: "Slide 1",
-    className: "absolute inset-0 z-1",
-    variants: {
-      first: { y: "0%", x: "0%" },
-      second: { y: "-200%", x: "0%" },
-      third: { y: "-200%", x: "-200%" },
-      fourth: { y: "0%", x: "-200%" },
-    },
-  },
-  {
-    src: `${r2Url}/bento1.png`,
-    alt: "Bento 1",
-    className: "absolute inset-0 z-1",
-    variants: {
-      first: { y: "100%", x: "0%" },
-      second: { y: "-100%", x: "0%" },
-      third: { y: "-100%", x: "-200%" },
-      fourth: { y: "100%", x: "-200%" },
-    },
-  },
-  {
-    src: `${r2Url}/slide2.png`,
-    alt: "Slide 2",
-    className: "absolute inset-0",
-    variants: {
-      first: { y: "200%", x: "0%" },
-      second: { y: "0%", x: "0%" },
-      third: { y: "0%", x: "-200%" },
-      fourth: { y: "200%", x: "-200%" },
-    },
-  },
-  {
-    src: `${r2Url}/bento2.png`,
-    alt: "Bento 2",
-    className: "absolute inset-0",
-    variants: {
-      first: { y: "200%", x: "100%" },
-      second: { y: "0%", x: "100%" },
-      third: { y: "0%", x: "-100%" },
-      fourth: { y: "200%", x: "-100%" },
-    },
-  },
-  {
-    src: `${r2Url}/slide3.png`,
-    alt: "Slide 3",
-    className: "absolute inset-0",
-    variants: {
-      first: { y: "200%", x: "200%" },
-      second: { y: "0%", x: "200%" },
-      third: { y: "0%", x: "0%" },
-      fourth: { y: "200%", x: "0%" },
-    },
-  },
-  {
-    src: `${r2Url}/bento3.png`,
-    alt: "Bento 3",
-    className: "absolute inset-0",
-    variants: {
-      first: { y: "100%", x: "200%" },
-      second: { y: "-100%", x: "200%" },
-      third: { y: "-100%", x: "0%" },
-      fourth: { y: "100%", x: "0%" },
-    },
-  },
-  {
-    src: `${r2Url}/slide4.png`,
-    alt: "Slide 4",
-    className: "absolute inset-0",
-    variants: {
-      first: { y: "0%", x: "200%" },
-      second: { y: "-200%", x: "200%" },
-      third: { y: "-200%", x: "0%" },
-      fourth: { y: "0%", x: "0%" },
-    },
-  },
-  {
-    src: `${r2Url}/bento4.png`,
-    alt: "Bento 4",
-    className: "absolute inset-0",
-    variants: {
-      first: { y: "0%", x: "100%" },
-      second: { y: "-200%", x: "100%" },
-      third: { y: "-200%", x: "-100%" },
-      fourth: { y: "0%", x: "-100%" },
-    },
-  },
-];
 
 const MainShuffle = () => {
   const [stage, setStage] = useState<TextState>("first");
@@ -154,8 +59,7 @@ const MainShuffle = () => {
     const next: Record<TextState, TextState> = {
       first: "second",
       second: "third",
-      third: "fourth",
-      fourth: "first",
+      third: "first",
     };
 
     timerRef.current = setTimeout(() => setStage(next[stage]), PAUSE_DURATION);
@@ -172,7 +76,6 @@ const MainShuffle = () => {
         first: { backgroundColor: "rgba(38, 39, 48, 0.75)" },
         second: { backgroundColor: "rgba(71, 66, 87, 0.75)" },
         third: { backgroundColor: "rgba(70, 91, 62, 0.75)" },
-        fourth: { backgroundColor: "rgba(54, 61, 74, 0.75)" },
       }}
       transition={TRANSITION}
       onHoverStart={handleHoverStart}
@@ -187,7 +90,6 @@ const MainShuffle = () => {
           first: { color: "rgba(38, 39, 48, 1)" },
           second: { color: "rgba(71, 66, 87, 1)" },
           third: { color: "rgba(70, 91, 62, 1)" },
-          fourth: { color: "rgba(54, 61, 74, 1)" },
         }}
         transition={TRANSITION}
       >
@@ -213,7 +115,7 @@ const MainShuffle = () => {
           <div className="bg-foreground/30 absolute -inset-1.25 -z-1 w-auto rounded-xl" />
         </motion.div>
       </div>
-      <div className="center-xy aspect-1440/1080 h-auto w-[70%]">
+      <div className="center-xy aspect-1000/700 h-auto w-[75%]">
         <motion.div
           aria-hidden="true"
           className="relative h-full w-full origin-[80%_20%] will-change-transform"
@@ -223,25 +125,22 @@ const MainShuffle = () => {
         >
           <div className="absolute -inset-1.5 -z-1 w-auto rounded-[30px] bg-[#f2f3f0]" />
           <div className="relative z-0 h-full w-full overflow-hidden rounded-3xl shadow-[0px_0px_10px_rgba(0,0,0,0.75)]">
-            {shuffleLayers.map(({ src, alt, className, variants }) => (
-              <motion.div
-                key={alt}
-                className={className}
-                animate={stage}
-                variants={variants}
-                transition={TRANSITION}
-              >
-                <Image
-                  src={src}
-                  alt={alt}
-                  width={900}
-                  height={675}
-                  className="h-auto w-full"
-                  loading="lazy"
-                  sizes="(max-width: 768px) 100vw, 35vw"
-                />
-              </motion.div>
-            ))}
+            <motion.div
+              className="absolute top-0 left-0 h-[200%] w-[200%] will-change-transform"
+              animate={stage}
+              variants={shuffle}
+              transition={TRANSITION}
+            >
+              <Image
+                src={`${r2Url}/bento.png`}
+                alt="Shuffle Atlas"
+                width={2000}
+                height={1400}
+                className="h-full w-full"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 70vw"
+              />
+            </motion.div>
           </div>
         </motion.div>
       </div>

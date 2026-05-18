@@ -138,7 +138,7 @@ const TextParallax = ({ className, items, options }: ParallaxProps) => {
       )}
     >
       <motion.div
-        className="absolute flex h-full flex-nowrap items-center whitespace-nowrap"
+        className="absolute flex h-full flex-nowrap items-center whitespace-nowrap will-change-transform"
         ref={containerRef}
         style={{ x, gap: `${gap * 2}px` }}
       >
