@@ -53,6 +53,7 @@ const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
   <div className="absolute top-2 right-2 size-7 min-h-7 min-w-7">
     <motion.span
       className="absolute top-1 block h-0.5 w-3 rounded-full bg-white"
+      initial={false}
       animate={
         isOpen
           ? {
@@ -69,6 +70,7 @@ const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
     />
     <motion.span
       className="absolute top-1/2 left-0 block h-0.5 w-7 -translate-y-1/2 rounded-full bg-white"
+      initial={false}
       animate={
         isOpen
           ? { left: "50%", x: "-50%", width: 20, rotate: -45 }
@@ -78,6 +80,7 @@ const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
     />
     <motion.span
       className="bg-muted-v2 absolute top-5.5 right-0 block h-0.5 w-3 rounded-full"
+      initial={false}
       animate={isOpen ? { opacity: 0, x: 6 } : { opacity: 1, x: 0 }}
       transition={MENU_TRANSITION}
     />

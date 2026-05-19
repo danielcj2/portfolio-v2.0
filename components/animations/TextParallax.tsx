@@ -57,12 +57,15 @@ const TextParallax = ({ className, items, options }: ParallaxProps) => {
   const directionFactor = useRef<number>(direction === "right" ? 1 : -1);
   const reduceMotion = !!useReducedMotion();
   const isInView = useInView(containerRef, { margin: "0px 0px -50px 0px" });
+
   const updateLoopWidth = useCallback(() => {
     const el = containerRef.current;
     if (!el) return;
 
-    const contentWidth = el.scrollWidth / 2;
-    loopWidthRef.current = contentWidth > 0 ? contentWidth + gap : 0;
+    requestAnimationFrame(() => {
+      const contentWidth = el.getBoundingClientRect().width / 2;
+      loopWidthRef.current = contentWidth + gap;
+    });
   }, [gap]);
 
   // NOTE: Cache track width so the transform calculation avoids per-frame layout reads.

@@ -26,6 +26,7 @@
 
 # archive
 components/_archive/
+test/
 
 # debug
 npm-debug.log*

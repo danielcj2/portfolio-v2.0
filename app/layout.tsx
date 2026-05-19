@@ -29,11 +29,14 @@ const jsonLd = {
   ...(sameAs.length > 0 ? { sameAs } : {}),
 };
 
+const title = "Daniel Cojocea | Frontend Developer | Portfolio 2026";
+const description =
+  "Portfolio website of Daniel Cojocea, a Frontend Developer specializing in creating engaging and user-friendly web experiences. Explore my projects, skills, and get in touch!";
+
 export const metadata: Metadata = {
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
-  title: "Daniel Cojocea | Frontend Developer | Portfolio 2026",
-  description:
-    "Portfolio website of Daniel Cojocea, a Frontend Developer specializing in creating engaging and user-friendly web experiences. Explore my projects, skills, and get in touch!",
+  title,
+  description,
   alternates: {
     canonical: "/",
     languages: { "en-US": "/en" },
@@ -46,12 +49,11 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: "Daniel Cojocea Portfolio",
-    title: "Daniel Cojocea | Frontend Developer | Portfolio 2026",
-    description:
-      "Portfolio website of Daniel Cojocea, a Frontend Developer specializing in creating engaging and user-friendly web experiences. Explore my projects, skills, and get in touch!",
+    title,
+    description,
     images: [
       {
-        url: "/og-image.png",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "Daniel Cojocea Portfolio",

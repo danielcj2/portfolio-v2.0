@@ -227,28 +227,28 @@ const Recorder = () => {
   });
 
   useEffect(() => {
-    if (!audio.current) {
-      audio.current = new Audio(
+    const el =
+      audio.current ??
+      new Audio(
         "https://pub-1ad1c6ec67ef4751b038ab44f23fd40c.r2.dev/pixelated.m4a",
       );
-      audio.current.crossOrigin = "anonymous";
-    }
 
-    const el = audio.current;
+    audio.current = el;
+
     const timeUpdate = () => setCurrentTime(el.currentTime);
+
     const loadedMetadata = () => {
       setDuration(Number.isFinite(el.duration) ? el.duration : 0);
     };
 
     el.addEventListener("timeupdate", timeUpdate);
     el.addEventListener("loadedmetadata", loadedMetadata);
+
     if (el.readyState >= 1) loadedMetadata();
 
     return () => {
       el.removeEventListener("timeupdate", timeUpdate);
       el.removeEventListener("loadedmetadata", loadedMetadata);
-      el.pause();
-      audio.current = null;
     };
   }, []);
 

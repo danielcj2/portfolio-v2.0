@@ -4,12 +4,12 @@ import { motion, useReducedMotion, Variants } from "motion/react";
 
 const dotVariants: Variants = {
   fade: {
-    backgroundColor: "var(--color-foreground)",
+    opacity: [0.4, 1, 1, 1, 0.4],
     transition: {
-      duration: 1,
+      duration: 1.6,
       repeat: Infinity,
-      repeatType: "reverse",
-      repeatDelay: 0.6,
+      repeatDelay: 0.4,
+      ease: "easeInOut",
     },
   },
 };
@@ -28,7 +28,7 @@ const TypingIndicator = () => {
       {Array.from({ length: 3 }).map((_, index) => (
         <motion.div
           key={index}
-          className="bg-muted-v2 h-1.5 w-1.5 rounded-full"
+          className="h-1.5 w-1.5 rounded-full bg-white"
           variants={dotVariants}
         />
       ))}

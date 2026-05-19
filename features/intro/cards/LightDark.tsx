@@ -51,7 +51,7 @@ const LightDark = () => {
 
   return (
     <Card
-      className="col-start-1 col-end-7 row-start-13 row-end-17 xl:row-span-4 overflow-hidden xl:col-start-5 xl:col-end-9 xl:row-start-9 xl:row-end-13"
+      className="col-start-1 col-end-7 row-start-13 row-end-17 overflow-hidden xl:col-start-5 xl:col-end-9 xl:row-span-4 xl:row-start-9 xl:row-end-13"
       onHoverEnd={() => setHovered(null)}
     >
       <Caret
@@ -65,8 +65,9 @@ const LightDark = () => {
         onHover={() => setHovered("left")}
       />
       <motion.div
-        className="absolute inset-0"
+        className="absolute inset-0 will-change-[clip-path] contain-paint"
         onHoverStart={() => setHovered("left")}
+        initial={{ clipPath: `inset(0 50% 0 0)` }}
         animate={{ clipPath: `inset(0 ${100 - leftClip}% 0 0)` }}
         transition={CLIP_TRANSITION}
       >
@@ -84,8 +85,9 @@ const LightDark = () => {
         </div>
       </motion.div>
       <motion.div
-        className="absolute inset-0"
+        className="absolute inset-0 will-change-[clip-path] contain-paint"
         onHoverStart={() => setHovered("right")}
+        initial={{ clipPath: `inset(0 0 0 50%)` }}
         animate={{ clipPath: `inset(0 0 0 ${100 - rightClip}%)` }}
         transition={CLIP_TRANSITION}
       >

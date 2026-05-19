@@ -53,11 +53,11 @@ const TV = ({ progress }: TVProps) => {
   const y = useTransform(progress, [0.75, 1], [originY, "-50%"]);
 
   return (
-    <div className="pointer-events-none sticky top-0 h-screen w-full z-11">
+    <div className="pointer-events-none sticky top-0 z-11 h-screen w-full">
       <motion.div
         id="tv"
         ref={tv}
-        className="bg-[#7A7A7A] absolute top-1/2 left-1/2 aspect-14/9 h-min w-auto origin-center overflow-clip rounded-[100px] p-20 pb-64 will-change-transform"
+        className="absolute top-1/2 left-1/2 aspect-14/9 h-min w-auto origin-center md:transform-gpu overflow-clip rounded-[100px] bg-[#7A7A7A] p-20 pb-64 will-change-transform"
         style={{ scale, x: "-50%", y }}
       >
         <div

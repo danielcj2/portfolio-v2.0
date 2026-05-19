@@ -124,7 +124,7 @@ const WorkModals = () => {
             <motion.div
               key={project.id}
               className={`h-min w-full flex-1 cursor-pointer outline-none ${SPACING[index]} ${isActive ? "opacity-0" : ""}`}
-              layout
+              // layout
               initial="initial"
               // animate={isMobile ? "hovered" : "initial"}
               whileHover="hovered"
@@ -141,11 +141,9 @@ const WorkModals = () => {
               }}
               role="button"
               variants={{ initial: { flex: 1 }, hovered: { flex: 1.5 } }}
+              transition={{ duration: 0.4 }}
             >
-              <Card
-                className="h-130 w-full md:h-190"
-                theme="stacked"
-              >
+              <Card className="h-130 w-full md:h-190" theme="stacked">
                 <Card
                   className="z-0 flex h-18 items-center justify-between px-5"
                   theme="light"
@@ -156,7 +154,7 @@ const WorkModals = () => {
                       initial: { opacity: 0 },
                       hovered: { opacity: 1 },
                     }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.4 }}
                   />
                   <p className="font-medium tracking-tighter text-white">
                     {project.name}
@@ -166,25 +164,17 @@ const WorkModals = () => {
                   </p>
                 </Card>
                 <Card
-                  className="h-full will-change-transform"
+                  className="h-full contain-[layout_paint] [content-visibility:auto]"
                   layoutId={`card-${project.id}`}
                   theme="light"
                 >
                   <motion.div
                     className="relative flex size-full justify-center"
                     variants={{
-                      initial: {
-                        opacity: 0.3,
-                        filter: "grayscale(100%)",
-                        scale: 1,
-                      },
-                      hovered: {
-                        opacity: 1,
-                        filter: "grayscale(0%)",
-                        scale: 1.2,
-                      },
+                      initial: { opacity: 0.4, scale: 1 },
+                      hovered: { opacity: 1, scale: 1.2 },
                     }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.4 }}
                   >
                     {isMobile ? (
                       <Image
@@ -199,10 +189,11 @@ const WorkModals = () => {
                         ref={(element) => {
                           videoRefs.current[project.id] = element;
                         }}
-                        className="h-full w-auto object-cover"
+                        className="h-full w-full object-cover md:transform-gpu"
                         src={project.video ?? undefined}
                         muted
                         loop
+                        // poster={project.placeholder ?? undefined}
                         playsInline
                         preload="auto"
                         controls={false}
@@ -215,10 +206,18 @@ const WorkModals = () => {
                   <motion.div
                     className={`absolute inset-0 -z-1 ${project.overlay}`}
                     variants={{
-                      initial: { opacity: 0.05, filter: "grayscale(100%)" },
-                      hovered: { opacity: 1, filter: "grayscale(0%)" },
+                      initial: { opacity: 0.15 },
+                      hovered: { opacity: 1 },
                     }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.4 }}
+                  />
+                  <motion.div
+                    className="bg-background pointer-events-none absolute inset-0 z-2 mix-blend-color"
+                    variants={{
+                      initial: { opacity: 1 },
+                      hovered: { opacity: 0 },
+                    }}
+                    transition={{ duration: 0.4 }}
                   />
                   <div className="absolute bottom-0 p-4 text-2xl">
                     <p className="font-medium">{project.title}</p>
