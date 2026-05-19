@@ -134,7 +134,7 @@ const ScratchGradient = () => {
       className="border-muted/10 col-span-2 row-span-6 hidden overflow-hidden 2xl:block"
       ref={card}
     >
-      <Gradient className="pointer-events-none absolute aspect-550/825 h-auto w-full select-none" />
+      <Gradient className="pointer-events-none absolute aspect-550/825 h-full w-auto select-none" />
       <Canvas dimension={dimension} />
     </Card>
   );

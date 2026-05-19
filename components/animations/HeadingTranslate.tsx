@@ -29,10 +29,13 @@ const HeadingTranslate = ({ text, direction, ...props }: HeadingProps) => {
     offset: ["start end", "end center"],
   });
 
-  const offset = isMobile ? 80 : 180;
+  const offset = isMobile ? 80 : 160;
 
-  const ratio = useTransform(scrollYProgress, [0, 0.3], [offset, 0]);
-  const x = useTransform(ratio, (v) => `${direction === "left" ? -v : v}px`);
+  const x = useTransform(
+    scrollYProgress,
+    [0, 0.3],
+    [direction === "left" ? -offset : offset, 0],
+  );
   const spring = useSpring(x, { stiffness: 200, damping: 100 });
 
   return (

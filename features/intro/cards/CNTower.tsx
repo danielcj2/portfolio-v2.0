@@ -1,4 +1,10 @@
-import { EventInfo, motion, useAnimate, type Variants } from "motion/react";
+import {
+  AnimatePresence,
+  EventInfo,
+  motion,
+  useAnimate,
+  type Variants,
+} from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { weatherMap, getIcon, getMood } from "@/lib/weather";
 
@@ -175,32 +181,24 @@ const CNTower = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               >
-                <motion.span
-                  className="inline-flex gap-1"
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={
-                    revealed
-                      ? { opacity: 1, width: "auto" }
-                      : { opacity: 0, width: 0 }
-                  }
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                >
-                  {message.text}
-                  {message.highlight && (
-                    <span className="font-semibold">{message.highlight}</span>
+                <AnimatePresence>
+                  {revealed && (
+                    <motion.span
+                      className="inline-flex origin-left gap-1"
+                      initial={{ opacity: 0, width: 0 }}
+                      animate={{ opacity: 1, width: "auto" }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                    >
+                      {message.text}
+                      {message.highlight && (
+                        <span className="font-semibold">
+                          {message.highlight}
+                        </span>
+                      )}
+                    </motion.span>
                   )}
-                </motion.span>
-                <motion.div
-                  initial={{ opacity: 1, width: "auto" }}
-                  animate={
-                    revealed
-                      ? { opacity: 0, width: 0 }
-                      : { opacity: 1, width: "auto" }
-                  }
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                >
-                  <TypingIndicator />
-                </motion.div>
+                </AnimatePresence>
+                {!revealed && <TypingIndicator />}
               </motion.div>
             );
           })}

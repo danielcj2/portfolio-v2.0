@@ -101,7 +101,7 @@ const HeroText = React.memo(({ progress }: HeroTextProps) => {
         src={portrait}
         alt="portrait"
         width={600}
-        height={600}
+        height={636}
         loading="eager"
         fetchPriority="high"
         draggable={false}
