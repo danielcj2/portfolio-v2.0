@@ -229,9 +229,7 @@ const Recorder = () => {
   useEffect(() => {
     const el =
       audio.current ??
-      new Audio(
-        "https://pub-1ad1c6ec67ef4751b038ab44f23fd40c.r2.dev/pixelated.m4a",
-      );
+      new Audio(`${process.env.NEXT_PUBLIC_AUDIO}/pixelated.m4a`);
 
     audio.current = el;
 

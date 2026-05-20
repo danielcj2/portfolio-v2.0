@@ -14,7 +14,7 @@ import {
   useSpring,
   type MotionValue,
 } from "motion/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useLenisScroll } from "@/providers/LenisContext";
 import { useScrollContainer } from "@/providers/ScrollContext";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
@@ -128,9 +128,13 @@ const NavLink: React.FC<NavLinkProps> = ({ text, href, index, onNavigate }) => (
 
 const DesktopNav = ({ scrollTo, scrollY }: NavProps) => {
   const [isStacked, setIsStacked] = useState(false);
+  const isStackedRef = useRef(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsStacked(latest > 500);
+    const next = latest > 500;
+    if (next === isStackedRef.current) return;
+    isStackedRef.current = next;
+    setIsStacked(next);
   });
 
   return (

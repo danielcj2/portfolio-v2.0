@@ -42,6 +42,7 @@ const AnimatedLogo = ({ onClick }: { onClick: () => void }) => {
       <a
         href="#hero"
         className="cursor-pointer"
+        aria-label="Scroll to top"
         onClick={(e) => {
           e.preventDefault();
           if (onClick) onClick();

@@ -15,6 +15,8 @@ const Canvas = ({
 }) => {
   const canvas = useRef<HTMLCanvasElement>(null);
   const maskCanvas = useRef<HTMLCanvasElement | null>(null);
+  const drawRafRef = useRef<number | null>(null);
+  const pendingPointRef = useRef<{ x: number; y: number } | null>(null);
 
   const drawRevealText = useCallback(
     (ctx: CanvasRenderingContext2D) => {
@@ -75,7 +77,16 @@ const Canvas = ({
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    draw(x, y, REVEAL_BRUSH_RADIUS);
+    pendingPointRef.current = { x, y };
+
+    if (drawRafRef.current !== null) return;
+
+    drawRafRef.current = window.requestAnimationFrame(() => {
+      drawRafRef.current = null;
+      const point = pendingPointRef.current;
+      if (!point) return;
+      draw(point.x, point.y, REVEAL_BRUSH_RADIUS);
+    });
   };
 
   const draw = (x: number, y: number, radius: number) => {
@@ -98,6 +109,16 @@ const Canvas = ({
     render(ctx, mask);
   };
 
+  useEffect(() => {
+    return () => {
+      if (drawRafRef.current !== null) {
+        window.cancelAnimationFrame(drawRafRef.current);
+        drawRafRef.current = null;
+      }
+      pendingPointRef.current = null;
+    };
+  }, []);
+
   return (
     <div className="absolute inset-0 z-2 h-full w-full">
       <canvas
@@ -114,20 +135,39 @@ const Canvas = ({
 const ScratchGradient = () => {
   const card = useRef<HTMLDivElement>(null);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
+  const lastSizeRef = useRef({ width: 0, height: 0 });
 
-  const resize = () => {
-    setDimension({
+  const resize = useCallback(() => {
+    const next = {
       width: card.current?.offsetWidth || 0,
       height: card.current?.offsetHeight || 0,
-    });
-  };
+    };
+
+    if (
+      next.width === lastSizeRef.current.width &&
+      next.height === lastSizeRef.current.height
+    ) {
+      return;
+    }
+
+    lastSizeRef.current = next;
+    setDimension(next);
+  }, []);
 
   useEffect(() => {
     resize();
 
+    if (!card.current) return;
+
+    const observer = new ResizeObserver(resize);
+    observer.observe(card.current);
+
     window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-  }, []);
+    return () => {
+      window.removeEventListener("resize", resize);
+      observer.disconnect();
+    };
+  }, [resize]);
 
   return (
     <Card

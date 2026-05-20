@@ -101,10 +101,33 @@ const EyesTracker = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useSpring(0, SPRING);
   const mouseY = useSpring(0, SPRING);
+  const frameRef = useRef<number | null>(null);
+  const pointerRef = useRef<{ x: number; y: number } | null>(null);
   const [stage, setStage] = useState<TextState>("idle");
   const [isHovered, setIsHovered] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isInView = useInView(containerRef, { amount: 0.15 });
+
+  const updateEyes = useCallback(
+    (clientX: number, clientY: number) => {
+      if (!containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const dx = clientX - centerX;
+      const dy = clientY - centerY;
+      const distance = Math.hypot(dx, dy);
+
+      if (distance <= 0) return;
+
+      const distanceFactor = Math.min(distance / 50, 1);
+      mouseX.set((dx / distance) * distanceFactor * MAX_MOVE);
+      mouseY.set((dy / distance) * distanceFactor * MAX_MOVE);
+    },
+    [mouseX, mouseY],
+  );
 
   const clearTimer = useCallback(() => {
     if (timerRef.current) {
@@ -142,28 +165,31 @@ const EyesTracker = () => {
   useEffect(() => {
     if (!isInView) return;
 
-    const handleMouseMove = ({ clientX, clientY }: MouseEvent) => {
-      if (!containerRef.current) return;
-
-      const rect = containerRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      // Calculate direction and normalize
-      const dx = clientX - centerX;
-      const dy = clientY - centerY;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance > 0) {
-        // Normalize and scale to MAX_MOVE
-        mouseX.set((dx / distance) * Math.min(distance / 50, 1) * MAX_MOVE);
-        mouseY.set((dy / distance) * Math.min(distance / 50, 1) * MAX_MOVE);
-      }
+    const flushPointer = () => {
+      frameRef.current = null;
+      const point = pointerRef.current;
+      if (!point) return;
+      updateEyes(point.x, point.y);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [isInView, mouseX, mouseY]);
+    const handleMouseMove = ({ clientX, clientY }: MouseEvent) => {
+      pointerRef.current = { x: clientX, y: clientY };
+
+      if (frameRef.current !== null) return;
+      frameRef.current = window.requestAnimationFrame(flushPointer);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      pointerRef.current = null;
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+        frameRef.current = null;
+      }
+    };
+  }, [isInView, updateEyes]);
 
   return (
     <Card

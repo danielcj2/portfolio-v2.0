@@ -8,7 +8,7 @@ import Card from "@/components/ui/Card";
 type ToolEntry = { name: string; icon: string };
 type ToolProps = ToolEntry & { onHover: (name: string | null) => void };
 
-const r2Url = "https://pub-28857b6000b74245a3cbaa8cc4e27605.r2.dev";
+const r2Url = process.env.NEXT_PUBLIC_LOGOS;
 
 // TODO [] move data to lib when switching to s3 bucket for images
 const UI: ToolEntry[] = [

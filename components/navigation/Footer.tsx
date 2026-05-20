@@ -22,6 +22,7 @@ const Footer = () => {
     >
       <div
         className="bg-background pointer-events-none relative z-1 w-screen md:fixed md:bottom-0"
+        
         style={{ height: FOOTER_HEIGHT }}
       >
         <div className="pointer-events-none absolute bottom-0 left-0 flex h-screen w-screen justify-around opacity-70 md:justify-between">

@@ -39,10 +39,10 @@ main::before,
 
 main::before,
 #screen::before {
-  opacity: 0.02;
+  opacity: 0.022;
   z-index: 1;
   background: url("../assets/other/noise.gif");
-  background-size: contain;
+  background-size: 800px auto;
 }
 
 main::before {

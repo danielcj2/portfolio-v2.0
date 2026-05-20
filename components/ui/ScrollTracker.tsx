@@ -2,15 +2,19 @@
 
 import { useScrollContainer } from "@/providers/ScrollContext";
 import { useMotionValueEvent, useScroll } from "motion/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const ScrollTracker = () => {
   const container = useScrollContainer();
   const { scrollYProgress } = useScroll({ container });
   const [progress, setProgress] = useState<number>(0);
+  const progressRef = useRef(0);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    setProgress(Math.round(latest * 100));
+    const next = Math.round(latest * 100);
+    if (next === progressRef.current) return;
+    progressRef.current = next;
+    setProgress(next);
   });
 
   return (

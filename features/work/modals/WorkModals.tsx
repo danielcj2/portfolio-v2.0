@@ -34,7 +34,7 @@ const PROJECTS: Project[] = [
     color: "bg-[#CF1736]",
     overlay: "bg-[#CF1736]/70",
     video: `${r2Url}/quickqr.webm`,
-    placeholder: `${r2Url}/quickqr-placeholder.png`,
+    placeholder: `${r2Url}/quickqr.png`,
   },
   {
     id: "bluewave",
@@ -45,7 +45,7 @@ const PROJECTS: Project[] = [
     color: "bg-[#1777CF]",
     overlay: "bg-[#1777CF]/70",
     video: `${r2Url}/bluewave.webm`,
-    placeholder: `${r2Url}/bluewave-placeholder.png`,
+    placeholder: `${r2Url}/bluewave.png`,
   },
   {
     id: "bogue",
@@ -56,7 +56,7 @@ const PROJECTS: Project[] = [
     color: "bg-[#CF9117]",
     overlay: "bg-[#CF9117]/70",
     video: `${r2Url}/bogue.webm`,
-    placeholder: `${r2Url}/bogue-placeholder.png`,
+    placeholder: `${r2Url}/bogue.png`,
   },
 ];
 

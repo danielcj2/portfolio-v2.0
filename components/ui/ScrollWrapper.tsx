@@ -5,7 +5,6 @@ import r48Mask from "@/images/r48.svg?url";
 import r36Mask from "@/images/r36.svg?url";
 
 import { useEffect, useRef } from "react";
-import { cancelFrame, frame, FrameData } from "motion/react";
 import { useLenisRef } from "@/providers/LenisContext";
 import { useScrollContainer } from "@/providers/ScrollContext";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
@@ -18,7 +17,7 @@ const ScrollWrapper = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const lenis = new Lenis({
-      autoRaf: false,
+      autoRaf: true,
       wrapper: wrapper.current ?? undefined,
       content: content.current ?? undefined,
       // infinite: true,
@@ -26,15 +25,7 @@ const ScrollWrapper = ({ children }: { children: React.ReactNode }) => {
     });
     lenisRef.current = lenis;
 
-    function update(data: FrameData) {
-      const time = data.timestamp;
-      lenis.raf(time);
-    }
-
-    frame.update(update, true);
-
     return () => {
-      cancelFrame(update);
       lenisRef.current = null;
       lenis.destroy();
     };

@@ -15,6 +15,7 @@ const TO = "var(--color-foreground)";
 const TextFade = ({ children }: { children: string }) => {
   const target = useRef<HTMLSpanElement>(null);
   const [animate, setAnimate] = useState(false);
+  const animateRef = useRef(false);
   const reduceMotion = useReducedMotion();
   const container = useScrollContainer();
 
@@ -25,7 +26,10 @@ const TextFade = ({ children }: { children: string }) => {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    setAnimate(!reduceMotion && latest > 0.5);
+    const next = !reduceMotion && latest > 0.5;
+    if (next === animateRef.current) return;
+    animateRef.current = next;
+    setAnimate(next);
   });
 
   return (
