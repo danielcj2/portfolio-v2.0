@@ -66,6 +66,7 @@ const Modal = ({
                       fallbackFocus: () => modalRef.current ?? document.body,
                       escapeDeactivates: false,
                       allowOutsideClick: true,
+                      preventScroll: true,
                     }}
                   >
                     <motion.div

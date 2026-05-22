@@ -7,7 +7,6 @@ import { Analytics } from "@vercel/analytics/next";
 
 import type { Metadata } from "next";
 import { geistSans, geistMono, chakraPetch } from "@/lib/fonts";
-import { getInitialMobile } from "@/lib/getInitialMobile";
 import { LenisProvider } from "@/providers/LenisContext";
 import { ScrollProvider } from "@/providers/ScrollContext";
 import { MediaQueryProvider } from "@/providers/MediaQueryContext";
@@ -68,8 +67,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialMobile = await getInitialMobile();
-
   return (
     <html lang="en">
       <body
@@ -84,7 +81,7 @@ export default async function RootLayout({
         />
         <LenisProvider>
           <ScrollProvider>
-            <MediaQueryProvider initialMobile={initialMobile}>
+            <MediaQueryProvider>
               <Header />
               <ScrollWrapper>{children}</ScrollWrapper>
             </MediaQueryProvider>

@@ -30,7 +30,7 @@ const AnimatedLogo = ({ onClick }: { onClick: () => void }) => {
 
   return (
     <motion.div
-      className="[pointer-events:all] relative mt-6 h-min justify-self-center"
+      className="[pointer-events:all] relative col-span-1 mt-6 h-min justify-self-center ml-12 lg:ml-6 xl:ml-0 xl:col-span-1"
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={reset}

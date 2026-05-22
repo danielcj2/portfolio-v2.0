@@ -138,77 +138,79 @@ const DesktopNav = ({ scrollTo, scrollY }: NavProps) => {
   });
 
   return (
-    <div className="mx grid-12 w-full pt-8">
-      <AnimatedLogo onClick={() => scrollTo("#hero")} />
-      <AnimatePresence>
-        {isStacked && (
-          <motion.div
-            className="col-start-10 justify-self-end"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-          >
-            <ScrollTracker />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <motion.nav
-        className={`relative col-start-11 col-end-13 flex h-min w-min justify-self-end ${isStacked ? "-mt-6 -mr-6 flex-col pb-8 pl-8" : "-mt-2 mr-2 flex-row"} gap-5 p-4`}
-      >
-        {SECTIONS.map(({ text, href }, index) => (
-          <motion.div
-            key={text}
-            layout="position"
-            transition={{
-              duration: 0.4,
-              ease: [0.43, 0.13, 0.23, 0.96],
-            }}
-          >
-            <NavLink
-              text={text}
-              href={href}
-              index={index}
-              onNavigate={scrollTo}
-            />
-          </motion.div>
-        ))}
+    <div className="w-screen hidden md:block">
+      <div className="mx grid-12 pt-8">
+        <AnimatedLogo onClick={() => scrollTo("#hero")} />
         <AnimatePresence>
           {isStacked && (
-            <>
-              <motion.div
-                id="menu"
-                className="glass-v2 pointer-events-auto absolute inset-0 -z-1 h-full w-full"
-                style={{
-                  maskImage: `url(${r48Mask})`,
-                  WebkitMaskImage: `url(${r48Mask})`,
-                  maskSize: "200% 200%",
-                  WebkitMaskSize: "200% 200%",
-                  maskPosition: "bottom left",
-                  WebkitMaskPosition: "bottom left",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskRepeat: "no-repeat",
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: isStacked ? 1 : 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-              />
-              <motion.div
-                className="glass-v2 absolute top-0 right-full -z-1 aspect-square h-auto w-1/6 mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)]"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: isStacked ? 1 : 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-              />
-              <motion.div
-                className="glass-v2 absolute top-full right-0 -z-1 aspect-square h-auto w-1/6 mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)]"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: isStacked ? 1 : 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-              />
-            </>
+            <motion.div
+              className="col-start-10 justify-self-end"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            >
+              <ScrollTracker />
+            </motion.div>
           )}
         </AnimatePresence>
-      </motion.nav>
+        <motion.nav
+          className={`relative col-start-11 col-end-13 flex h-min w-min justify-self-end ${isStacked ? "-mt-6 -mr-6 flex-col pb-8 pl-8" : "-mt-2 mr-2 flex-row"} gap-5 p-4`}
+        >
+          {SECTIONS.map(({ text, href }, index) => (
+            <motion.div
+              key={text}
+              layout="position"
+              transition={{
+                duration: 0.4,
+                ease: [0.43, 0.13, 0.23, 0.96],
+              }}
+            >
+              <NavLink
+                text={text}
+                href={href}
+                index={index}
+                onNavigate={scrollTo}
+              />
+            </motion.div>
+          ))}
+          <AnimatePresence>
+            {isStacked && (
+              <>
+                <motion.div
+                  id="menu"
+                  className="glass-v2 pointer-events-auto absolute inset-0 -z-1 h-full w-full"
+                  style={{
+                    maskImage: `url(${r48Mask})`,
+                    WebkitMaskImage: `url(${r48Mask})`,
+                    maskSize: "200% 200%",
+                    WebkitMaskSize: "200% 200%",
+                    maskPosition: "bottom left",
+                    WebkitMaskPosition: "bottom left",
+                    maskRepeat: "no-repeat",
+                    WebkitMaskRepeat: "no-repeat",
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isStacked ? 1 : 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="glass-v2 absolute top-0 right-full -z-1 aspect-square h-auto w-1/6 mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)]"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isStacked ? 1 : 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="glass-v2 absolute top-full right-0 -z-1 aspect-square h-auto w-1/6 mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)]"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isStacked ? 1 : 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                />
+              </>
+            )}
+          </AnimatePresence>
+        </motion.nav>
+      </div>
     </div>
   );
 };
@@ -226,6 +228,7 @@ const MobileNav = ({
         <a
           href="#hero"
           className="cursor-pointer"
+          aria-label="Scroll to top"
           onClick={(e) => {
             e.preventDefault();
             scrollTo("#hero");
@@ -266,6 +269,7 @@ const MobileNav = ({
         <div className="relative flex h-200 w-full flex-col items-end overflow-hidden">
           <motion.button
             type="button"
+            aria-label="Toggle menu"
             className="relative aspect-square size-14 cursor-pointer"
             onClick={() => setIsOpen((prev) => !prev)}
           >

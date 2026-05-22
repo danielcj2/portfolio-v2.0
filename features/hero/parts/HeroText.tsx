@@ -96,7 +96,7 @@ const HeroText = React.memo(({ progress }: HeroTextProps) => {
         </div>
       </div>
       <MotionImage
-        className="pointer-events-none relative isolate ml-auto h-auto w-100 translate-x-1/2 mask-cover drop-shadow-[0_0_40px_rgba(255,255,255,0.15)] select-none md:mx-auto md:w-auto md:translate-none"
+        className="pointer-events-none relative isolate ml-auto h-auto w-100 translate-x-1/2 mask-cover drop-shadow-[0_0_40px_rgba(255,255,255,0.15)] select-none md:mx-auto md:w-160 md:translate-none"
         style={{ maskImage, WebkitMaskImage: maskImage, scale }}
         src={portrait}
         alt="portrait"
@@ -104,6 +104,7 @@ const HeroText = React.memo(({ progress }: HeroTextProps) => {
         height={636}
         loading="eager"
         fetchPriority="high"
+        sizes="(max-width: 768px) 40vw, (max-width: 1280px) 50vw, auto"
         draggable={false}
       />
     </div>
