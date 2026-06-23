@@ -56,6 +56,18 @@ const Screen = ({ progress }: ScreenProps) => {
   const { isMobile } = useMediaQuery();
   const [isMaskEnabled, setIsMaskEnabled] = useState(false);
   const maskEnabledRef = useRef(false);
+  const parallaxItems = useMemo(
+    () => [
+      "Start a Conversation",
+      "Hola, Let's Talk Ideas",
+      "Connect With Me",
+      "Bonjour, say it back!",
+      "I'd Love to Hear From You",
+      "Reach Out Anytime",
+      "やあ！話そうよ！",
+    ],
+    [],
+  );
 
   useMotionValueEvent(progress, "change", (value) => {
     const nextEnabled = value >= 0.5;
@@ -130,15 +142,7 @@ const Screen = ({ progress }: ScreenProps) => {
       <div className="text-background absolute inset-0 col-span-full">
         <TextParallax
           className="text-background text-8xl"
-          items={[
-            "Start a Conversation",
-            "Hola, Let's Talk Ideas",
-            "Connect With Me",
-            "Bonjour, say it back!",
-            "I'd Love to Hear From You",
-            "Reach Out Anytime",
-            "やあ！話そうよ！",
-          ]}
+          items={parallaxItems}
           options={{
             baseVelocity: 60,
             direction: "left",

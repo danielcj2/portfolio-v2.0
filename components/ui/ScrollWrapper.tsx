@@ -8,6 +8,7 @@ import { useEffect, useRef } from "react";
 import { useLenisRef } from "@/providers/LenisContext";
 import { useScrollContainer } from "@/providers/ScrollContext";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
+import { useAnimationFrame } from "motion/react";
 
 const ScrollWrapper = ({ children }: { children: React.ReactNode }) => {
   const wrapper = useScrollContainer();
@@ -17,7 +18,7 @@ const ScrollWrapper = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const lenis = new Lenis({
-      autoRaf: true,
+      autoRaf: false,
       wrapper: wrapper.current ?? undefined,
       content: content.current ?? undefined,
       // infinite: true,
@@ -30,6 +31,10 @@ const ScrollWrapper = ({ children }: { children: React.ReactNode }) => {
       lenis.destroy();
     };
   }, [lenisRef, wrapper]);
+
+  useAnimationFrame((time) => {
+    lenisRef.current?.raf(time);
+  });
 
   return (
     <div

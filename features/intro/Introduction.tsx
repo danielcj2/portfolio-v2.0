@@ -26,7 +26,7 @@ const Introduction = () => {
       <div className="mx grid-12 relative gap-x-0">
         <div className="text-muted-v2 col-span-full text-[32px] leading-snug font-medium tracking-tighter text-pretty md:text-center md:indent-[15%] md:text-[42px] xl:indent-[34%]">
           <p>
-            Slightly chaotic <TextFade>Frontend Developer</TextFade>
+            Slightly obsessive <TextFade>Frontend Developer</TextFade>
             <sup className="text-[0.5em]">(3+ years)</sup> — breaking things
             just to fix them better,{" "}
             <span className="hidden md:inline">nudging interactions</span> and{" "}

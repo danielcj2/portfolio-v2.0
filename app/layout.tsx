@@ -11,6 +11,7 @@ import { LenisProvider } from "@/providers/LenisContext";
 import { ScrollProvider } from "@/providers/ScrollContext";
 import { MediaQueryProvider } from "@/providers/MediaQueryContext";
 import ScrollWrapper from "@/ui/ScrollWrapper";
+import SiteBootGate from "@/providers/SiteBootGate";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 const sameAs = [
@@ -82,8 +83,10 @@ export default async function RootLayout({
         <LenisProvider>
           <ScrollProvider>
             <MediaQueryProvider>
-              <Header />
-              <ScrollWrapper>{children}</ScrollWrapper>
+              <SiteBootGate>
+                <Header />
+                <ScrollWrapper>{children}</ScrollWrapper>
+              </SiteBootGate>
             </MediaQueryProvider>
           </ScrollProvider>
         </LenisProvider>

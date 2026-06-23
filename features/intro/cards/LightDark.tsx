@@ -67,7 +67,7 @@ const LightDark = () => {
       <motion.div
         className="absolute inset-0 will-change-[clip-path] contain-paint"
         onHoverStart={() => setHovered("left")}
-        initial={{ clipPath: `inset(0 50% 0 0)` }}
+        initial={false}
         animate={{ clipPath: `inset(0 ${100 - leftClip}% 0 0)` }}
         transition={CLIP_TRANSITION}
       >
@@ -87,7 +87,7 @@ const LightDark = () => {
       <motion.div
         className="absolute inset-0 will-change-[clip-path] contain-paint"
         onHoverStart={() => setHovered("right")}
-        initial={{ clipPath: `inset(0 0 0 50%)` }}
+        initial={false}
         animate={{ clipPath: `inset(0 0 0 ${100 - rightClip}%)` }}
         transition={CLIP_TRANSITION}
       >

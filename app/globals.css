@@ -136,6 +136,12 @@ main::before {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-template-rows: auto;
   }
+
+  .bento-grid-cv > :not(.bento-overlay) {
+    content-visibility: auto;
+    contain: layout paint style;
+    contain-intrinsic-size: 420px 320px;
+  }
 }
 
 @media (max-width: 767px) {

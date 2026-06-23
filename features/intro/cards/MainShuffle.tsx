@@ -109,7 +109,7 @@ const MainShuffle = () => {
             width={1250}
             height={937}
             className="h-auto w-full"
-            loading="lazy"
+            loading="eager"
             sizes="(max-width: 768px) 100vw, 35vw"
           />
           <div className="bg-foreground/30 absolute -inset-1.25 -z-1 w-auto rounded-xl" />
@@ -137,7 +137,6 @@ const MainShuffle = () => {
                 width={2000}
                 height={1400}
                 className="h-full w-full"
-                loading="lazy"
                 sizes="(max-width: 768px) 100vw, 70vw"
               />
             </motion.div>

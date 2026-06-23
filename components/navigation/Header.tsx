@@ -23,6 +23,7 @@ import {
   HEADER_SCROLL_START_OFFSET,
 } from "@/lib/layoutHeights";
 import { usePathname } from "next/navigation";
+import { useSiteBoot } from "../../providers/SiteBootGate";
 
 type NavProps = {
   scrollTo: (target: SectionHref) => void;
@@ -129,6 +130,7 @@ const NavLink: React.FC<NavLinkProps> = ({ text, href, index, onNavigate }) => (
 const DesktopNav = ({ scrollTo, scrollY }: NavProps) => {
   const [isStacked, setIsStacked] = useState(false);
   const isStackedRef = useRef(false);
+  const { isBootComplete } = useSiteBoot();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const next = latest > 500;
@@ -138,8 +140,13 @@ const DesktopNav = ({ scrollTo, scrollY }: NavProps) => {
   });
 
   return (
-    <div className="w-screen hidden md:block">
-      <div className="mx grid-12 pt-8">
+    <div className="hidden w-screen md:block">
+      <motion.div
+        className="mx grid-12 pt-8"
+        initial={{ y: "-100%" }}
+        animate={{ y: isBootComplete ? "0%" : "-100%" }}
+        transition={{ duration: 0.7, ease: "easeOut", delay: 0.4 }}
+      >
         <AnimatedLogo onClick={() => scrollTo("#hero")} />
         <AnimatePresence>
           {isStacked && (
@@ -210,7 +217,7 @@ const DesktopNav = ({ scrollTo, scrollY }: NavProps) => {
             )}
           </AnimatePresence>
         </motion.nav>
-      </div>
+      </motion.div>
     </div>
   );
 };

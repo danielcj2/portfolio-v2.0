@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import TextFlip from "../animations/TextFlip";
 import TextGrow from "../animations/TextGrow";
@@ -137,7 +137,7 @@ const DesktopView = ({
   const spacer = useRef<HTMLDivElement>(null);
   const [spacerHeight, setSpacerHeight] = useState<number>(0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const updateHeight = () => {
       if (offset === "bottom") {
         const gridHeight = grid.current?.offsetHeight ?? 0;
@@ -153,9 +153,14 @@ const DesktopView = ({
       }
     };
 
+    const resizeObserver = new ResizeObserver(updateHeight);
+    if (max.current) resizeObserver.observe(max.current);
+    if (wrapper.current) resizeObserver.observe(wrapper.current);
+
     updateHeight();
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
+    return () => {
+      resizeObserver.disconnect();
+    };
   }, [offset]);
 
   return (
