@@ -110,6 +110,7 @@ const MainShuffle = () => {
             height={937}
             className="h-auto w-full"
             loading="eager"
+            decoding="async"
             sizes="(max-width: 768px) 100vw, 35vw"
           />
           <div className="bg-foreground/30 absolute -inset-1.25 -z-1 w-auto rounded-xl" />
@@ -118,7 +119,7 @@ const MainShuffle = () => {
       <div className="center-xy aspect-1000/700 h-auto w-[75%]">
         <motion.div
           aria-hidden="true"
-          className="relative h-full w-full origin-[80%_20%] will-change-transform"
+          className="relative h-full w-full origin-[80%_20%]"
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: isHovered ? 1 : 0.65, opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
@@ -126,7 +127,7 @@ const MainShuffle = () => {
           <div className="absolute -inset-1.5 -z-1 w-auto rounded-[30px] bg-[#f2f3f0]" />
           <div className="relative z-0 h-full w-full overflow-hidden rounded-3xl shadow-[0px_0px_10px_rgba(0,0,0,0.75)]">
             <motion.div
-              className="absolute top-0 left-0 h-[200%] w-[200%] will-change-transform"
+              className="absolute top-0 left-0 h-[200%] w-[200%]"
               animate={stage}
               variants={shuffle}
               transition={TRANSITION}
@@ -137,6 +138,7 @@ const MainShuffle = () => {
                 width={2000}
                 height={1400}
                 className="h-full w-full"
+                decoding="async"
                 sizes="(max-width: 768px) 100vw, 70vw"
               />
             </motion.div>

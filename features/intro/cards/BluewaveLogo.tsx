@@ -16,6 +16,7 @@ const BluewaveLogo = () => {
           width={125}
           height={125}
           sizes="125px"
+          decoding="async"
         />
       </div>
     </Card>

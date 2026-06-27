@@ -39,7 +39,7 @@ const ScrollWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       id="scroll-container"
-      className="relative h-screen w-screen overflow-auto will-change-scroll"
+      className="relative h-screen w-screen overflow-auto"
       ref={wrapper}
       style={{
         maskImage: `url(${isMobile ? r36Mask : r48Mask})`,

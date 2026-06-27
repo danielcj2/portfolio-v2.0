@@ -210,7 +210,7 @@ const CNTower = () => {
             className={`pointer-events-none absolute h-full w-auto ${wrapperClass}`}
             variants={variants}
           >
-            <Image src={cloud} alt="" className={imageClass} sizes="8vw" loading="eager" />
+            <Image src={cloud} alt="" className={imageClass} sizes="8vw" loading="eager" decoding="async" />
           </motion.div>
         ))}
         <motion.div
@@ -224,6 +224,7 @@ const CNTower = () => {
               className="h-full w-full opacity-80"
               sizes="12vw"
               loading="eager"
+              decoding="async"
             />
           </motion.div>
           <div className="bg-background/60 pointer-events-none absolute inset-0 mix-blend-color" />

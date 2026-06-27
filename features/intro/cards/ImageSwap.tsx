@@ -56,6 +56,7 @@ const ImageSwap = () => {
             alt={alt}
             className="h-full w-auto max-w-none shadow-2xl"
             loading="lazy"
+            decoding="async"
             width={800}
             height={800}
             sizes="(max-width: 768px) 80vw, 18vw"

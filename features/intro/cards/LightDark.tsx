@@ -65,7 +65,7 @@ const LightDark = () => {
         onHover={() => setHovered("left")}
       />
       <motion.div
-        className="absolute inset-0 will-change-[clip-path] contain-paint"
+        className="absolute inset-0 contain-paint"
         onHoverStart={() => setHovered("left")}
         initial={false}
         animate={{ clipPath: `inset(0 ${100 - leftClip}% 0 0)` }}
@@ -80,12 +80,13 @@ const LightDark = () => {
             height={930}
             className="pointer-events-none h-full w-auto max-w-none object-contain select-none"
             sizes="(max-width: 1280px) 40vw, 24vw"
+            decoding="async"
           />
           <div className="bg-foreground/20 absolute -inset-1.5 -z-1 w-auto rounded-lg" />
         </div>
       </motion.div>
       <motion.div
-        className="absolute inset-0 will-change-[clip-path] contain-paint"
+        className="absolute inset-0 contain-paint"
         onHoverStart={() => setHovered("right")}
         initial={false}
         animate={{ clipPath: `inset(0 0 0 ${100 - rightClip}%)` }}
@@ -100,6 +101,7 @@ const LightDark = () => {
             height={930}
             className="pointer-events-none h-full w-auto max-w-none object-contain select-none"
             sizes="(max-width: 1280px) 40vw, 24vw"
+            decoding="async"
           />
           <div className="bg-background/30 absolute -inset-1 -z-1 w-auto rounded-lg" />
         </div>

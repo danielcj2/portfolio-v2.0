@@ -47,7 +47,7 @@ const MobileScroller = () => {
       <div className="pointer-events-none absolute inset-0 z-0 bg-[repeating-linear-gradient(30deg,#3E3E4C_0,#3E3E4C_2px,transparent_2px,transparent_12px,#1e1e24_12px,#1e1e24_14px,transparent_14px,transparent_40px)]" />
       <motion.div
         ref={contentRef}
-        className="relative flex h-min w-full flex-col items-center gap-6 px-10 py-8 will-change-transform"
+        className="relative flex h-min w-full flex-col items-center gap-6 px-10 py-8"
         onHoverStart={() => {
           setTargetScrollDistance(scrollDistance);
           setIsHovered(true);
@@ -68,6 +68,7 @@ const MobileScroller = () => {
             width={439}
             height={916}
             className="pointer-events-none h-auto w-full select-none"
+            decoding="async"
             sizes="(max-width: 768px) 100vw, 18vw"
           />
         ))}

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, TargetAndTransition, useReducedMotion } from "motion/react";
+import { motion, TargetAndTransition, useReducedMotion, useInView } from "motion/react";
+import { useRef } from "react";
 
 type LineFadeProps = {
   direction?: "horizontal" | "vertical";
@@ -38,6 +39,8 @@ const LineFade = ({
   count = 1,
   hasBadge = "none",
 }: LineFadeProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { amount: 0.1 });
   const reduceMotion = useReducedMotion();
   const { container, line, initial, animate, badge } = configs[direction];
   const STAGGER = 0.75;
@@ -45,7 +48,7 @@ const LineFade = ({
   const easeOutQuad = (t: number) => t * (2 - t);
 
   return (
-    <>
+    <div ref={ref} className="contents">
       {Array.from({ length: count }).map((_, i) => {
         const delay =
           easeOutQuad(i / Math.max(1, count - 1)) * (STAGGER * count);
@@ -66,7 +69,7 @@ const LineFade = ({
               <motion.div
                 className={`via-muted/40 absolute ${line} from-transparent to-transparent`}
                 initial={initial}
-                animate={reduceMotion ? undefined : animate}
+                animate={reduceMotion || !isInView ? initial : animate}
                 transition={{
                   duration,
                   delay,
@@ -81,7 +84,7 @@ const LineFade = ({
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

@@ -41,16 +41,10 @@ const HeadingTranslate = ({ text, direction, ...props }: HeadingProps) => {
   return (
     <motion.div
       ref={target}
-      className="will-change-transform backface-hidden"
-      transformTemplate={({ x }) => `translate3d(${x},0,0)`}
-      style={
-        reduceMotion
-          ? style
-          : { ...style, x: spring, transform: "translateZ(0)" }
-      }
+      style={reduceMotion ? style : { ...style, x: spring }}
       {...restProps}
     >
-      <div>
+      <div className="overflow-visible pr-[0.15em]">
         <p className="leading-[100%]">{text}</p>
       </div>
     </motion.div>

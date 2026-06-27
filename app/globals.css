@@ -137,10 +137,8 @@ main::before {
     grid-template-rows: auto;
   }
 
-  .bento-grid-cv > :not(.bento-overlay) {
-    content-visibility: auto;
+  .bento-grid-cv > * {
     contain: layout paint style;
-    contain-intrinsic-size: 420px 320px;
   }
 }
 

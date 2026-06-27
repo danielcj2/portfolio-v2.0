@@ -219,7 +219,7 @@ const WorkModals = () => {
                     }}
                     transition={{ duration: 0.4 }}
                   />
-                  <div className="absolute bottom-0 p-4 text-2xl">
+                  <div className="absolute bottom-0 p-4 text-xl md:text-2xl">
                     <p className="font-medium">{project.title}</p>
                     <p className="font-extralight italic">{project.subtitle}</p>
                   </div>
