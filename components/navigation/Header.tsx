@@ -1,325 +1,30 @@
 "use client";
 
-import ScrollTracker from "@/ui/ScrollTracker";
-import AnimatedLogo from "@/animations/AnimatedLogo";
+import Menu from "./Menu";
 import Logo from "@/images/logo.svg";
-import r48Mask from "@/images/r48.svg?url";
 
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useLenisScroll } from "@/providers/LenisContext";
+import { useScrollContainer } from "@/providers/ScrollContext";
+import {
+  CONTACT_HEIGHT,
+  HEADER_SCROLL_START_OFFSET,
+} from "@/lib/layoutHeights";
 import {
   useScroll,
   motion,
   useMotionValueEvent,
   AnimatePresence,
-  useTransform,
-  useSpring,
-  type MotionValue,
 } from "motion/react";
-import { useRef, useState } from "react";
-import { useLenisScroll } from "@/providers/LenisContext";
-import { useScrollContainer } from "@/providers/ScrollContext";
-import { useMediaQuery } from "@/providers/MediaQueryContext";
-import {
-  CONTACT_HEIGHT,
-  HEADER_SCROLL_START_OFFSET,
-} from "@/lib/layoutHeights";
-import { usePathname } from "next/navigation";
-import { useSiteBoot } from "../../providers/SiteBootGate";
-
-type NavProps = {
-  scrollTo: (target: SectionHref) => void;
-  scrollY: MotionValue;
-};
-
-type NavLinkProps = {
-  text: string;
-  href: SectionHref;
-  index: number;
-  onNavigate: (target: SectionHref) => void;
-};
-
-type SectionHref = "#hero" | "#work" | "#about" | "#footer";
-
-const SECTIONS = [
-  { text: "my work", href: "#work" },
-  { text: "about me", href: "#about" },
-  { text: "reach out", href: "#footer" },
-] as const;
-
-const MENU_TRANSITION = {
-  duration: 0.3,
-  ease: [0.43, 0.13, 0.23, 0.96] as const,
-};
-
-const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
-  <div className="absolute top-2 right-2 size-7 min-h-7 min-w-7">
-    <motion.span
-      className="absolute top-1 block h-0.5 w-3 rounded-full bg-white"
-      initial={false}
-      animate={
-        isOpen
-          ? {
-              top: "50%",
-              left: "50%",
-              x: "-50%",
-              y: "-50%",
-              width: 20,
-              rotate: 45,
-            }
-          : { top: 4, left: 0, x: 0, y: 0, width: 12, rotate: 0 }
-      }
-      transition={MENU_TRANSITION}
-    />
-    <motion.span
-      className="absolute top-1/2 left-0 block h-0.5 w-7 -translate-y-1/2 rounded-full bg-white"
-      initial={false}
-      animate={
-        isOpen
-          ? { left: "50%", x: "-50%", width: 20, rotate: -45 }
-          : { left: 0, x: 0, width: 28, rotate: 0 }
-      }
-      transition={MENU_TRANSITION}
-    />
-    <motion.span
-      className="bg-muted-v2 absolute top-5.5 right-0 block h-0.5 w-3 rounded-full"
-      initial={false}
-      animate={isOpen ? { opacity: 0, x: 6 } : { opacity: 1, x: 0 }}
-      transition={MENU_TRANSITION}
-    />
-  </div>
-);
-
-const NavLink: React.FC<NavLinkProps> = ({ text, href, index, onNavigate }) => (
-  <a
-    href={href}
-    className="[pointer-events:all] text-[0.8125rem] capitalize"
-    onClick={(e) => {
-      e.preventDefault();
-      onNavigate(href);
-    }}
-  >
-    <motion.div
-      className="ml-auto flex w-min flex-col gap-0.5 whitespace-nowrap"
-      initial="initial"
-      whileHover="hovered"
-    >
-      <div className="flex items-center justify-between gap-1">
-        <motion.span
-          className="bg-muted block h-px w-full origin-right opacity-35"
-          variants={{
-            initial: { scaleX: 0 },
-            hovered: { scaleX: 1 },
-          }}
-          transition={{ duration: 0.3, ease: "easeOut", delay: 0.1 }}
-        />
-        <motion.p
-          className="font-chakra text-[0.6875rem] leading-3 font-bold tracking-wider"
-          variants={{
-            initial: { color: "var(--color-muted)" },
-            hovered: { color: "var(--color-accent)" },
-          }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        >
-          0{index + 1}
-        </motion.p>
-      </div>
-      <p className="text-end font-[550]">{text}</p>
-    </motion.div>
-  </a>
-);
-
-const DesktopNav = ({ scrollTo, scrollY }: NavProps) => {
-  const [isStacked, setIsStacked] = useState(false);
-  const isStackedRef = useRef(false);
-  const { isBootComplete } = useSiteBoot();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const next = latest > 500;
-    if (next === isStackedRef.current) return;
-    isStackedRef.current = next;
-    setIsStacked(next);
-  });
-
-  return (
-    <div className="hidden w-screen md:block">
-      <motion.div
-        className="mx grid-12 pt-8"
-        initial={{ y: "-100%" }}
-        animate={{ y: isBootComplete ? "0%" : "-100%" }}
-        transition={{ duration: 0.7, ease: "easeOut", delay: 0.4 }}
-      >
-        <AnimatedLogo onClick={() => scrollTo("#hero")} />
-        <AnimatePresence>
-          {isStacked && (
-            <motion.div
-              className="col-start-10 justify-self-end"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-            >
-              <ScrollTracker />
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <motion.nav
-          className={`relative col-start-11 col-end-13 flex h-min w-min justify-self-end ${isStacked ? "-mt-6 -mr-6 flex-col pb-8 pl-8" : "-mt-2 mr-2 flex-row"} gap-5 p-4`}
-        >
-          {SECTIONS.map(({ text, href }, index) => (
-            <motion.div
-              key={text}
-              layout="position"
-              transition={{
-                duration: 0.4,
-                ease: [0.43, 0.13, 0.23, 0.96],
-              }}
-            >
-              <NavLink
-                text={text}
-                href={href}
-                index={index}
-                onNavigate={scrollTo}
-              />
-            </motion.div>
-          ))}
-          <AnimatePresence>
-            {isStacked && (
-              <>
-                <motion.div
-                  id="menu"
-                  className="glass-v2 pointer-events-auto absolute inset-0 -z-1 h-full w-full"
-                  style={{
-                    maskImage: `url(${r48Mask})`,
-                    WebkitMaskImage: `url(${r48Mask})`,
-                    maskSize: "200% 200%",
-                    WebkitMaskSize: "200% 200%",
-                    maskPosition: "bottom left",
-                    WebkitMaskPosition: "bottom left",
-                    maskRepeat: "no-repeat",
-                    WebkitMaskRepeat: "no-repeat",
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isStacked ? 1 : 0 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                />
-                <motion.div
-                  className="glass-v2 absolute top-0 right-full -z-1 aspect-square h-auto w-1/6 mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)]"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isStacked ? 1 : 0 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                />
-                <motion.div
-                  className="glass-v2 absolute top-full right-0 -z-1 aspect-square h-auto w-1/6 mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)]"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isStacked ? 1 : 0 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                />
-              </>
-            )}
-          </AnimatePresence>
-        </motion.nav>
-      </motion.div>
-    </div>
-  );
-};
-
-const MobileNav = ({
-  scrollTo,
-}: {
-  scrollTo: (target: SectionHref) => void;
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="p-gap flex max-h-24 w-full justify-between">
-      <div className="mx [pointer-events:all] relative my-4 h-min py-2">
-        <a
-          href="#hero"
-          className="cursor-pointer"
-          aria-label="Scroll to top"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollTo("#hero");
-          }}
-        >
-          <Logo className="text-foreground h-8 w-auto" />
-        </a>
-      </div>
-      <motion.div
-        className="[pointer-events:all] relative flex flex-col items-end"
-        initial={{ width: 56, height: 56 }}
-        animate={isOpen ? "open" : "closed"}
-        variants={{
-          closed: { width: 56, height: 56 },
-          open: { width: 105, height: 230 },
-        }}
-      >
-        <div className="pointer-events-none absolute inset-0 -z-1">
-          <motion.div
-            layout
-            className="glass-v2 absolute size-full rounded-bl-3xl"
-          />
-          <motion.div
-            layout="position"
-            className="glass-v2 absolute top-0 right-full -z-1 aspect-square h-auto mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)]"
-            initial={{ width: 20 }}
-            animate={{ width: isOpen ? 36 : 20 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-          />
-          <motion.div
-            layout="position"
-            className="glass-v2 absolute top-full right-0 -z-1 aspect-square h-auto mask-[radial-gradient(circle_at_bottom_left,transparent_69%,black_70%)]"
-            initial={{ width: 20 }}
-            animate={{ width: isOpen ? 36 : 20 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-          />
-        </div>
-        <div className="relative flex h-200 w-full flex-col items-end overflow-hidden">
-          <motion.button
-            type="button"
-            aria-label="Toggle menu"
-            className="relative aspect-square size-14 cursor-pointer"
-            onClick={() => setIsOpen((prev) => !prev)}
-          >
-            <MenuIcon isOpen={isOpen} />
-          </motion.button>
-          <AnimatePresence>
-            {isOpen && (
-              <motion.nav className="absolute top-14 right-0 flex h-min w-min flex-col gap-5 px-3">
-                {SECTIONS.map(({ text, href }, index) => (
-                  <motion.div
-                    key={text}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{
-                      duration: 0.3,
-                      ease: [0.43, 0.13, 0.23, 0.96],
-                      delay: index * 0.05,
-                    }}
-                  >
-                    <NavLink
-                      text={text}
-                      href={href}
-                      index={index}
-                      onNavigate={scrollTo}
-                    />
-                  </motion.div>
-                ))}
-              </motion.nav>
-            )}
-          </AnimatePresence>
-        </div>
-      </motion.div>
-    </div>
-  );
-};
 
 const Header: React.FC = () => {
-  const { scrollTo } = useLenisScroll();
-  const container = useScrollContainer();
-  const { scrollY } = useScroll({ container });
-  const { isMobile } = useMediaQuery();
   const path = usePathname();
+  const container = useScrollContainer();
+  const { scrollTo } = useLenisScroll();
+  const { scrollY } = useScroll({ container });
+  const [isVisible, setIsVisible] = useState(true);
   const isHome = path === "/" || path.startsWith("/#");
 
   const { scrollYProgress } = useScroll({
@@ -327,20 +32,61 @@ const Header: React.FC = () => {
     offset: [`end ${HEADER_SCROLL_START_OFFSET}`, `end ${CONTACT_HEIGHT}`],
   });
 
-  const transform = useTransform(scrollYProgress, [0, 1], [0, -300]);
-  const y = useSpring(transform, { stiffness: 400, damping: 90 });
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const nextValue = latest === 0;
+
+    setIsVisible((currentValue) =>
+      currentValue === nextValue ? currentValue : nextValue,
+    );
+  });
 
   return (
-    <motion.header
-      className="pointer-events-none fixed z-50 flex w-full items-start justify-between font-sans"
-      style={{ y, opacity: isHome ? 1 : 0 }}
-    >
-      {isMobile ? (
-        <MobileNav scrollTo={scrollTo} />
-      ) : (
-        <DesktopNav scrollTo={scrollTo} scrollY={scrollY} />
+    <header
+      className={cn(
+        "grid-12 mx pointer-events-none fixed inset-x-0 z-60",
+        !isHome && "opacity-0",
       )}
-    </motion.header>
+    >
+      <AnimatePresence initial={false}>
+        {isVisible && (
+          <motion.div
+            className="col-span-2 mt-6 justify-self-center md:col-span-1 md:mt-12"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <a
+              href="#hero"
+              className="pointer-events-auto block cursor-pointer py-2"
+              aria-label="Scroll to top"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollTo("#hero");
+              }}
+            >
+              <Logo className="text-foreground h-8 w-auto md:h-12" />
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence initial={false}>
+        {isVisible && (
+          <motion.div
+            className="col-span-1 mt-6 ml-2 md:mt-8 md:ml-0"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <p className="text-muted font-mono text-xs font-semibold uppercase md:text-sm">
+              v1.1
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <Menu scrollTo={scrollTo} scrollY={scrollY} isVisible={isVisible} />
+    </header>
   );
 };
 

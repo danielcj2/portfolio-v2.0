@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
 import type { Metadata } from "next";
-import { geistSans, geistMono, chakraPetch } from "@/lib/fonts";
+import { baseNeue, oxanium } from "@/lib/fonts";
 import { LenisProvider } from "@/providers/LenisContext";
 import { ScrollProvider } from "@/providers/ScrollContext";
 import { MediaQueryProvider } from "@/providers/MediaQueryContext";
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: "/",
-    languages: { "en-US": "/en" },
+    languages: { "en-CA": "/" },
   },
   robots: {
     index: true,
@@ -71,7 +71,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${chakraPetch.variable} overflow-hidden antialiased`}
+        className={`${baseNeue.variable} ${oxanium.variable} overflow-hidden antialiased`}
       >
         <Script
           id="ld-person"
@@ -83,10 +83,10 @@ export default async function RootLayout({
         <LenisProvider>
           <ScrollProvider>
             <MediaQueryProvider>
-              <SiteBootGate>
-                <Header />
-                <ScrollWrapper>{children}</ScrollWrapper>
-              </SiteBootGate>
+              {/* <SiteBootGate> */}
+              <Header />
+              <ScrollWrapper>{children}</ScrollWrapper>
+              {/* </SiteBootGate> */}
             </MediaQueryProvider>
           </ScrollProvider>
         </LenisProvider>

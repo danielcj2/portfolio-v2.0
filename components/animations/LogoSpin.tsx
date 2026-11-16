@@ -24,11 +24,11 @@ const LogoSpin = ({ text, ...props }: LogoSpinProps) => {
             rotate: { duration: 12, ease: "linear", repeat: Infinity },
           }}
         >
-          <div className="transition-scale duration-300 ease-in-out md:group-hover:scale-65">
-            <Asterisk className="[&_path]:md:group-hover:fill-foreground h-8 md:h-14 w-auto [&_path]:transition-colors [&_path]:duration-300" />
+          <div className="transition-scale duration-300 ease-in-out md:group-hover:scale-75">
+            <Asterisk className="[&_path]:md:group-hover:fill-foreground h-9 w-auto md:h-14 xl:h-15 [&_path]:transition-colors [&_path]:duration-300" />
           </div>
         </motion.div>
-        <div className="center-xy -z-1 size-16">
+        <div className="center-xy -z-1 size-20">
           <motion.svg
             className="size-full opacity-0 transition-opacity duration-300 ease-in-out md:group-hover:opacity-100"
             viewBox="0 0 100 100"
@@ -40,7 +40,7 @@ const LogoSpin = ({ text, ...props }: LogoSpinProps) => {
               id={circlePathId}
               d="M50 50 m-40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0"
             />
-            <text className="fill-foreground font-chakra stroke-0 text-[12px] font-medium tracking-wider">
+            <text className="fill-foreground stroke-0 font-mono text-[12px] font-medium tracking-wider">
               <textPath href={`#${circlePathId}`}>
                 {text ? text : "Hi stranger ✦ scroll to discover ✦"}
               </textPath>

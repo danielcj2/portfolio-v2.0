@@ -1,7 +1,6 @@
 "use client";
 
-import Timestamp from "@/ui/Timestamp";
-import WorkStatus from "./parts/WorkStatus";
+import Timestamp from "./parts/Timestamp";
 import ScrollIndicator from "./parts/ScrollIndicator";
 import HeroText from "./parts/HeroText";
 
@@ -10,10 +9,8 @@ import { useMemo, useRef } from "react";
 import { useLenisScroll } from "@/providers/LenisContext";
 import { useScrollContainer } from "@/providers/ScrollContext";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
-import { useSiteBoot } from "@/providers/SiteBootGate";
 
 const Hero = () => {
-  const { isBootComplete } = useSiteBoot();
   const { scrollTo } = useLenisScroll();
   const target = useRef<HTMLElement>(null);
   const container = useScrollContainer();
@@ -31,30 +28,25 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="z-0 flex min-h-[80vh] w-full flex-1 flex-col justify-between overflow-hidden pt-8 md:h-screen md:min-h-svh md:pb-8"
+      className="z-0 flex min-h-[96svh] w-full flex-1 flex-col justify-between overflow-hidden py-4 md:h-screen md:min-h-svh md:py-12"
       ref={target}
     >
       <MotionConfig reducedMotion="user">
-        <HeroText progress={progress} isBootComplete={isBootComplete} />
-        <div className="mx mt-8 mb-auto overflow-hidden md:my-0">
-          <motion.div
-            className="grid grid-cols-1 items-end md:grid-cols-[15rem_1fr_15rem]"
-            initial={{ y: "100%" }}
-            animate={{ y: isBootComplete ? "0%" : "100%" }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.6 }}
-          >
-            <WorkStatus status="LFW" />
-            <div className="justify-self-start md:justify-self-center">
-              <ScrollIndicator
-                progress={progress}
-                onClick={() => scrollTo("#intro")}
-              />
-            </div>
-            <div className="hidden px-4 py-1.75 text-right md:block">
+        <HeroText progress={progress} />
+        <motion.div className="grid-12 mx">
+          <div className="relative col-span-3 mr-2 h-full md:ml-5">
+            <ScrollIndicator onClick={() => scrollTo("#intro")} />
+          </div>
+          <div className="col-span-4 col-end-13 hidden overflow-hidden px-8 text-right md:block">
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 1 }}
+            >
               <Timestamp />
-            </div>
-          </motion.div>
-        </div>
+            </motion.div>
+          </div>
+        </motion.div>
       </MotionConfig>
     </section>
   );
