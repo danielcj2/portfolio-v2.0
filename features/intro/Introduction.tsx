@@ -9,84 +9,72 @@ import {
 
 import Logo from "@/images/logo.svg";
 
-import LineFade from "@/animations/LineFade";
-import TextFade from "@/animations/TextFade";
-import BentoBox from "./BentoBox";
-import { useLenisScroll } from "@/providers/LenisContext";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
 
-// REMINDER - [] For lower width screens, reduce the number of cols and adjust gaps/ col spans accordingly
+import BentoBox from "./BentoBox";
+import TextFade from "@/animations/TextFade";
+import RowFade from "@/components/animations/RowFade";
+import CueButton from "./CueButton";
 
 const Introduction = () => {
-  const { scrollTo } = useLenisScroll();
   const { isMobile, isLg } = useMediaQuery();
 
   return (
-    <section id="intro" className="relative z-0 h-min w-full py-10 md:py-24">
-      <div className="mx grid-12 relative gap-x-0">
-        <div className="text-muted-v2 col-span-full text-[32px] leading-snug font-medium tracking-tighter text-pretty md:text-center md:indent-[15%] md:text-[42px] xl:indent-[34%]">
-          <p>
+    <section
+      id="intro"
+      className="relative z-0 h-min w-full bg-neutral-900 py-10 md:pb-52"
+    >
+      <div className="mx grid-12 relative mt-8 mb-16 gap-x-0 gap-y-10 md:mt-24 md:mb-0">
+        <div className="col-span-full md:col-start-2 md:col-end-12">
+          <p className="text-muted indent-[12%] font-sans text-[26px] leading-snug font-medium tracking-[0.015em] text-pretty md:text-[34.5px]">
             Slightly obsessive <TextFade>Frontend Developer</TextFade>
-            <sup className="text-[0.5em]">(3+ years)</sup> — breaking things
-            just to fix them better,{" "}
+            <sup className="font-mono text-[0.6em] tracking-tighter">
+              (3+ years)
+            </sup>{" "}
+            — breaking things just to fix them better,{" "}
             <span className="hidden md:inline">nudging interactions</span> and{" "}
             <TextFade>refining</TextFade> the small{" "}
-            <AtomIcon className="-mr-1 inline" size={28} /> behaviours that make
-            complex <TextFade>interfaces</TextFade> feel simple, fast, and
-            natural <LeafIcon className="-mr-1 inline" size={28} />. Always
-            curious, <TextFade>endlessly</TextFade> iterating... caffeine{" "}
-            <CoffeeBeanIcon className="-mr-1 inline" size={28} /> is my
-            co-pilot.
-            <ArrowDownIcon className="relative inset-y-4 inline" size={28} />
+            <AtomIcon className="inline" size={30} /> behaviours that make{" "}
+            <TextFade>interfaces</TextFade> feel simple, fast, and natural{" "}
+            <LeafIcon className="inline" size={30} />. Always curious,{" "}
+            <TextFade>endlessly</TextFade> iterating, often losing track of
+            time... caffeine <CoffeeBeanIcon className="inline" size={30} /> is
+            my co-pilot.
+            <ArrowDownIcon className="relative inset-y-4 inline" size={30} />
           </p>
         </div>
-        <div className="text-muted col-start-1 col-end-6 mt-18 grid grid-cols-subgrid self-center">
-          <div className="col-span-6 flex items-center gap-1 text-sm leading-loose font-medium text-nowrap md:col-span-2 md:justify-end md:text-[0.8125rem]">
-            <p>Learn more </p>
-            <a
-              href="#about"
-              className="text-foreground hover:text-accent underline underline-offset-2 transition-colors duration-300 ease-in-out"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo("#about");
-              }}
-            >
-              about me
-            </a>
-            <span className="-ml-1">!</span>
+        <div className="col-span-2 col-start-2 mb-24 hidden md:block">
+          <CueButton />
+        </div>
+        <div className="col-span-full hidden grid-cols-subgrid md:grid">
+          <div className="border-muted/20 col-span-2 col-start-7 row-start-2 self-end justify-self-end border-r px-3.5">
+            <p className="text-muted max-w-[12ch] text-end font-mono text-sm leading-snug font-semibold uppercase">
+              Reveal what lies beneath
+            </p>
           </div>
-          {!isMobile && (
-            <div className="flex gap-1 self-center px-1" aria-hidden="true">
+          <div className="border-muted/20 col-span-2 col-start-9 row-start-2 flex justify-between self-end border-r pr-3.5 pl-2.75">
+            <div
+              className="text-muted/80 flex gap-1 self-end pb-1"
+              aria-hidden="true"
+            >
               {/* TODO [] - animate logos? */}
               {Array.from({ length: 3 }).map((_, i) => (
-                <Logo key={i} className="text-muted-v2 inline h-5 w-5" />
+                <Logo key={i} className="inline h-5 w-5 -scale-x-100" />
               ))}
             </div>
-          )}
-        </div>
-        {!isMobile && (
-          <div className="text-muted-v2 col-start-9 col-end-13 my-24 grid h-min grid-cols-subgrid self-center text-xs leading-snug font-semibold text-balance uppercase [word-spacing:2px]">
-            <div className="col-span-2 text-end">
-              <p className="float-right max-w-[20ch] px-1">
-                What feels simple on the surface
-              </p>
-            </div>
-            <div className="col-start-3 col-end-5 row-start-2">
-              <p className="-mt-1 max-w-[20ch]">
-                often carries the most thought underneath...
-              </p>
-            </div>
+            <p className="text-muted max-w-[10ch] text-end font-mono text-sm leading-snug font-semibold uppercase">
+              A few snippets
+            </p>
           </div>
-        )}
-        <div className="absolute inset-0 -z-1 flex h-full w-full justify-around md:justify-between">
-          <LineFade
-            count={isMobile ? 3 : 7}
-            duration={isMobile ? 6 : 3}
-            direction="vertical"
-          />
+          <div className="col-span-2 col-start-11 row-start-2 mx-3.25 self-end">
+            <p className="text-muted mt-4.75 font-mono text-sm leading-snug font-semibold uppercase">
+              Made with care
+            </p>
+          </div>
         </div>
       </div>
       {!isMobile && isLg && <BentoBox />}
+      <RowFade className="h-[60vh]" color="background" offset={0.15} />
     </section>
   );
 };

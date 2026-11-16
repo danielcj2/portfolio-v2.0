@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Card from "@/ui/Card";
 
-const r2Url = process.env.NEXT_PUBLIC_QUICKQR;
+const r2Url = process.env.NEXT_PUBLIC_BENTO;
 
 const QQRLogo = () => {
   return (
@@ -16,7 +16,7 @@ const QQRLogo = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <Image
-          src={`${r2Url}/logo.png`}
+          src={`${r2Url}/quickqr.png`}
           alt="quickQR Logo"
           className="pointer-events-none absolute inset-0 m-auto transition-transform duration-500 ease-in-out select-none group-hover:scale-115"
           style={{

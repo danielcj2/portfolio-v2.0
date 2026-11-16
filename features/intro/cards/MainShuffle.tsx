@@ -15,9 +15,9 @@ const shuffle = {
   third: { x: "-50%", y: "-50%" },
 } as const;
 
-const TRANSITION = { duration: 1.5, ease: [0.65, 0, 0.35, 1] as const };
+const TRANSITION = { duration: 1, ease: [0.65, 0, 0.35, 1] as const };
 const PAUSE_DURATION = 3000; // time to read
-const r2Url = process.env.NEXT_PUBLIC_QUICKQR;
+const r2Url = process.env.NEXT_PUBLIC_BENTO;
 
 const MainShuffle = () => {
   const [stage, setStage] = useState<TextState>("first");
@@ -99,7 +99,7 @@ const MainShuffle = () => {
       </motion.div>
       <div className="center-xy h-auto w-[70%]">
         <motion.div
-          className="relative h-full w-full"
+          className="shadow-background-v2/50 relative h-full w-full shadow-xl"
           animate={{ scale: isHovered ? 0.9 : 1 }}
           transition={{ duration: 0.75, ease: "easeInOut" }}
         >
@@ -109,11 +109,11 @@ const MainShuffle = () => {
             width={1250}
             height={937}
             className="h-auto w-full"
-            loading="eager"
+            loading="lazy"
+            fetchPriority="low"
             decoding="async"
-            sizes="(max-width: 768px) 100vw, 35vw"
+            sizes="(min-width: 1536px) 35vw, (min-width: 1280px) 42vw, 46vw"
           />
-          <div className="bg-foreground/30 absolute -inset-1.25 -z-1 w-auto rounded-xl" />
         </motion.div>
       </div>
       <div className="center-xy aspect-1000/700 h-auto w-[75%]">
@@ -124,8 +124,7 @@ const MainShuffle = () => {
           animate={{ scale: isHovered ? 1 : 0.65, opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
         >
-          <div className="absolute -inset-1.5 -z-1 w-auto rounded-[30px] bg-[#f2f3f0]" />
-          <div className="relative z-0 h-full w-full overflow-hidden rounded-3xl shadow-[0px_0px_10px_rgba(0,0,0,0.75)]">
+          <div className="shadow-background-v2/50 relative z-0 h-full w-full overflow-hidden rounded-3xl shadow-xl">
             <motion.div
               className="absolute top-0 left-0 h-[200%] w-[200%]"
               animate={stage}
@@ -139,7 +138,7 @@ const MainShuffle = () => {
                 height={1400}
                 className="h-full w-full"
                 decoding="async"
-                sizes="(max-width: 768px) 100vw, 70vw"
+                sizes="(min-width: 1536px) 75vw, 90vw"
               />
             </motion.div>
           </div>

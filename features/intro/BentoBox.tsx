@@ -3,14 +3,14 @@
 import { motion } from "motion/react";
 import CNTower from "./cards/CNTower";
 import LightDark from "./cards/LightDark";
-import MobileScroller from "./cards/MobileScroller";
+import MobileGallery from "./cards/MobileGallery";
 import ImageSwap from "./cards/ImageSwap";
 import EyesTracker from "./cards/EyesTracker";
-import ScratchGradient from "./cards/ScratchGradient";
-import MoodParallax from "./cards/MoodParallax";
+import MoodMarquee from "./cards/MoodMarquee";
 import MainShuffle from "./cards/MainShuffle";
 import QQRLogo from "./cards/QQRLogo";
 import BluewaveLogo from "./cards/BluewaveLogo";
+import MobileReveal from "./cards/MobileReveal";
 
 const BentoBox = () => {
   return (
@@ -32,13 +32,13 @@ const BentoBox = () => {
       <CNTower />
       <MainShuffle />
       <QQRLogo />
-      <ScratchGradient />
+      <MobileReveal />
       <ImageSwap />
       <BluewaveLogo />
-      <MobileScroller />
+      <MobileGallery />
       <EyesTracker />
       <LightDark />
-      <MoodParallax />
+      <MoodMarquee />
     </motion.div>
   );
 };

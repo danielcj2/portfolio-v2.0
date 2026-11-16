@@ -8,7 +8,7 @@ type SwapLayer = {
   variants: Variants;
 };
 
-const r2Url = process.env.NEXT_PUBLIC_BLUEWAVE;
+const r2Url = process.env.NEXT_PUBLIC_BENTO;
 
 const swapLayers: SwapLayer[] = [
   {
@@ -32,14 +32,14 @@ const swapLayers: SwapLayer[] = [
 const ImageSwap = () => {
   return (
     <Card
-      className="z-0 col-span-3 xl:col-span-2 row-start-9 row-end-15 xl:row-span-6 overflow-hidden bg-[#F2F3F0]/70"
+      className="z-0 col-span-3 row-start-9 row-end-15 overflow-hidden bg-[#F2F3F0]/70 xl:col-span-2 xl:row-span-6"
       initial="initial"
       whileHover="hovered"
     >
       <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_bottom_right,#442F82,transparent)] opacity-45 mix-blend-multiply" />
       <div className="pointer-events-none absolute inset-0 z-0 bg-[repeating-linear-gradient(45deg,rgba(122,122,125,0.5)_0,rgba(122,122,125,0.5)_0,transparent_1px,transparent_54px),repeating-linear-gradient(-45deg,rgba(127,121,142,0.35)_0,rgba(127,121,142,0.35)_1px,transparent_54px,transparent_54px)]" />
       <div
-        className="font-chakra text-background/15 pointer-events-none absolute top-32 -left-2 -rotate-45 text-6xl font-semibold text-nowrap uppercase italic select-none [word-spacing:0.125em]"
+        className="text-background/15 pointer-events-none absolute top-32 -left-2 -rotate-45 font-mono text-6xl font-semibold text-nowrap uppercase italic select-none [word-spacing:0.125em]"
         aria-hidden="true"
       >
         Hover me!
@@ -49,7 +49,7 @@ const ImageSwap = () => {
           key={alt}
           className="pointer-events-none absolute h-[90%] w-auto select-none"
           variants={variants}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <Image
             src={src}
@@ -59,9 +59,9 @@ const ImageSwap = () => {
             decoding="async"
             width={800}
             height={800}
-            sizes="(max-width: 768px) 80vw, 18vw"
+            sizes="(min-width: 1280px) 18vw, 24vw"
           />
-          <div className="bg-background/20 absolute -inset-1.25 -z-1 w-auto rounded-xl" />
+          <div className="bg-background/20 absolute -inset-1 -z-1 w-auto rounded-xl" />
         </motion.div>
       ))}
     </Card>

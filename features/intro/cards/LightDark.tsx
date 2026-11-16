@@ -1,75 +1,73 @@
 import Card from "@/ui/Card";
 import Image from "next/image";
 
-import { CaretRightIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const r2Url = process.env.NEXT_PUBLIC_QUICKQR;
-const CLIP_TRANSITION = { duration: 0.75, ease: "easeInOut" } as const;
-const CARET_TRANSITION = {
-  duration: 2.125,
-  repeatDelay: 0.375,
-  repeat: Infinity,
-  ease: [0.45, 0, 0.55, 1],
-} as const;
-
-type CaretProps = {
-  show: boolean;
-  className?: string;
-  onHover?: () => void;
-};
-
-const Caret = ({ show, className, onHover }: CaretProps) => (
-  <motion.div
-    aria-hidden="true"
-    className={`absolute top-1/2 z-10 -translate-y-1/2 ${className}`}
-    initial={{ opacity: 0 }}
-    animate={{ opacity: show ? 1 : 0 }}
-    transition={{ duration: 0.75, ease: "easeOut" }}
-    onHoverStart={onHover}
-  >
-    <motion.div
-      initial={{ translateX: 0, opacity: 0 }}
-      animate={{ translateX: [0, 10, 0], opacity: [0, 1, 0] }}
-      transition={{
-        translateX: CARET_TRANSITION,
-        opacity: CARET_TRANSITION,
-      }}
-    >
-      <CaretRightIcon className="h-6 w-6 drop-shadow-lg" weight="bold" />
-    </motion.div>
-  </motion.div>
-);
+const r2Url = process.env.NEXT_PUBLIC_BENTO;
 
 const LightDark = () => {
   const [hovered, setHovered] = useState<"left" | "right" | null>(null);
+  const [split, setSplit] = useState(0.5);
+  const [bend, setBend] = useState(0);
+  const spring = useRef({ x: 0.5, v: 0 });
 
-  // Calculate clip percentages: default 50/50, hovered side gets 100%
-  const leftClip = hovered === "left" ? 100 : hovered === "right" ? 0 : 50;
-  const rightClip = hovered === "right" ? 100 : hovered === "left" ? 0 : 50;
+  useEffect(() => {
+    const target = hovered === "left" ? 1 : hovered === "right" ? 0 : 0.5;
+    let frame = 0;
+    let previousTime = performance.now();
+
+    const step = (time: number) => {
+      const dt = Math.min((time - previousTime) / 1000, 0.032);
+      previousTime = time;
+
+      spring.current.v +=
+        ((target - spring.current.x) * 200 - spring.current.v * 44) * dt;
+      spring.current.x += spring.current.v * dt;
+
+      const nextBend = Math.max(
+        -5,
+        Math.min(5, (target - spring.current.x) * 10),
+      );
+      setSplit(spring.current.x);
+      setBend(nextBend);
+
+      const settled =
+        Math.abs(target - spring.current.x) < 0.0006 &&
+        Math.abs(spring.current.v) < 0.002;
+
+      if (settled) {
+        spring.current.x = target;
+        spring.current.v = 0;
+        setSplit(target);
+        setBend(0);
+        return;
+      }
+
+      frame = requestAnimationFrame(step);
+    };
+
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [hovered]);
+
+  const boundary = [0, 0.25, 0.5, 0.75, 1].map((position) => {
+    const curve = (bend / 100) * Math.sin(Math.PI * position);
+    return `${(split + curve) * 100}% ${position * 100}%`;
+  });
+  const leftClipPath = `polygon(0 0, ${boundary.join(", ")}, 0 100%)`;
+  const rightClipPath = `polygon(${boundary[0]}, 100% 0, 100% 100%, ${boundary[4]}, ${boundary[3]}, ${boundary[2]}, ${boundary[1]})`;
 
   return (
     <Card
       className="col-start-1 col-end-7 row-start-13 row-end-17 overflow-hidden xl:col-start-5 xl:col-end-9 xl:row-span-4 xl:row-start-9 xl:row-end-13"
       onHoverEnd={() => setHovered(null)}
     >
-      <Caret
-        show={hovered === "left"}
-        className="text-foreground/70 right-0 -scale-x-100"
-        onHover={() => setHovered("right")}
-      />
-      <Caret
-        show={hovered === "right"}
-        className="text-background/70 left-0"
-        onHover={() => setHovered("left")}
-      />
       <motion.div
         className="absolute inset-0 contain-paint"
         onHoverStart={() => setHovered("left")}
         initial={false}
-        animate={{ clipPath: `inset(0 ${100 - leftClip}% 0 0)` }}
-        transition={CLIP_TRANSITION}
+        style={{ clipPath: leftClipPath }}
       >
         <div className="absolute inset-0 bg-linear-[90deg,#442f82,#422f7f,#352c68,#212137,#1b1b21,#1a1a1e_45%]" />
         <div className="absolute bottom-0 left-1/2 h-[115%] w-min -translate-x-1/2 translate-y-1/4">
@@ -82,15 +80,14 @@ const LightDark = () => {
             sizes="(max-width: 1280px) 40vw, 24vw"
             decoding="async"
           />
-          <div className="bg-foreground/20 absolute -inset-1.5 -z-1 w-auto rounded-lg" />
+          <div className="bg-foreground/20 absolute -inset-1 -z-1 w-auto rounded-[10px]" />
         </div>
       </motion.div>
       <motion.div
         className="absolute inset-0 contain-paint"
         onHoverStart={() => setHovered("right")}
         initial={false}
-        animate={{ clipPath: `inset(0 0 0 ${100 - rightClip}%)` }}
-        transition={CLIP_TRANSITION}
+        style={{ clipPath: rightClipPath }}
       >
         <div className="absolute inset-0 bg-linear-[90deg,#f2f3f0_40%,#c3dcc9,#84c7ba,#36aec0,#0090cd,#2a6acb]" />
         <div className="absolute bottom-0 left-1/2 h-[115%] w-min -translate-x-1/2 translate-y-1/4">
@@ -103,7 +100,7 @@ const LightDark = () => {
             sizes="(max-width: 1280px) 40vw, 24vw"
             decoding="async"
           />
-          <div className="bg-background/30 absolute -inset-1 -z-1 w-auto rounded-lg" />
+          <div className="bg-background/30 absolute -inset-1 -z-1 w-auto rounded-[10px]" />
         </div>
       </motion.div>
     </Card>

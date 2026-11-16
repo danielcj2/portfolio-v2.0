@@ -9,6 +9,7 @@ const Blur = ({ className, ...props }: BlurProps) => {
       aria-hidden="true"
       {...props}
     >
+      <div className="absolute inset-0 z-0 mask-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,1)_37.5%)] backdrop-blur-[1.5px]" />
       <div className="absolute inset-0 z-1 mask-[linear-gradient(to_bottom,rgba(0,0,0,0)_37.5%,rgba(0,0,0,1)_50%,rgba(0,0,0,1)_62.5%,rgba(0,0,0,0)_75%)] backdrop-blur-[2.5px]"></div>
       <div className="absolute inset-0 z-2 mask-[linear-gradient(to_bottom,rgba(0,0,0,0)_50%,rgba(0,0,0,1)_62.5%,rgba(0,0,0,1)_75%,rgba(0,0,0,0)_87.5%)] backdrop-blur-[4.5px]"></div>
       <div className="absolute inset-0 z-3 mask-[linear-gradient(to_bottom,rgba(0,0,0,0)_62.5%,rgba(0,0,0,1)_75%,rgba(0,0,0,1)_87.5%,rgba(0,0,0,0)_100%)] backdrop-blur-[9px]"></div>

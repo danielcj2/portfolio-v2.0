@@ -20,7 +20,7 @@ const ScrollTracker = () => {
   return (
     <output
       aria-label="Scroll progress"
-      className="text-foreground font-chakra mr-4 inline-block w-[3ch] font-medium tabular-nums"
+      className="text-foreground font-mono mr-4 inline-block w-[3ch] tabular-nums"
     >
       {progress}%
     </output>

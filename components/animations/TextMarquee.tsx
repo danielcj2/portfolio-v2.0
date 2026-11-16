@@ -40,7 +40,7 @@ function wrap(min: number, max: number, value: number) {
 const SIDE_FADE_MASK =
   "mask-[linear-gradient(to_right,rgba(0,0,0,0),rgba(0,0,0,1)_20%,rgba(0,0,0,1)_80%,rgba(0,0,0,0))]";
 
-const TextParallax = ({ className, items, options }: ParallaxProps) => {
+const TextMarquee = ({ className, items, options }: ParallaxProps) => {
   const {
     baseVelocity = 100,
     fadeSides = true,
@@ -48,7 +48,7 @@ const TextParallax = ({ className, items, options }: ParallaxProps) => {
     changeDirection = true,
     gap = 12,
     Divider = Logo,
-    dividerClassName = "text-muted-v2 h-6 w-6 stroke-2",
+    dividerClassName = "text-muted h-6 w-6 stroke-2",
   } = options || {};
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -135,7 +135,7 @@ const TextParallax = ({ className, items, options }: ParallaxProps) => {
   return (
     <div
       className={cn(
-        "font-chakra text-muted-v2 relative h-full w-full overflow-hidden text-3xl font-extrabold italic",
+        "font-mono text-muted relative h-full w-full overflow-hidden text-3xl font-semibold tracking-tight italic",
         fadeSides && SIDE_FADE_MASK,
         className,
       )}
@@ -156,4 +156,4 @@ const TextParallax = ({ className, items, options }: ParallaxProps) => {
   );
 };
 
-export default TextParallax;
+export default TextMarquee;

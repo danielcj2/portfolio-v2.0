@@ -199,7 +199,7 @@ const EyesTracker = () => {
     >
       <div
         ref={containerRef}
-        className="font-chakra absolute inset-0 flex flex-col items-center justify-center gap-5 text-sm font-medium"
+        className="font-mono absolute inset-0 flex flex-col items-center justify-center gap-5 text-sm font-medium"
       >
         <div className="flex gap-1.25" aria-hidden="true">
           <Eye mouseX={mouseX} mouseY={mouseY} />
