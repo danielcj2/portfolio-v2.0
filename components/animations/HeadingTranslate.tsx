@@ -44,7 +44,7 @@ const HeadingTranslate = ({ text, direction, ...props }: HeadingProps) => {
       style={reduceMotion ? style : { ...style, x: spring }}
       {...restProps}
     >
-      <div className="overflow-visible pr-[0.15em]">
+      <div className="overflow-visible md:pr-[0.15em]">
         <p className="leading-[100%]">{text}</p>
       </div>
     </motion.div>

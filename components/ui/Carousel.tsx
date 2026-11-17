@@ -59,7 +59,7 @@ const Pagination = ({ current, total, onPageChange }: PaginationProps) => {
             key={index}
             role="button"
             tabIndex={0}
-            className="h-1.75 cursor-pointer rounded-full select-none"
+            className="h-1.5 cursor-pointer rounded-full select-none"
             aria-label={`Go to slide ${index + 1}`}
             onClick={() => onPageChange(index)}
             onKeyDown={(event) => {
@@ -68,13 +68,13 @@ const Pagination = ({ current, total, onPageChange }: PaginationProps) => {
                 onPageChange(index);
               }
             }}
-            initial={{ backgroundColor: "rgba(255, 255, 255, 0.4)", width: 7 }}
+            initial={{ backgroundColor: "rgba(255, 255, 255, 0.4)", width: 6 }}
             animate={{
               backgroundColor:
                 index === current
                   ? "rgba(255, 255, 255, 1)"
                   : "rgba(255, 255, 255, 0.4)",
-              width: index === current ? 16 : 7,
+              width: index === current ? 24 : 6,
             }}
             transition={{ duration: 0.3 }}
           />

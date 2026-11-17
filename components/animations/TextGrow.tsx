@@ -39,7 +39,7 @@ const Box = ({ children, progress, reduceMotion }: BoxProps) => {
       }}
     >
       <motion.span
-        className="bg-muted absolute inset-0 -z-1"
+        className="absolute inset-0 -z-1 bg-[#959595]"
         aria-hidden="true"
         role="presentation"
       />

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Carousel from "@/ui/Carousel";
 import Card from "@/ui/Card";
 import { useMemo } from "react";
-import { useImagePreloader } from "@/lib/useImagePreloader";
+import { useImagePreloader } from "@/components/_archive/useImagePreloader";
 import {
   Highlight,
   List,
@@ -137,13 +137,12 @@ const BluewaveModal = ({
                 redundancy and dead code.
               </ListItem>
               <ListItem>
-                Suggested and implemented{" "}
-                <Highlight>small design improvements</Highlight> across the
+                Suggested and implemented small design improvements across the
                 interface (spacing, layout, and component behavior).
               </ListItem>
               <ListItem>
-                Collaborated with <Highlight>backend developers</Highlight> to
-                align on API structure and ensure reliable data flow.
+                Collaborated with backend developers to align on API structure
+                and ensure reliable data flow.
               </ListItem>
               <ListItem>
                 Reviewed <Highlight>pull requests</Highlight> to maintain code

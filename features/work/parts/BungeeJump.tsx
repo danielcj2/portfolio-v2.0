@@ -23,12 +23,14 @@ type BungeeProps = {
   pendulumProgress: MotionValue<number>;
 };
 
+const SETTLED_DROP = 210;
+
 const BungeeJump = ({ rotate, pendulumProgress }: BungeeProps) => {
   const { isLg, isXl } = useMediaQuery();
   const pendulumRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
   const isSwinging = useRef(false);
-  const maxDrop = isXl ? 200 : isLg ? 130 : 220;
+  const maxDrop = isXl ? 210 : isLg ? 130 : 220;
 
   // Slide pendulum down as it scrolls past Interlude
   const pendulumY = useTransform(pendulumProgress, [0, 1], [0, maxDrop]);
@@ -36,7 +38,7 @@ const BungeeJump = ({ rotate, pendulumProgress }: BungeeProps) => {
     rotate,
     //  idle → start → full drop → bounce up → 2nd drop → settle
     [0, -100, -120, -145, -160, -180],
-    [50, 50, 350, 150, 320, 200],
+    [50, 50, 360, 150, 320, SETTLED_DROP],
   );
   const dropY = useSpring(dropTarget, { stiffness: 200, damping: 30 });
   const ropeHeight = useTransform(
@@ -47,7 +49,7 @@ const BungeeJump = ({ rotate, pendulumProgress }: BungeeProps) => {
   const [imgSrc, setImgSrc] = useState(jump);
   const prevDrop = useRef(0);
   useMotionValueEvent(dropTarget, "change", (v) => {
-    if (pendulumY.get() > 0 || v === maxDrop) return;
+    if (pendulumY.get() > 0 || v === SETTLED_DROP) return;
     setImgSrc(v >= prevDrop.current ? jump2 : jump);
     prevDrop.current = v;
   });
@@ -56,15 +58,15 @@ const BungeeJump = ({ rotate, pendulumProgress }: BungeeProps) => {
     setImgSrc(v === maxDrop ? decending2 : v > 0 ? decending : jump2);
   });
 
-  const handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (dropTarget.get() !== maxDrop) return;
+  const swing = (clientX: number) => {
+    if (rotate.get() > -179) return;
     if (!pendulumRef.current || isSwinging.current) return;
 
     isSwinging.current = true;
 
     const rect = pendulumRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
-    const fromLeft = e.clientX < centerX;
+    const fromLeft = clientX < centerX;
     const dir = fromLeft ? -1 : 1;
 
     // mirror image on hover
@@ -97,7 +99,8 @@ const BungeeJump = ({ rotate, pendulumProgress }: BungeeProps) => {
     <motion.div
       ref={pendulumRef}
       className="[pointer-events:all] absolute top-1/2 left-1/2 origin-top -translate-x-1/2"
-      onMouseEnter={handleHover}
+      onMouseEnter={(event) => swing(event.clientX)}
+      onTapStart={(_, info) => swing(info.point.x - window.scrollX)}
     >
       <motion.div
         className="mx-auto w-px bg-[rgba(255,255,255,0.05)]"

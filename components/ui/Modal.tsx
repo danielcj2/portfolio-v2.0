@@ -59,7 +59,7 @@ const Modal = ({
                   exit={{ opacity: 0 }}
                   onClick={onClose}
                 />
-                <div className="pointer-events-none fixed inset-0 z-111 m-4 flex items-center justify-center font-sans lg:m-8 xl:m-12">
+                <div className="pointer-events-none fixed inset-0 z-111 m-4 flex items-center justify-center font-sans lg:m-8 ">
                   <FocusTrap
                     focusTrapOptions={{
                       initialFocus: () => modalRef.current,

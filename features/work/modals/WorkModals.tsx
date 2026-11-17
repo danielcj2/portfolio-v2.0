@@ -41,7 +41,7 @@ const PROJECTS: Project[] = [
     name: "BlueWave Labs",
     year: "2024",
     title: "Tracking Uptime",
-    subtitle: "for Websites & APIs",
+    subtitle: "for Websites and APIs",
     color: "bg-[#1777CF]",
     overlay: "bg-[#1777CF]/70",
     video: `${r2Url}/bluewave.webm`,
@@ -73,7 +73,7 @@ const MODAL_CONTENT: Record<
   bogue: BogueModal,
 };
 
-const SPACING = ["pr-0 xl:pr-4", "px-0 xl:px-4", "pl-0 xl:pl-4"] as const;
+const SPACING = ["pr-0 xl:pr-3", "px-0 xl:px-4", "pl-0 xl:pl-3"] as const;
 
 const WorkModals = () => {
   const { isMobile } = useMediaQuery();
@@ -116,7 +116,7 @@ const WorkModals = () => {
 
   return (
     <>
-      <div className="bg-background mx relative z-1 flex flex-col gap-4 xl:flex-row xl:gap-0">
+      <div className="bg-background mx relative z-1 flex flex-col gap-4 px-2 xl:flex-row xl:gap-0">
         {PROJECTS.map((project, index) => {
           const isActive = activeProjectId === project.id;
 
@@ -156,10 +156,8 @@ const WorkModals = () => {
                     }}
                     transition={{ duration: 0.4 }}
                   />
-                  <p className="font-medium tracking-tighter text-white">
-                    {project.name}
-                  </p>
-                  <p className="font-chakra font-semibold tracking-tight text-white/50">
+                  <p className="tracking-wide text-white">{project.name}</p>
+                  <p className="font-mono font-semibold tracking-tight text-white/50">
                     {project.year}
                   </p>
                 </Card>
@@ -219,9 +217,11 @@ const WorkModals = () => {
                     }}
                     transition={{ duration: 0.4 }}
                   />
-                  <div className="absolute bottom-0 p-4 text-xl md:text-2xl">
-                    <p className="font-medium">{project.title}</p>
-                    <p className="font-extralight italic">{project.subtitle}</p>
+                  <div className="absolute bottom-0 p-4 tracking-[0.03em]">
+                    <p className="text-xl md:text-[25px]">{project.title}</p>
+                    <p className="text-xl font-light italic md:text-2xl">
+                      {project.subtitle}
+                    </p>
                   </div>
                 </Card>
               </Card>

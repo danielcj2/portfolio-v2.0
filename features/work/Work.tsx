@@ -7,6 +7,7 @@ import HeadingTranslate from "@/animations/HeadingTranslate";
 import Interlude from "./Interlude";
 import WorkModals from "./modals/WorkModals";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
+import TextScramble from "@/components/animations/TextScramble";
 
 const Work = () => {
   const { isMobile, isLg } = useMediaQuery();
@@ -14,46 +15,38 @@ const Work = () => {
   return (
     <section
       id="work"
-      className="relative z-0 h-min w-full overflow-x-clip pt-24 pb-10 md:pt-40 md:pb-0"
+      className="relative z-0 h-min w-full overflow-x-clip pt-32 pb-10 md:pb-0"
     >
-      <div className="relative mx-auto mb-6 w-min md:mb-0">
-        {!isMobile && <HeadingFade text="01" />}
-        <div className="flex justify-center gap-1 uppercase md:gap-0">
+      <div className="mx relative mb-6 pr-3.5 pl-2 md:mx-auto! md:mb-8 md:w-min md:pb-8 lg:pb-36">
+        <HeadingFade text="01" />
+        <div className="flex justify-between gap-1 uppercase md:justify-center md:gap-0">
           <HeadingTranslate
-            className="min-w-0 text-right font-mono text-[clamp(1rem,12.5vw,11rem)] font-light tracking-tighter"
+            className="min-w-0 text-right text-[clamp(1rem,12.2vw,11.5rem)] tracking-tight"
             direction="left"
             text="Recent"
           />
           <LogoSpin
-            className="shrink-0 translate-x-1"
-            text="I am still spinning ✦ don't mind me ✦"
+            className="shrink-0 translate-x-0.5 md:-translate-x-1"
+            text="I'm still spinning ✦ don't mind me ✦"
           />
           <HeadingTranslate
-            className="min-w-0 text-[clamp(1rem,12.5vw,11rem)] font-medium italic"
+            className="min-w-0 text-[clamp(1rem,12.2vw,11.5rem)] font-medium italic"
             direction="right"
             text="Work"
           />
         </div>
-      </div>
-      {!isMobile && (
-        <div className="relative mt-8 flex items-center justify-center overflow-clip pt-28 pb-20">
-          <div className="absolute top-0 h-full">
-            <LineFade duration={3} direction="vertical" hasBadge="start" />
+        <div className="text-muted bg-background mt-4 hidden cursor-default justify-between gap-2 pr-4 font-mono text-[0.8125rem] font-semibold uppercase md:mt-1.5 md:flex lg:text-sm xl:text-base">
+          <TextScramble text="Featured Highlights" />
+          <div className="relative flex-1 overflow-hidden">
+            <div className="absolute top-1/2 right-0 left-0 h-px">
+              <LineFade duration={3} />
+            </div>
           </div>
-          <div className="absolute top-1/4 h-[200%] origin-top rotate-50 xl:rotate-65">
-            <LineFade duration={3} direction="vertical" />
-          </div>
-          <div className="absolute top-1/4 h-[200%] origin-top -rotate-50 xl:-rotate-65">
-            <LineFade duration={3} direction="vertical" />
-          </div>
-          <p className="text-muted-v2 max-w-[30ch] text-center text-4xl leading-snug font-medium tracking-tighter">
-            A selection of projects and experiences I&apos;ve had the pleasure
-            of working on.
-          </p>
+          <TextScramble text="Client Projects" />
         </div>
-      )}
+      </div>
       <WorkModals />
-      {!isMobile && isLg && <Interlude />}
+      <Interlude />
     </section>
   );
 };

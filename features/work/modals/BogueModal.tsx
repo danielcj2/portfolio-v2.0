@@ -4,7 +4,7 @@ import Image from "next/image";
 import Carousel from "@/ui/Carousel";
 import Card from "@/ui/Card";
 import { useMemo } from "react";
-import { useImagePreloader } from "@/lib/useImagePreloader";
+import { useImagePreloader } from "@/components/_archive/useImagePreloader";
 import {
   Highlight,
   List,
@@ -83,7 +83,7 @@ const BogueModal = ({ projectId, name, year, onClose }: ModalContentProps) => {
           theme="light"
         >
           <Paragraph>
-            A <Highlight>personal e-commerce project</Highlight> built from
+            A personal <Highlight>e-commerce project</Highlight> built from
             scratch, covering the core pieces of a modern online store. It
             includes{" "}
             <Highlight>
@@ -96,8 +96,8 @@ const BogueModal = ({ projectId, name, year, onClose }: ModalContentProps) => {
             <Subheading>What I worked on</Subheading>
             <List>
               <ListItem>
-                Implemented <Highlight>product browsing</Highlight>, cart
-                functionality, and a checkout flow.
+                Implemented product browsing, cart functionality, and a checkout
+                flow.
               </ListItem>
               <ListItem>
                 Designed and built the{" "}

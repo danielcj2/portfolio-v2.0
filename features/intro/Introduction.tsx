@@ -26,7 +26,7 @@ const Introduction = () => {
     >
       <div className="mx grid-12 relative mt-8 mb-16 gap-x-0 gap-y-10 md:mt-24 md:mb-0">
         <div className="col-span-full md:col-start-2 md:col-end-12">
-          <p className="text-muted indent-[12%] font-sans text-[26px] leading-snug font-medium tracking-[0.015em] text-pretty md:text-[34.5px]">
+          <p className="text-muted indent-[18vw] md:indent-[8vw] font-sans text-[26px] leading-snug font-medium tracking-[0.015em] text-pretty md:text-[34.5px]">
             Slightly obsessive <TextFade>Frontend Developer</TextFade>
             <sup className="font-mono text-[0.6em] tracking-tighter">
               (3+ years)
@@ -34,13 +34,14 @@ const Introduction = () => {
             — breaking things just to fix them better,{" "}
             <span className="hidden md:inline">nudging interactions</span> and{" "}
             <TextFade>refining</TextFade> the small{" "}
-            <AtomIcon className="inline" size={30} /> behaviours that make{" "}
-            <TextFade>interfaces</TextFade> feel simple, fast, and natural{" "}
-            <LeafIcon className="inline" size={30} />. Always curious,{" "}
+            <AtomIcon className="inline size-7 md:size-7.5" /> behaviours that
+            make <TextFade>interfaces</TextFade> feel simple, fast, and natural{" "}
+            <LeafIcon className="inline size-7 md:size-7.5" />. Always curious,{" "}
             <TextFade>endlessly</TextFade> iterating, often losing track of
-            time... caffeine <CoffeeBeanIcon className="inline" size={30} /> is
-            my co-pilot.
-            <ArrowDownIcon className="relative inset-y-4 inline" size={30} />
+            time... caffeine{" "}
+            <CoffeeBeanIcon className="inline size-7 md:size-7.5" /> is my
+            co-pilot.
+            <ArrowDownIcon className="relative inset-y-4 inline size-7 md:size-7.5" />
           </p>
         </div>
         <div className="col-span-2 col-start-2 mb-24 hidden md:block">

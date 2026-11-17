@@ -7,11 +7,11 @@ type ModalHeaderProps = { name: string; year: string; onClose: () => void };
 export const ModalHeader = ({ name, year, onClose }: ModalHeaderProps) => (
   <div className="flex h-min gap-2">
     <Card
-      className="bg-foreground/5 flex items-center justify-between rounded-xl px-5 py-3.5"
+      className="bg-foreground/5 flex items-baseline justify-between rounded-xl px-5 pt-3.5 pb-3"
       theme="light"
     >
-      <p className="text-lg font-medium tracking-tight">{name}</p>
-      <p className="font-chakra text-muted font-bold tracking-tight md:text-lg">
+      <p className="text-lg tracking-[0.03em]">{name}</p>
+      <p className="text-foreground/28 font-mono text-lg font-medium tracking-tight">
         {year}
       </p>
     </Card>
@@ -39,25 +39,25 @@ export const Wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const Paragraph = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-foreground/45 text-[15px] leading-[1.6]">{children}</p>
+  <p className="text-[14.5px] leading-relaxed font-medium tracking-wider text-[#686868]">
+    {children}
+  </p>
 );
 
 export const Subheading = ({ children }: { children: string }) => (
-  <p className="font-chakra text-foreground text-[0.8125rem] font-medium tracking-wider uppercase">
+  <p className="text-foreground font-mono text-[0.8125rem] font-medium tracking-wider uppercase">
     {children}
   </p>
 );
 
 export const List = ({ children }: { children: React.ReactNode }) => (
-  <ul className="text-foreground/45 list-none text-[15px] text-pretty">
-    {children}
-  </ul>
+  <ul className="">{children}</ul>
 );
 
 export const ListItem = ({ children }: { children: React.ReactNode }) => (
-  <li className="mb-2 flex gap-2">
-    <span className="bg-muted-v2 mt-1.5 block size-2 min-h-2 min-w-2 [clip-path:polygon(100%_0%,0%_0%,100%_100%)]" />
-    <p>{children}</p>
+  <li className="mb-2 flex list-none gap-2">
+    <span className="bg-muted mt-1.75 block size-1.25 shrink-0 self-baseline" />
+    <Paragraph>{children}</Paragraph>
   </li>
 );
 

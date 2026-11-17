@@ -15,22 +15,22 @@ const HeadingFade = ({ text }: HeadingProps) => {
     offset: ["start end", "end start"],
   });
 
-  const ratio = useTransform(scrollYProgress, [0, 0.75], [30, 60]);
+  const ratio = useTransform(scrollYProgress, [0, 0.6], [30, 52]);
   const spring = useSpring(ratio, { stiffness: 300, damping: 100 });
   const yNeg = useTransform(spring, (v) => `${-v}%`);
 
   return (
     <div
-      className="relative w-full"
+      className="relative hidden w-full md:block"
       aria-hidden="true"
       role="presentation"
       ref={target}
     >
       <motion.div
-        className="absolute top-0 -z-1 tracking-widest"
+        className="absolute top-0 -z-1 -translate-x-1/3 tracking-widest"
         style={{ y: yNeg }}
       >
-        <span className="font-chakra to-muted/20 bg-linear-to-t from-transparent from-30% bg-clip-text text-[146px] font-semibold text-transparent">
+        <span className="to-muted/20 bg-linear-to-t from-transparent from-30% bg-clip-text font-mono text-[112px] font-semibold tracking-tighter text-transparent xl:text-[146px]">
           {text}
         </span>
       </motion.div>

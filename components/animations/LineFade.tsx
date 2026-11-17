@@ -1,13 +1,19 @@
 "use client";
 
-import { motion, TargetAndTransition, useReducedMotion, useInView } from "motion/react";
+import {
+  motion,
+  TargetAndTransition,
+  useReducedMotion,
+  useInView,
+} from "motion/react";
+import { cn } from "@/lib/utils";
 import { useRef } from "react";
 
 type LineFadeProps = {
+  className?: string;
   direction?: "horizontal" | "vertical";
   duration?: number;
   count?: number;
-  hasBadge?: "none" | "start" | "end" | "both";
 };
 
 const configs = {
@@ -16,58 +22,50 @@ const configs = {
     line: "h-full w-25 bg-linear-to-r",
     initial: { left: "-100%" },
     animate: { left: ["-100%", "100%"] } as TargetAndTransition,
-    badge: {
-      start: "left-0 top-0 -translate-y-1/2",
-      end: "right-0 top-0 -translate-y-1/2",
-    },
   },
   vertical: {
     container: "top-0 bottom-0 w-px h-full",
     line: "w-full h-25 bg-linear-to-b",
     initial: { top: "-100%" },
     animate: { top: ["-100%", "100%"] } as TargetAndTransition,
-    badge: {
-      start: "top-0 left-0 -translate-x-1/2",
-      end: "bottom-0 left-0 -translate-x-1/2",
-    },
   },
 } as const;
 
 const LineFade = ({
+  className,
   direction = "horizontal",
   duration = 1.75,
   count = 1,
-  hasBadge = "none",
 }: LineFadeProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { amount: 0.1 });
   const reduceMotion = useReducedMotion();
-  const { container, line, initial, animate, badge } = configs[direction];
+  const { container, line, initial, animate } = configs[direction];
   const STAGGER = 0.75;
 
   const easeOutQuad = (t: number) => t * (2 - t);
 
   return (
-    <div ref={ref} className="contents">
+    <div className="contents">
       {Array.from({ length: count }).map((_, i) => {
         const delay =
           easeOutQuad(i / Math.max(1, count - 1)) * (STAGGER * count);
+
         return (
           <div
             key={i}
-            className={`relative ${container} pointer-events-none bg-[rgba(255,255,255,0.04)]`}
+            ref={i === 0 ? ref : undefined}
+            className={cn(
+              "pointer-events-none relative bg-[rgba(255,255,255,0.04)]",
+              container,
+              className,
+            )}
             aria-hidden="true"
             role="presentation"
           >
-            {hasBadge === "start" || hasBadge === "both" ? (
-              <span className={`bg-muted-v2 absolute ${badge.start} h-1 w-1`} />
-            ) : null}
-            {hasBadge === "end" || hasBadge === "both" ? (
-              <span className={`bg-muted-v2 absolute ${badge.end} h-1 w-1`} />
-            ) : null}
             <div className="absolute inset-0 overflow-hidden">
               <motion.div
-                className={`via-muted/40 absolute ${line} from-transparent to-transparent`}
+                className={`via-muted/50 absolute ${line} from-transparent to-transparent`}
                 initial={initial}
                 animate={reduceMotion || !isInView ? initial : animate}
                 transition={{

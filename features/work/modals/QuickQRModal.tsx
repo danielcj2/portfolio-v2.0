@@ -4,10 +4,9 @@ import Image from "next/image";
 import Carousel from "@/ui/Carousel";
 import Card from "@/ui/Card";
 import { useMemo } from "react";
-import { useImagePreloader } from "@/lib/useImagePreloader";
+import { useImagePreloader } from "@/components/_archive/useImagePreloader";
 import {
   Highlight,
-  List,
   ListItem,
   ModalHeader,
   Paragraph,
@@ -128,17 +127,16 @@ const QuickQRModal = ({
           <Paragraph>
             A QR code platform that brings{" "}
             <Highlight>eight microservices</Highlight> into one single system,
-            helping businesses <Highlight>create, manage, and track</Highlight>{" "}
-            QR-based interactions. It supports use cases like marketing, product
-            info, and contactless experiences, with{" "}
-            <Highlight>built-in analytics</Highlight> to understand how people
-            engage.
+            helping businesses create, manage, and track QR-based interactions.
+            It supports use cases like marketing, product info, and contactless
+            experiences, with <Highlight>built-in analytics</Highlight> to
+            understand how people engage.
           </Paragraph>
           <div className="flex flex-col gap-2">
             <Subheading>What I worked on</Subheading>
-            <List>
+            <ul>
               <ListItem>
-                Took ownership of the <Highlight>frontend</Highlight>, working
+                Took <Highlight>ownership</Highlight> of the frontend, working
                 closely with the CTO to shape how the product is built and
                 maintained.
               </ListItem>
@@ -160,7 +158,7 @@ const QuickQRModal = ({
                 Implemented API routes for client-side data fetching and
                 server-side rendering for direct microservice integration.
               </ListItem>
-            </List>
+            </ul>
           </div>
         </Card>
       </Card>

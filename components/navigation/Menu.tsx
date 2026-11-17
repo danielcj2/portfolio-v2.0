@@ -52,7 +52,7 @@ const MobileMenu = ({ scrollTo, isVisible }: NavProps) => {
   return (
     <nav
       className={cn(
-        "[pointer-events:all] relative col-start-11 col-end-13 row-start-1 mt-(--gap) mr-[calc(-1.5*var(--gap))] flex h-min w-min flex-col items-end justify-self-end",
+        "[pointer-events:all] relative col-start-11 col-end-13 row-start-1 mt-(--gap) mr-[calc(-1.5*var(--gap))] flex h-min min-h-12 w-min min-w-12 flex-col items-end justify-self-end",
         isOpen ? "pb-5 pl-4" : "pb-1 pl-1",
       )}
       aria-expanded={isOpen}

@@ -10,9 +10,10 @@ const CueButton = () => {
 
   return (
     <motion.button
-      className="relative h-14 w-full cursor-pointer z-0"
+      className="relative z-0 h-14 w-full cursor-pointer"
       initial="initial"
       whileHover="hover"
+      whileFocus="hover"
       onHoverStart={scramble}
       onFocus={scramble}
       onClick={() => scrollTo("#about")}

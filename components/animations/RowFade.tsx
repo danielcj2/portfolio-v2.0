@@ -50,7 +50,7 @@ const RowFade = ({
   const { scrollYProgress: targetProgress } = useScroll({
     target,
     container,
-    offset: ["end end", "end center"],
+    offset: ["1 1", "1 0.4"],
   });
   const animationProgress = progress ?? targetProgress;
 
