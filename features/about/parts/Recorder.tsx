@@ -27,7 +27,7 @@ type RecorderArmProps = {
 
 const RecorderDisk = ({ diskRotation, progress }: RecorderDiskProps) => (
   <div
-    className="h-auto w-auto rounded-full bg-neutral-900 p-0.75"
+    className="h-auto w-auto rounded-full bg-[#202020] p-0.75"
     style={{ boxShadow: "0px 0px 6px #090909" }}
   >
     <div
@@ -63,7 +63,7 @@ const RecorderDisk = ({ diskRotation, progress }: RecorderDiskProps) => (
       </div>
       <div className="center-xy bg-background-v2 rounded-full p-1">
         <div
-          className="bg-muted size-1.5 rounded-full"
+          className="size-1.5 rounded-full bg-[#959595]"
           style={{
             boxShadow: "inset 2px -2px 3px #3c3c3c, inset -5px 5px 3px #f0f0f0",
           }}
@@ -79,7 +79,7 @@ const RecorderDisk = ({ diskRotation, progress }: RecorderDiskProps) => (
 
 const PlayButton = ({ playing, onClick }: PlayButtonProps) => (
   <motion.button
-    className="bg-muted-v2/80 absolute bottom-4 left-3 cursor-pointer rounded-full p-1.75"
+    className="bg-muted/80 absolute bottom-4 left-3 cursor-pointer rounded-full p-1.75"
     initial={{ boxShadow: "0 0 10px #060606" }}
     whileFocus={{
       boxShadow:
@@ -115,16 +115,18 @@ const RecorderArm = ({
   onAnimationComplete,
 }: RecorderArmProps) => (
   <motion.div
-    className="bg-muted-v2 absolute top-6 right-4 h-auto w-auto cursor-grab rounded-full py-3.5 pr-3 pl-4"
-    onClick={onClick}
+    className="bg-muted absolute top-6 right-4 h-auto w-auto cursor-pointer rounded-full py-3.5 pr-3 pl-4"
     onPointerDown={onClick}
+    onClick={(event) => {
+      if (event.detail === 0) onClick();
+    }}
     animate={{ rotate: armEngaged ? 32 : 0 }}
     transition={{ duration: 0.3, ease: "easeOut" }}
     onAnimationComplete={onAnimationComplete}
     style={{ boxShadow: "-1px -1px 4px #0b0b0b, 1px 1px 4px #0b0b0b" }}
   >
     <div
-      className="bg-muted-v2 border-background/30 relative size-7 rounded-full border"
+      className="bg-muted border-background/30 relative size-7 rounded-full border"
       style={{
         boxShadow:
           "-7px 3px 4px #222222, 6px -6px 4px #616161, inset 2px 2px 2px #616161",
@@ -151,7 +153,7 @@ const RecorderArm = ({
               boxShadow: "inset 3px 0 1px #424242, -8px 1px 10px #101010",
             }}
           >
-            <div className="bg-muted-v2 absolute bottom-1 left-px size-1.5 rounded-full" />
+            <div className="bg-muted absolute bottom-1 left-px size-1.5 rounded-full" />
           </div>
         </div>
       </div>
@@ -159,7 +161,9 @@ const RecorderArm = ({
       {/* BOTTOM */}
       <div
         className="bg-background-v2 border-background-v2 absolute top-full left-1/2 h-30 w-2 -translate-x-1/2 border-l-3"
-        style={{ boxShadow: "inset 2px 1px 2px #424242, -4px 0 10px #060606" }}
+        style={{
+          boxShadow: "inset 2px 1px 2px #424242, -4px 0 10px #060606",
+        }}
       >
         <div
           className="bg-background-v2 border-background-v2 absolute top-0 -left-1 h-2 w-2.5 border-l-3"
@@ -172,20 +176,20 @@ const RecorderArm = ({
           }}
         />
         <div
-          className="bg-muted-v2 border-background/30 absolute top-full -left-1.5 h-5 w-3.5 border"
+          className="bg-muted border-background/30 absolute top-full -left-1.5 h-5 w-3.5 border"
           style={{
             boxShadow: "inset 2px 2px 2px #616161, -4px 4px 10px #060606",
           }}
         >
           <div
-            className="bg-muted-v2 border-background/30 absolute top-1/2 -left-1.5 h-6.5 w-4.5 rotate-45 rounded-sm border"
+            className="bg-muted border-background/40 absolute top-1/2 -left-1.5 h-6.5 w-4.5 rotate-45 rounded-sm border"
             style={{
               boxShadow: "inset 1px 1px 2px #616161, -4px 8px 16px #060606",
             }}
           >
             <div className="bg-background absolute bottom-0.75 left-px rounded-sm px-px py-0.75">
               <div
-                className="bg-muted h-1 w-0.5 rounded-full"
+                className="h-1 w-0.5 rounded-full bg-[#959595]"
                 style={{
                   boxShadow:
                     "inset 1px -1px 1px #3c3c3c, inset -1px 1px 1px #c4c4c4",
@@ -194,7 +198,7 @@ const RecorderArm = ({
             </div>
             <div className="bg-background absolute right-px bottom-0.75 rounded-sm px-px py-0.75">
               <div
-                className="bg-muted h-1 w-0.5 rounded-full"
+                className="h-1 w-0.5 rounded-full bg-[#959595]"
                 style={{
                   boxShadow:
                     "inset 1px -1px 1px #3c3c3c, inset -1px 1px 1px #c4c4c4",
@@ -293,17 +297,11 @@ const Recorder = () => {
 
   return (
     <div
-      className="relative h-auto w-min rounded-4xl border-2 border-neutral-900 bg-neutral-900 py-3 pr-16 pl-2"
+      className="border-foreground/6 relative h-auto w-min rounded-4xl border bg-[#1a1a1a] py-3 pr-16 pl-2"
       style={{
-        boxShadow: "inset -1px -1px 2px #0b0b0b, inset 1px 1px 2px #0b0b0b",
+        boxShadow: "inset -1px -1px 4px #0a0a0a, inset 1px 1px 4px #0a0a0a",
       }}
     >
-      <div className="absolute top-4.5 left-3.5 z-1">
-        <p className="text-muted-v2 text-xs font-semibold tracking-wider">
-          Joji
-        </p>
-      </div>
-
       <RecorderDisk diskRotation={diskRotation} progress={progress} />
       <PlayButton playing={playing} onClick={handlePlayPause} />
       <RecorderArm

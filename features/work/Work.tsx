@@ -1,17 +1,12 @@
-"use client";
-
 import LogoSpin from "@/animations/LogoSpin";
 import LineFade from "@/animations/LineFade";
 import HeadingFade from "@/animations/HeadingFade";
 import HeadingTranslate from "@/animations/HeadingTranslate";
 import Interlude from "./Interlude";
 import WorkModals from "./modals/WorkModals";
-import { useMediaQuery } from "@/providers/MediaQueryContext";
 import TextScramble from "@/components/animations/TextScramble";
 
 const Work = () => {
-  const { isMobile, isLg } = useMediaQuery();
-
   return (
     <section
       id="work"

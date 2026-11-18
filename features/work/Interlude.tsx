@@ -41,7 +41,7 @@ const Interlude = () => {
       ref={target}
     >
       <div className="sticky top-0 h-screen w-full">
-        <div className="relative top-1/2 left-1/2 grid aspect-square h-auto w-280 -translate-x-1/2 -translate-y-1/2 grid-cols-6 grid-rows-4 overflow-hidden lg:w-full lg:p-12 xl:p-18">
+        <div className="relative top-1/2 left-1/2 grid aspect-square h-auto w-284 -translate-x-1/2 -translate-y-1/2 grid-cols-6 grid-rows-4 overflow-hidden lg:w-full lg:p-12 xl:p-18">
           <motion.div
             className="pointer-events-none absolute inset-0 z-1"
             style={{ rotate }}

@@ -36,9 +36,8 @@ const BungeeJump = ({ rotate, pendulumProgress }: BungeeProps) => {
   const pendulumY = useTransform(pendulumProgress, [0, 1], [0, maxDrop]);
   const dropTarget = useTransform(
     rotate,
-    //  idle → start → full drop → bounce up → 2nd drop → settle
-    [0, -100, -120, -145, -160, -180],
-    [50, 50, 360, 150, 320, SETTLED_DROP],
+    [0, -100, -120, -145, -180],
+    [50, 50, 360, 150, SETTLED_DROP],
   );
   const dropY = useSpring(dropTarget, { stiffness: 200, damping: 30 });
   const ropeHeight = useTransform(
