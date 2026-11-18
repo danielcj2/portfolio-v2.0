@@ -210,7 +210,7 @@ const DesktopMenu = ({ scrollTo, scrollY, isVisible }: NavProps) => {
             }
           }}
         >
-          {!hideWorkStatus && <WorkStatus status="LFW" />}
+          {!hideWorkStatus && isVisible && <WorkStatus status="LFW" />}
         </AnimatePresence>
         <AnimatePresence initial={false}>
           {isVisible && (

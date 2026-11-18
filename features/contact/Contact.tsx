@@ -1,14 +1,51 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import Logo from "@/images/asterisk.svg";
 
-const TVWrapper = dynamic(() => import("./tv/TVWrapper"));
+import { CONTACT_HEIGHT } from "@/lib/layoutHeights";
+
+import React from "react";
+import RowFade from "@/animations/RowFade";
+import Marquee from "@/animations/Marquee";
+
+const items = [
+  "Start a Conversation",
+  "Hola, Let's Talk Ideas",
+  "Connect With Me",
+  "Bonjour, say it back!",
+  "I'd love to hear from you",
+  "Reach Out Anytime",
+];
 
 const Contact = () => {
+  const createMarquee = (items: string[]) =>
+    [...items, ...items].map((item, index) => (
+      <React.Fragment key={`${item}-${index}`}>
+        <span>{item}</span>
+        <Logo className="text-background [&_path]:fill-background/85 [&_path]:stroke-muted inline h-15 w-15" />
+      </React.Fragment>
+    ));
+
   return (
-    <section id="contact" className="h-min w-full">
-      <div className="bg-background-v2 relative z-1 h-2 w-full" aria-hidden />
-      <TVWrapper />
+    <section
+      id="contact"
+      className="relative"
+      style={{ height: CONTACT_HEIGHT }}
+    >
+      <RowFade className="top-[-30vh] h-[60vh]" color={"[#c4c4c4]"} />
+      <div className="absolute inset-x-0 top-[30vh] bottom-0 bg-[#c4c4c4]" />
+      <div className="sticky top-0 flex h-screen w-full items-center">
+        <Marquee
+          className="text-background font-sans text-[72px] font-medium tracking-[0.015em]"
+          options={{
+            baseVelocity: 80,
+            scrollBoost: false,
+            gap: 24,
+          }}
+        >
+          {createMarquee(items)}
+        </Marquee>
+      </div>
     </section>
   );
 };

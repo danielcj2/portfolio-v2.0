@@ -1,30 +1,45 @@
-import HeadingTranslate from "@/animations/HeadingTranslate";
-import LogoSpin from "@/animations/LogoSpin";
-import TextFlip from "@/components/animations/TextFlip";
-import Link from "next/link";
+"use client";
+
+import React from "react";
+import Marquee from "@/animations/Marquee";
+import TVStage from "@/components/tv/TVStage";
+
+import { motion } from "framer-motion";
+
+const items = ["Not Found", "Page Missing", "Oops!"];
 
 export default function NotFound() {
+  const createMarquee = (items: string[]) =>
+    [...items, ...items].map((item, index) => (
+      <React.Fragment key={`${item}-${index}`}>
+        <span>{item}</span>
+        <span className="text-background font-sans text-[68px] font-medium tracking-[0.015em] italic">
+          <span className="mx-6">&#8226;</span>
+          404
+          <span className="mx-6">&#8226;</span>
+        </span>
+      </React.Fragment>
+    ));
+
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-8">
-      <div className="flex justify-center gap-2 uppercase md:gap-0">
-        <HeadingTranslate
-          className="min-w-0 text-right font-mono text-[clamp(1rem,12vw,8rem)] font-light tracking-tighter"
-          direction="left"
-          text="Not"
-        />
-        <LogoSpin text="I am still spinning ✦ don't mind me ✦" />
-        <HeadingTranslate
-          className="min-w-0 text-[clamp(1rem,12vw,8rem)] font-medium italic"
-          direction="right"
-          text="Found"
-        />
-      </div>
-      <Link
-        href="/"
-        className="text-muted-v2 font-chakra bg-background mt-1 flex cursor-pointer justify-between gap-2 text-sm font-bold tracking-wider uppercase md:mt-0 md:text-base"
+    <div className="relative flex h-screen items-center justify-center">
+      <motion.div
+        className="absolute inset-0 bg-[#c4c4c4]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1.2 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      />
+      <TVStage fastForward />
+      <Marquee
+        className="text-background font-sans text-[68px] font-medium tracking-[0.015em]"
+        options={{
+          baseVelocity: 90,
+          scrollBoost: false,
+          gap: 24,
+        }}
       >
-        <TextFlip>Return Home &#8594;</TextFlip>
-      </Link>
+        {createMarquee(items)}
+      </Marquee>
     </div>
   );
 }

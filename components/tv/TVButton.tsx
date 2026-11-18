@@ -14,7 +14,13 @@ const SHADOW_INITIAL =
 const SHADOW_FOCUSED =
   "inset 5px 5px 10px #646464, inset -5px -5px 10px #c6c6c6";
 
-const Button = ({ as = "button", className, aspect, children, ...props }: ButtonProps) => {
+const TVButton = ({
+  as = "button",
+  className,
+  aspect,
+  children,
+  ...props
+}: ButtonProps) => {
   const sharedProps = {
     className: cn(variants({ aspect }), className),
     initial: { boxShadow: SHADOW_INITIAL },
@@ -25,28 +31,21 @@ const Button = ({ as = "button", className, aspect, children, ...props }: Button
 
   if (as === "a") {
     return (
-      <motion.a
-        {...sharedProps}
-        {...props}
-      >
+      <motion.a {...sharedProps} {...props}>
         {children}
       </motion.a>
     );
   }
 
   return (
-    <motion.button
-      type="button"
-      {...sharedProps}
-      {...props}
-    >
+    <motion.button type="button" {...sharedProps} {...props}>
       {children}
     </motion.button>
   );
 };
 
 const variants = cva(
-  "bg-muted border-background-v2 border-px text-nowrap relative flex h-full cursor-pointer items-center overflow-hidden rounded-lg outline-none",
+  "bg-[#959595] border-background-v2 border-px text-nowrap relative flex h-full cursor-pointer items-center overflow-hidden rounded-lg outline-none",
   {
     variants: {
       aspect: {
@@ -60,4 +59,4 @@ const variants = cva(
   },
 );
 
-export default Button;
+export default TVButton;

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react";
-import Logo from "@/images/logo.svg";
 
 import {
   motion,
@@ -20,15 +19,14 @@ import { useScrollContainer } from "@/providers/ScrollContext";
 
 type ParallaxProps = {
   className?: string;
-  items: string[];
+  children: React.ReactNode;
   options?: {
     baseVelocity?: number;
     fadeSides?: boolean;
     direction?: "left" | "right";
     changeDirection?: boolean;
+    scrollBoost?: boolean;
     gap?: number;
-    Divider?: React.ComponentType<{ className?: string }>;
-    dividerClassName?: string;
   };
 };
 
@@ -39,48 +37,52 @@ function wrap(min: number, max: number, value: number) {
 
 const SIDE_FADE_MASK =
   "mask-[linear-gradient(to_right,rgba(0,0,0,0),rgba(0,0,0,1)_20%,rgba(0,0,0,1)_80%,rgba(0,0,0,0))]";
+const REFERENCE_WIDTH = 320;
 
-const TextMarquee = ({ className, items, options }: ParallaxProps) => {
+const Marquee = ({ className, children, options }: ParallaxProps) => {
   const {
     baseVelocity = 100,
     fadeSides = true,
     direction = "right",
     changeDirection = true,
+    scrollBoost = true,
     gap = 12,
-    Divider = Logo,
-    dividerClassName = "text-muted h-6 w-6 stroke-2",
   } = options || {};
 
+  const viewportRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const loopWidthRef = useRef<number>(0);
+  const viewportWidthRef = useRef<number>(0);
   const baseX = useMotionValue(0);
   const directionFactor = useRef<number>(direction === "right" ? 1 : -1);
   const reduceMotion = !!useReducedMotion();
-  const isInView = useInView(containerRef, { margin: "0px 0px -50px 0px" });
+  const isInView = useInView(viewportRef, { margin: "0px 0px -50px 0px" });
 
   const updateLoopWidth = useCallback(() => {
     const el = containerRef.current;
-    if (!el) return;
+    const viewport = viewportRef.current;
+    if (!el || !viewport) return;
 
-    requestAnimationFrame(() => {
-      const contentWidth = el.getBoundingClientRect().width / 2;
-      loopWidthRef.current = contentWidth + gap;
-    });
+    const contentWidth = el.getBoundingClientRect().width / 2;
+    loopWidthRef.current = contentWidth + gap;
+    viewportWidthRef.current = viewport.getBoundingClientRect().width;
   }, [gap]);
 
   // NOTE: Cache track width so the transform calculation avoids per-frame layout reads.
   useLayoutEffect(() => {
-    if (items.length === 0) return;
+    if (!children) return;
     const el = containerRef.current;
-    if (!el) return;
+    const viewport = viewportRef.current;
+    if (!el || !viewport) return;
 
     updateLoopWidth();
 
     const observer = new ResizeObserver(updateLoopWidth);
     observer.observe(el);
+    observer.observe(viewport);
 
     return () => observer.disconnect();
-  }, [items, updateLoopWidth]);
+  }, [children, updateLoopWidth]);
 
   // NOTE: Some layouts report zero width until the section is visible.
   // Re-measure when entering view so motion can begin immediately.
@@ -102,6 +104,10 @@ const TextMarquee = ({ className, items, options }: ParallaxProps) => {
     clamp: false,
   });
 
+  useEffect(() => {
+    directionFactor.current = direction === "right" ? 1 : -1;
+  }, [direction]);
+
   // NOTE: X Position Calculation
   // Loops the content horizontally infinitely
   const x: MotionValue<string> = useTransform(baseX, (v) => {
@@ -120,22 +126,30 @@ const TextMarquee = ({ className, items, options }: ParallaxProps) => {
       if (loopWidthRef.current <= 0) return;
     }
 
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
-    const vf = velocityFactor.get();
-
     if (changeDirection) {
-      if (vf < 0) directionFactor.current = -1;
-      if (vf > 0) directionFactor.current = 1;
-      moveBy += directionFactor.current * moveBy * vf;
+      const velocity = scrollVelocity.get();
+      if (velocity > 0) directionFactor.current = -1;
+      if (velocity < 0) directionFactor.current = 1;
     }
+
+    const boost = changeDirection && scrollBoost
+      ? Math.abs(velocityFactor.get()) *
+        (viewportWidthRef.current / REFERENCE_WIDTH)
+      : 0;
+    const moveBy =
+      directionFactor.current *
+      baseVelocity *
+      (1 + boost) *
+      (delta / 1000);
 
     baseX.set(baseX.get() + moveBy);
   });
 
   return (
     <div
+      ref={viewportRef}
       className={cn(
-        "font-mono text-muted relative h-full w-full overflow-hidden text-3xl font-semibold tracking-tight italic",
+        "relative h-full w-full overflow-hidden",
         fadeSides && SIDE_FADE_MASK,
         className,
       )}
@@ -145,15 +159,10 @@ const TextMarquee = ({ className, items, options }: ParallaxProps) => {
         ref={containerRef}
         style={{ x, gap: `${gap * 2}px` }}
       >
-        {[...items, ...items].map((item, index) => (
-          <React.Fragment key={`${item}-${index}`}>
-            <span>{item}</span>
-            {Divider && <Divider className={cn("inline", dividerClassName)} />}
-          </React.Fragment>
-        ))}
+        {children}
       </motion.div>
     </div>
   );
 };
 
-export default TextMarquee;
+export default Marquee;

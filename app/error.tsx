@@ -1,43 +1,32 @@
 "use client";
 
-import HeadingTranslate from "@/animations/HeadingTranslate";
-import LogoSpin from "@/animations/LogoSpin";
-import Button from "@/components/ui/Button";
+import { Wrapper } from "@/components/tv/TVNav";
+import TVButton from "@/components/tv/TVButton";
+import TVStage from "@/components/tv/TVStage";
 
 export default function Error({
   error,
-  unstable_retry,
+  retry,
 }: {
-  error: Error & { digest?: string };
-  unstable_retry: () => void;
+  error: unknown;
+  retry: () => void;
 }) {
+  const buttons: React.ReactNode = (
+    <Wrapper>
+      <TVButton onClick={() => retry()}>
+        <p className="text-background font-mono text-[38px] font-semibold tracking-[-0.015em] text-nowrap uppercase">
+          Retry Session
+        </p>
+      </TVButton>
+    </Wrapper>
+  );
+
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-8">
-      <div className="flex flex-wrap justify-center gap-4 uppercase">
-        <HeadingTranslate
-          className="min-w-0 text-right font-mono text-[clamp(1rem,10vw,6rem)] font-light tracking-tighter"
-          direction="left"
-          text="Something"
-        />
-        <LogoSpin
-          className="translate-x-3.5"
-          text="I am still spinning ✦ don't mind me ✦"
-        />
-        <HeadingTranslate
-          className="min-w-0 text-[clamp(1rem,10vw,6rem)] font-medium italic"
-          direction="right"
-          text="Went Wrong"
-        />
-      </div>
-      <Button
-        className="font-chakra text-background h-12 text-base font-bold tracking-wider text-nowrap uppercase md:h-14 md:text-lg"
-        onClick={
-          // Attempt to recover by re-fetching and re-rendering the segment
-          () => unstable_retry()
-        }
-      >
-        Try again
-      </Button>
+    <div className="flex h-screen items-center justify-center bg-[#c4c4c4]">
+      <TVStage fastForward buttons={buttons} />
+      <p className="text-background font-sans text-[72px] font-medium tracking-[0.015em] uppercase">
+        Error
+      </p>
     </div>
   );
 }
