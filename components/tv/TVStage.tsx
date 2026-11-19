@@ -66,7 +66,7 @@ const TVStage = ({
       <TVShell progress={progress}>
         <TVNav buttons={buttons} />
       </TVShell>
-      <div className="relative h-svh w-screen">
+      <div className="relative h-screen w-screen">
         <Scanlines />
         <div className="crt-vignette" />
         <Blur className="absolute inset-x-0 top-(--gap) h-28 -scale-y-100" />

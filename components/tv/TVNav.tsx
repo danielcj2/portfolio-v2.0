@@ -84,7 +84,7 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
         {CHANNEL_BARS.map((barId) => (
           <div
             key={barId}
-            className="h-full w-4 overflow-hidden rounded-t-lg bg-[#545454] px-1 pt-1 shadow-[inset_-4px_-2px_6px_#8c8c8c] xl:[&:nth-child(-n+5)]:hidden xl:last-of-type:hidden 2xl:[&:nth-child(-n+5)]:block 2xl:last-of-type:block"
+            className="h-full w-4 overflow-hidden rounded-t-lg bg-[#545454] px-1 pt-1 shadow-[inset_-4px_-2px_6px_#8c8c8c] xl:last-of-type:hidden xl:nth-[-n+5]:hidden 2xl:last-of-type:block 2xl:nth-[-n+5]:block"
           >
             <div className="bg-background/80 flex h-full w-full gap-1 overflow-hidden rounded-t-md shadow-[inset_2px_4px_2px_#0f0f0f,inset_-5px_-5px_10px_#343434]" />
           </div>

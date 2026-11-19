@@ -256,7 +256,7 @@ html {
     margin-top: 50px;
     animation: parallax-rise linear both;
     animation-timeline: view();
-    animation-range: cover 0px cover 100svh;
+    animation-range: cover 0px cover 100vh;
   }
 }
 
