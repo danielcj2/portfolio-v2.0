@@ -4,7 +4,7 @@ import Image from "next/image";
 import Carousel from "@/ui/Carousel";
 import Card from "@/ui/Card";
 import { useMemo } from "react";
-import { useImagePreloader } from "@/components/_archive/useImagePreloader";
+import { useImagePreloader } from "@/lib/useImagePreloader";
 import {
   Highlight,
   ListItem,
