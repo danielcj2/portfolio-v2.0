@@ -16,8 +16,7 @@ export const ModalHeader = ({ name, year, onClose }: ModalHeaderProps) => (
       </p>
     </Card>
     <Card
-      className="aspect-square h-full w-auto shrink-0 rounded-xl"
-      theme="button"
+      className="hover:bg-foreground/4 active:bg-foreground/8 hover:text-foreground flex aspect-square h-full w-auto shrink-0 cursor-pointer items-center justify-center rounded-xl text-[#959595] transition-colors duration-200"
       role="button"
       tabIndex={0}
       aria-label="Close modal"

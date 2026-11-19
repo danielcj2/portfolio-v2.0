@@ -11,11 +11,14 @@ import {
   useMotionValueEvent,
   useScroll,
   useTransform,
+  type MotionStyle,
 } from "motion/react";
 import { useState } from "react";
 import { motionValue } from "motion/react";
-import { useScrollContainer } from "@/providers/ScrollContext";
 import { CONTACT_HEIGHT } from "@/lib/layoutHeights";
+
+const finalScale = 0.4;
+const mobileScaleTarget = 1.2;
 
 const TVStage = ({
   fastForward,
@@ -24,15 +27,20 @@ const TVStage = ({
   fastForward?: boolean;
   buttons?: React.ReactNode;
 }) => {
-  const container = useScrollContainer();
   const { scrollYProgress } = useScroll({
-    container,
     offset: [`end ${CONTACT_HEIGHT}`, "end end"],
   });
 
   const progress = fastForward ? motionValue(1) : scrollYProgress;
 
-  const scale = useTransform(progress, [0, 1], [1, 0.4]);
+  const desktopScaleX = useTransform(progress, [0, 1], [1, finalScale]);
+  const mobileScaleX = useTransform(progress, [0, 1], [1, mobileScaleTarget]);
+  const mobileCounterScaleX = useTransform(
+    progress,
+    [0, 1],
+    [1, finalScale / mobileScaleTarget],
+  );
+  const scaleY = useTransform(progress, [0, 1], [1, finalScale]);
   const [visible, setVisible] = useState(false);
 
   useMotionValueEvent(progress, "change", (value) => {
@@ -44,9 +52,16 @@ const TVStage = ({
 
   return (
     <motion.div
-      id="screen-viewport"
       className="screen-viewport pointer-events-none fixed top-0 z-50"
-      style={{ scale, transformOrigin: "center center" }}
+      style={
+        {
+          "--tv-desktop-scale-x": desktopScaleX,
+          "--tv-mobile-scale-x": mobileScaleX,
+          "--tv-mobile-counter-scale-x": mobileCounterScaleX,
+          scaleY,
+          transformOrigin: "center center",
+        } as MotionStyle
+      }
     >
       <TVShell progress={progress}>
         <TVNav buttons={buttons} />

@@ -6,8 +6,7 @@ import Logo from "@/images/logo.svg";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { useLenisScroll } from "@/providers/LenisContext";
-import { useScrollContainer } from "@/providers/ScrollContext";
+import { useLenisScroll } from "@/lib/useLenisScroll";
 import {
   CONTACT_HEIGHT,
   HEADER_SCROLL_START_OFFSET,
@@ -21,14 +20,12 @@ import {
 
 const Header: React.FC = () => {
   const path = usePathname();
-  const container = useScrollContainer();
-  const { scrollTo } = useLenisScroll();
-  const { scrollY } = useScroll({ container });
+  const { navigateTo } = useLenisScroll();
+  const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(true);
   const isHome = path === "/" || path.startsWith("/#");
 
   const { scrollYProgress } = useScroll({
-    container,
     offset: [`end ${HEADER_SCROLL_START_OFFSET}`, `end ${CONTACT_HEIGHT}`],
   });
 
@@ -57,12 +54,12 @@ const Header: React.FC = () => {
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <a
-              href="#hero"
+              href="/"
               className="pointer-events-auto block cursor-pointer py-2"
               aria-label="Scroll to top"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo("#hero");
+              onClick={(event) => {
+                event.preventDefault();
+                navigateTo("#hero");
               }}
             >
               <Logo className="text-foreground h-8 w-auto md:h-12" />
@@ -85,7 +82,7 @@ const Header: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <Menu scrollTo={scrollTo} scrollY={scrollY} isVisible={isVisible} />
+      <Menu scrollTo={navigateTo} scrollY={scrollY} isVisible={isVisible} />
     </header>
   );
 };

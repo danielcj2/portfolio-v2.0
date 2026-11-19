@@ -10,19 +10,15 @@ import StaggerReveal from "./parts/StaggerReveal";
 
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { useRef } from "react";
-import { useScrollContainer } from "@/providers/ScrollContext";
 
 const Interlude = () => {
   const target = useRef<HTMLDivElement>(null);
-  const container = useScrollContainer();
   const { scrollYProgress } = useScroll({
     target,
-    container,
     offset: ["start start", "end end"],
   });
   const { scrollYProgress: pendulumProgress } = useScroll({
     target,
-    container,
     offset: ["end end", "end center"],
   });
 

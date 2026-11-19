@@ -10,12 +10,12 @@ import WorkStatus from "../ui/WorkStatus";
 import ScrollTracker from "../ui/ScrollTracker";
 import TextScramble from "../animations/TextScramble";
 
-type SectionHref = "#hero" | "#work" | "#about" | "#footer";
+type SectionHref = "#hero" | "#work" | "#about" | "#contact";
 
 const SECTIONS = [
   { text: "Work", href: "#work" },
   { text: "About", href: "#about" },
-  { text: "Contact", href: "#footer" },
+  { text: "Contact", href: "#contact" },
 ] as const;
 
 type NavProps = {

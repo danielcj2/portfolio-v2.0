@@ -8,7 +8,7 @@ export default function Scanlines() {
       className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
     >
       <div className="scanlines-grid absolute inset-0" />
-      <div className="absolute inset-0 opacity-12 backdrop-blur-md" />
+      <div className="absolute inset-0 opacity-13 backdrop-blur-md" />
       {STREAK_DELAYS.map((delay) => (
         <div
           key={delay}

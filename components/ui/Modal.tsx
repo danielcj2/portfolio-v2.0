@@ -4,7 +4,7 @@ import { AnimatePresence, HTMLMotionProps, motion } from "motion/react";
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { FocusTrap } from "focus-trap-react";
-import { useLenisRef } from "@/providers/LenisContext";
+import { useLenis } from "lenis/react";
 import { cn } from "@/lib/utils";
 
 type ModalProps = {
@@ -21,28 +21,27 @@ const Modal = ({
   children,
   ...props
 }: ModalProps) => {
-  const lenisRef = useLenisRef();
+  const lenis = useLenis();
 
   const modalRef = useRef<HTMLDivElement>(null);
   const canUseDOM = typeof document !== "undefined";
 
   useEffect(() => {
     if (!isOpen) return;
-    const lenis = lenisRef.current;
 
-    const scrollContainer = document.getElementById("scroll-container");
-    if (scrollContainer)
-      (scrollContainer as HTMLElement & { inert?: boolean }).inert = true;
+    const pageContent = document.querySelector("main");
+    if (pageContent)
+      (pageContent as HTMLElement & { inert?: boolean }).inert = true;
 
     lenis?.stop();
 
     return () => {
-      if (scrollContainer)
-        (scrollContainer as HTMLElement & { inert?: boolean }).inert = false;
+      if (pageContent)
+        (pageContent as HTMLElement & { inert?: boolean }).inert = false;
 
       lenis?.start();
     };
-  }, [isOpen, lenisRef]);
+  }, [isOpen, lenis]);
 
   return (
     <>

@@ -1,6 +1,5 @@
 "use client";
 
-import { useScrollContainer } from "@/providers/ScrollContext";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { useRef } from "react";
 
@@ -8,9 +7,7 @@ type HeadingProps = { text: string };
 
 const HeadingFade = ({ text }: HeadingProps) => {
   const target = useRef<HTMLDivElement>(null);
-  const container = useScrollContainer();
   const { scrollYProgress } = useScroll({
-    container,
     target,
     offset: ["start end", "end start"],
   });

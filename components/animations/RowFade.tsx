@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useScrollContainer } from "@/providers/ScrollContext";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import { useRef } from "react";
 
@@ -46,10 +45,8 @@ const RowFade = ({
   progress,
 }: RowFadeProps) => {
   const target = useRef<HTMLDivElement>(null);
-  const container = useScrollContainer();
   const { scrollYProgress: targetProgress } = useScroll({
     target,
-    container,
     offset: ["1 1", "1 0.4"],
   });
   const animationProgress = progress ?? targetProgress;

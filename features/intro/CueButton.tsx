@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useLenisScroll } from "@/providers/LenisContext";
+import { useLenisScroll } from "@/lib/useLenisScroll";
 import { useTextScramble } from "@/animations/useTextScramble";
 
 const CueButton = () => {

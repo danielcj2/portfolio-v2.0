@@ -7,11 +7,8 @@ import { Analytics } from "@vercel/analytics/next";
 
 import type { Metadata } from "next";
 import { baseNeue, oxanium } from "@/lib/fonts";
-import { LenisProvider } from "@/providers/LenisContext";
-import { ScrollProvider } from "@/providers/ScrollContext";
 import { MediaQueryProvider } from "@/providers/MediaQueryContext";
-import ScrollWrapper from "@/ui/ScrollWrapper";
-import SiteBootGate from "@/providers/SiteBootGate";
+import { SmoothScroll } from "@/ui/SmoothScroll";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 const sameAs = [
@@ -70,9 +67,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${baseNeue.variable} ${oxanium.variable} overflow-hidden antialiased`}
-      >
+      <body className={`${baseNeue.variable} ${oxanium.variable} antialiased`}>
         <Script
           id="ld-person"
           type="application/ld+json"
@@ -80,16 +75,14 @@ export default async function RootLayout({
             __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
-        <LenisProvider>
-          <ScrollProvider>
-            <MediaQueryProvider>
-              {/* <SiteBootGate> */}
+        <SmoothScroll>
+          <MediaQueryProvider>
+            <div className="bg-background w-screen">
               <Header />
-              <ScrollWrapper>{children}</ScrollWrapper>
-              {/* </SiteBootGate> */}
-            </MediaQueryProvider>
-          </ScrollProvider>
-        </LenisProvider>
+              <main className="relative z-0 h-min font-sans">{children}</main>
+            </div>
+          </MediaQueryProvider>
+        </SmoothScroll>
         <SpeedInsights />
         <Analytics />
       </body>

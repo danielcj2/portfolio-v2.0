@@ -22,9 +22,9 @@ const About = () => {
   return (
     <section
       id="about"
-      className="h-min w-full overflow-x-clip pt-32 md:pt-42 lg:-mt-48 xl:-mt-23"
+      className="-mt-12 h-min w-full overflow-x-clip pt-48 lg:-mt-48 xl:-mt-28"
     >
-      <div className="mx relative z-1 pr-4 pl-1 md:mx-auto! md:w-min md:pb-16 lg:pb-32">
+      <div className="mx relative z-1 pr-2 pl-2 md:mx-auto! md:w-min md:pb-16 lg:pb-32">
         <HeadingFade text="02" />
         <div className="flex justify-between gap-1 uppercase md:justify-center md:gap-0">
           <HeadingTranslate
@@ -37,7 +37,7 @@ const About = () => {
             text="I'm still spinning ✦ don't mind me ✦"
           />
           <HeadingTranslate
-            className="min-w-0 text-[clamp(1rem,16.5vw,15rem)] font-medium italic"
+            className="min-w-0 text-[clamp(1rem,16.5vw,15rem)] font-medium italic pr-2"
             direction="right"
             text="Me"
           />
@@ -52,7 +52,7 @@ const About = () => {
           <TextScramble text="Big Dreamer" />
         </div>
       </div>
-      <div className="mx grid-12 relative z-0 gap-y-18 pt-20 pb-32 md:gap-y-24 lg:mt-20">
+      <div className="mx grid-12 relative z-0 gap-y-18 px-2 pt-20 pb-32 md:gap-y-24 lg:mt-20">
         <div className="sticky top-0 col-span-4 col-start-1 row-start-1 mt-[-70vh] -mb-20 hidden h-screen lg:block">
           <div className="absolute inset-x-8 inset-y-16 flex flex-col justify-end">
             <div className="mb-2.5">
@@ -111,7 +111,7 @@ const About = () => {
             </p>
             <p className="mt-6">
               Since then, I've spent my time{" "}
-              <HourglassSimpleIcon className="inline size-7 md:size-7.5" />{" "}
+              <HourglassSimpleIcon className="inline size-6 md:size-7.5" />{" "}
               exploring and experimenting with new tools, figuring out what{" "}
               <TextFade>I enjoy building.</TextFade>
             </p>

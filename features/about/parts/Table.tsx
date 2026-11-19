@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils";
 import { useRef } from "react";
 import { useTextScramble } from "@/animations/useTextScramble";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useScrollContainer } from "@/providers/ScrollContext";
 
 type TableProps = {
   title: string;
@@ -63,10 +62,8 @@ const Row = ({ className, title, caption, revealText }: Row) => {
 
 const Table = ({ title, caption, rows }: TableProps) => {
   const target = useRef<HTMLDivElement>(null);
-  const container = useScrollContainer();
   const { scrollYProgress } = useScroll({
     target,
-    container,
     offset: ["start end", "end center"],
   });
 

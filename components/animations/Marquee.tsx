@@ -15,7 +15,6 @@ import {
   type MotionValue,
 } from "motion/react";
 import { cn } from "@/lib/utils";
-import { useScrollContainer } from "@/providers/ScrollContext";
 
 type ParallaxProps = {
   className?: string;
@@ -93,8 +92,7 @@ const Marquee = ({ className, children, options }: ParallaxProps) => {
     return () => cancelAnimationFrame(rafId);
   }, [isInView, updateLoopWidth]);
 
-  const container = useScrollContainer();
-  const { scrollY } = useScroll({ container });
+  const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
   const smoothVelocity = useSpring(scrollVelocity, {
     damping: 50,

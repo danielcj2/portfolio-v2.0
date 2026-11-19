@@ -9,7 +9,6 @@ import {
   type MotionValue,
 } from "motion/react";
 import { useRef } from "react";
-import { useScrollContainer } from "@/providers/ScrollContext";
 import { cn } from "@/lib/utils";
 
 type TextGrowProps = { text: string; className?: string };
@@ -53,11 +52,9 @@ const Box = ({ children, progress, reduceMotion }: BoxProps) => {
 const TextGrow = ({ text, className }: TextGrowProps) => {
   const target = useRef<HTMLDivElement>(null);
   const reduceMotion = !!useReducedMotion();
-  const container = useScrollContainer();
 
   const { scrollYProgress: progress } = useScroll({
     target,
-    container,
     offset: ["start end", "end center"],
   });
 

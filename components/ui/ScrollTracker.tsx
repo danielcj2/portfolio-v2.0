@@ -1,12 +1,10 @@
 "use client";
 
-import { useScrollContainer } from "@/providers/ScrollContext";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import { useRef, useState } from "react";
 
 const ScrollTracker = () => {
-  const container = useScrollContainer();
-  const { scrollYProgress } = useScroll({ container });
+  const { scrollYProgress } = useScroll();
   const [progress, setProgress] = useState<number>(0);
   const progressRef = useRef(0);
 

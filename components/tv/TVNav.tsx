@@ -4,7 +4,7 @@ import Link from "next/link";
 import TVButton from "./TVButton";
 
 import { cn } from "@/lib/utils";
-import { useLenisScroll } from "@/providers/LenisContext";
+import { useLenisScroll } from "@/lib/useLenisScroll";
 import { EnvelopeIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
 import { motion, useReducedMotion } from "motion/react";
 
@@ -36,20 +36,20 @@ export const Wrapper = ({
 );
 
 const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
-  const { scrollTo } = useLenisScroll();
+  const { navigateTo } = useLenisScroll();
   const shouldReduceMotion = useReducedMotion();
 
+  const handleNav = (event: { preventDefault: () => void }, target: string) => {
+    event.preventDefault();
+    navigateTo(target);
+  };
+
   return (
-    <div className="absolute bottom-0 left-0 grid h-64 w-full grid-cols-[0.5fr_auto_1fr] items-center gap-4 px-32 md:grid-cols-[auto_auto_1fr_auto_auto]">
+    <motion.div className="tv-nav absolute -inset-x-1/3 bottom-0 grid h-64 grid-cols-[auto_auto_1fr] items-center gap-4 px-32 md:inset-x-0 lg:grid-cols-[auto_auto_1fr_auto] xl:grid-cols-[auto_auto_1fr_auto_auto]">
       <Link
         className="pointer-events-auto ml-auto cursor-pointer md:mr-auto"
         href="/"
-        onClick={(event) => {
-          if (window.location.pathname === "/") {
-            event.preventDefault();
-            scrollTo("#hero");
-          }
-        }}
+        onClick={(event) => handleNav(event, "#hero")}
       >
         <Logo
           className="h-26 w-auto text-[#959595]/20"
@@ -84,7 +84,7 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
         {CHANNEL_BARS.map((barId) => (
           <div
             key={barId}
-            className="h-full w-4 overflow-hidden rounded-t-lg bg-[#545454] px-1 pt-1 shadow-[inset_-4px_-2px_6px_#8c8c8c] xl:first-of-type:hidden xl:last-of-type:hidden xl:nth-of-type-[2]:hidden 2xl:first-of-type:block 2xl:last-of-type:block 2xl:nth-of-type-[2]:block"
+            className="h-full w-4 overflow-hidden rounded-t-lg bg-[#545454] px-1 pt-1 shadow-[inset_-4px_-2px_6px_#8c8c8c] xl:[&:nth-child(-n+5)]:hidden xl:last-of-type:hidden 2xl:[&:nth-child(-n+5)]:block 2xl:last-of-type:block"
           >
             <div className="bg-background/80 flex h-full w-full gap-1 overflow-hidden rounded-t-md shadow-[inset_2px_4px_2px_#0f0f0f,inset_-5px_-5px_10px_#343434]" />
           </div>
@@ -94,13 +94,21 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
         buttons
       ) : (
         <>
-          <Wrapper className="hidden md:block">
-            <TVButton onClick={() => scrollTo("#work")}>
+          <Wrapper className="hidden lg:block">
+            <TVButton
+              as="a"
+              href="/#work"
+              onClick={(event) => handleNav(event, "#work")}
+            >
               <p className="text-background font-mono text-[38px] font-semibold tracking-[-0.015em] text-nowrap uppercase">
                 Work
               </p>
             </TVButton>
-            <TVButton onClick={() => scrollTo("#about")}>
+            <TVButton
+              as="a"
+              href="/#about"
+              onClick={(event) => handleNav(event, "#about")}
+            >
               <p className="text-background font-mono text-[38px] font-semibold tracking-[-0.015em] text-nowrap uppercase">
                 About me
               </p>
@@ -136,7 +144,7 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
           </Wrapper>
         </>
       )}
-    </div>
+    </motion.div>
   );
 };
 

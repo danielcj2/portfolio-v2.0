@@ -1,7 +1,6 @@
 "use client";
 
 import { useMediaQuery } from "@/providers/MediaQueryContext";
-import { useScrollContainer } from "@/providers/ScrollContext";
 import {
   HTMLMotionProps,
   motion,
@@ -22,9 +21,7 @@ const HeadingTranslate = ({ text, direction, ...props }: HeadingProps) => {
   const target = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const { isMobile } = useMediaQuery();
-  const container = useScrollContainer();
   const { scrollYProgress } = useScroll({
-    container,
     target,
     offset: ["start end", "end center"],
   });

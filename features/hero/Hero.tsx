@@ -6,19 +6,16 @@ import HeroText from "./parts/HeroText";
 
 import { motionValue, useScroll, motion, MotionConfig } from "motion/react";
 import { useMemo, useRef } from "react";
-import { useLenisScroll } from "@/providers/LenisContext";
-import { useScrollContainer } from "@/providers/ScrollContext";
+import { useLenisScroll } from "@/lib/useLenisScroll";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
 
 const Hero = () => {
   const { scrollTo } = useLenisScroll();
   const target = useRef<HTMLElement>(null);
-  const container = useScrollContainer();
   const { isMobile } = useMediaQuery();
   const staticProgress = useMemo(() => motionValue(0.5), []);
 
   const { scrollYProgress } = useScroll({
-    container,
     target,
     offset: ["start end", "end start"],
   });

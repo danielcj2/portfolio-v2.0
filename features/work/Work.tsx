@@ -10,7 +10,7 @@ const Work = () => {
   return (
     <section
       id="work"
-      className="relative z-0 h-min w-full overflow-x-clip pt-32 pb-10 md:pb-0"
+      className="relative z-0 -mt-16 h-min w-full overflow-x-clip pt-32 pb-10 md:pb-0 lg:pt-48"
     >
       <div className="mx relative mb-6 pr-3.5 pl-2 md:mx-auto! md:mb-8 md:w-min md:pb-8 lg:pb-36">
         <HeadingFade text="01" />
