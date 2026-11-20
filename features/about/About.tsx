@@ -22,7 +22,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="-mt-12 h-min w-full overflow-x-clip pt-48 lg:-mt-48 xl:-mt-28"
+      className="relative z-0 -mt-12 h-min w-full overflow-x-clip pt-48 lg:-mt-48 xl:-mt-28"
     >
       <div className="mx relative z-1 pr-2 pl-2 md:mx-auto! md:w-min md:pb-16 lg:pb-32">
         <HeadingFade text="02" />
@@ -37,7 +37,7 @@ const About = () => {
             text="I'm still spinning ✦ don't mind me ✦"
           />
           <HeadingTranslate
-            className="min-w-0 text-[clamp(1rem,16.5vw,15rem)] font-medium italic pr-2"
+            className="min-w-0 text-[clamp(1rem,16.5vw,15rem)] font-medium italic"
             direction="right"
             text="Me"
           />

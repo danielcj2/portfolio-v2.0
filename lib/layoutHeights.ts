@@ -1,3 +1,9 @@
-export const CONTACT_HEIGHT = "165vh";
+export const CONTACT_HEIGHT = "150vh";
 export const FOOTER_HEIGHT = "40vh";
 export const HEADER_SCROLL_START_OFFSET = "250vh";
+
+export const TV_FINAL_SCALE = 0.38;
+export const TV_TRANSFORM_ORIGIN_Y = -5;
+export const MOBILE_TV_TRIGGER = 0.2;
+export const MOBILE_CONTACT_HEIGHT = "125vh";
+export const MOBILE_TV_DURATION = 1;

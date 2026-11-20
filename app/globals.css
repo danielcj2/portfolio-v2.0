@@ -14,7 +14,15 @@ html {
   background: var(--background-v2);
   color: var(--foreground);
   text-rendering: optimizeLegibility;
-  overscroll-behavior-y: none;
+  overflow-x: clip;
+  overscroll-behavior: none;
+  touch-action: pan-y pinch-zoom;
+}
+
+body {
+  min-width: 0;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
 }
 
 html::-webkit-scrollbar {
@@ -49,7 +57,7 @@ html {
   z-index: 100;
   inset: var(--gap);
   border-radius: 48px;
-  box-shadow: 0 0 0 100vmax var(--background-v2);
+  box-shadow: 0 0 0 200vmax var(--background-v2);
 }
 
 .crt-nav-shape {
@@ -219,6 +227,13 @@ html {
 }
 
 @media (max-width: 767px) {
+  #tv {
+    box-shadow:
+      rgba(102, 102, 102, 1) 0 30px,
+      rgba(30, 30, 30, 0.65) 0 60px,
+      rgba(0, 0, 0, 0.35) 0 90px;
+  }
+
   .screen-viewport {
     scale: var(--tv-mobile-scale-x) 1;
   }

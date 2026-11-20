@@ -33,14 +33,14 @@ const Interlude = () => {
 
   return (
     <div
-      className="relative z-0 h-[200vh] lg:-mt-24 xl:mt-12 2xl:mt-32"
+      className="relative z-1 h-[200vh] lg:-mt-24 xl:mt-12 2xl:mt-32"
       ref={target}
     >
-      <div className="sticky top-0 h-screen w-full overflow-x-clip">
+      <div className="sticky top-0 h-screen w-screen">
         <div className="mx absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 grid aspect-square h-auto w-284 -translate-x-1/2 -translate-y-1/2 grid-cols-6 grid-rows-4 lg:w-full lg:p-12 xl:p-18">
+          <div className="absolute top-1/2 left-1/2 grid aspect-square h-auto w-284 -translate-x-1/2 -translate-y-1/2 grid-cols-6 grid-rows-4 lg:inset-x-0 lg:w-auto lg:translate-x-0 lg:p-12 xl:p-18">
             <motion.div
-              className="pointer-events-none absolute inset-0 z-1"
+              className="pointer-events-none absolute inset-0 z-2"
               style={{ rotate }}
             >
               <Shape

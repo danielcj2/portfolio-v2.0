@@ -45,7 +45,7 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
   };
 
   return (
-    <motion.div className="tv-nav absolute -inset-x-1/3 bottom-0 grid h-64 grid-cols-[auto_auto_1fr] items-center gap-4 px-32 md:inset-x-0 lg:grid-cols-[auto_auto_1fr_auto] xl:grid-cols-[auto_auto_1fr_auto_auto]">
+    <motion.div className="tv-nav absolute -inset-x-1/3 bottom-0 grid h-64 grid-cols-[auto_auto_1fr] items-center gap-4 px-18 md:inset-x-0 md:px-32 lg:grid-cols-[auto_auto_1fr_auto] xl:grid-cols-[auto_auto_1fr_auto_auto]">
       <Link
         className="pointer-events-auto ml-auto cursor-pointer md:mr-auto"
         href="/"

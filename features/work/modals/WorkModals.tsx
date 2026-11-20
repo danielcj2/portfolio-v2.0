@@ -116,7 +116,7 @@ const WorkModals = () => {
 
   return (
     <>
-      <div className="bg-background mx relative z-1 flex flex-col gap-4 px-2 xl:flex-row xl:gap-0">
+      <div className="bg-background mx relative z-11 flex flex-col gap-4 px-2 xl:flex-row xl:gap-0">
         {PROJECTS.map((project, index) => {
           const isActive = activeProjectId === project.id;
 

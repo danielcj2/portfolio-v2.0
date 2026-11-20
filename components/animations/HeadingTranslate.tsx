@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
 import {
   HTMLMotionProps,
@@ -37,12 +38,30 @@ const HeadingTranslate = ({ text, direction, ...props }: HeadingProps) => {
 
   return (
     <motion.div
+      className="will-change-transform"
       ref={target}
-      style={reduceMotion ? style : { ...style, x: spring }}
+      style={
+        reduceMotion
+          ? style
+          : {
+              ...style,
+              x: spring,
+              z: 0,
+              backfaceVisibility: "hidden",
+              WebkitFontSmoothing: "antialiased",
+            }
+      }
       {...restProps}
     >
-      <div className="overflow-visible md:pr-[0.15em]">
-        <p className="leading-[100%]">{text}</p>
+      <div className="overflow-visible">
+        <p
+          className={cn(
+            "leading-[100%]",
+            direction === "right" && "pr-[0.15em] outline outline-transparent",
+          )}
+        >
+          {text}
+        </p>
       </div>
     </motion.div>
   );

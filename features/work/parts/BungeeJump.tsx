@@ -97,7 +97,7 @@ const BungeeJump = ({ rotate, pendulumProgress }: BungeeProps) => {
   return (
     <motion.div
       ref={pendulumRef}
-      className="[pointer-events:all] absolute top-1/2 left-1/2 origin-top -translate-x-1/2"
+      className="[pointer-events:all] absolute top-1/2 left-1/2 origin-top -translate-x-1/2 backface-hidden"
       onMouseEnter={(event) => swing(event.clientX)}
       onTapStart={(_, info) => swing(info.point.x - window.scrollX)}
     >

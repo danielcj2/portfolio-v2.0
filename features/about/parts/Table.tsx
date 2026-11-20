@@ -1,7 +1,12 @@
 import { cn } from "@/lib/utils";
 import { useRef } from "react";
 import { useTextScramble } from "@/animations/useTextScramble";
-import { motion, useScroll, useTransform } from "motion/react";
+import {
+  motion,
+  useAnimationControls,
+  useMotionValueEvent,
+  useScroll,
+} from "motion/react";
 
 type TableProps = {
   title: string;
@@ -61,23 +66,39 @@ const Row = ({ className, title, caption, revealText }: Row) => {
 };
 
 const Table = ({ title, caption, rows }: TableProps) => {
-  const target = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target,
-    offset: ["start end", "end center"],
+  const controls = useAnimationControls();
+  const { scrollY } = useScroll();
+  const previousScrollY = useRef(scrollY.get());
+  const scrollDirection = useRef(1);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    scrollDirection.current = latest >= previousScrollY.current ? 1 : -1;
+    previousScrollY.current = latest;
   });
 
-  const clipPath = useTransform(
-    scrollYProgress,
-    [0, 0.2],
-    ["inset(0% 50% 0% 0%)", "inset(0% 0% 0% 0%)"],
-  );
-
   return (
-    <div className="h-min w-full" ref={target}>
+    <div className="h-min w-full">
       <motion.div
         className="bg-foreground/50 text-background flex justify-between px-3 py-2.5 md:px-5 md:py-3.5"
-        style={{ clipPath }}
+        initial={{ clipPath: "inset(0% 60% 0% 0%)" }}
+        animate={controls}
+        onViewportEnter={() => {
+          if (scrollDirection.current > 0) {
+            controls.start({
+              clipPath: "inset(0% 0% 0% 0%)",
+              transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+            });
+          }
+        }}
+        onViewportLeave={() => {
+          if (scrollDirection.current < 0) {
+            controls.start({
+              clipPath: "inset(0% 60% 0% 0%)",
+              transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+            });
+          }
+        }}
+        viewport={{ margin: "0px 0px -5% 0px" }}
       >
         <p className="text-lg font-medium md:text-[25px]">{title}</p>
         <p className="text-lg font-medium italic md:text-[25px]">{caption}</p>

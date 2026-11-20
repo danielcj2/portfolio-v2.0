@@ -22,7 +22,7 @@ export default function NotFound() {
     ));
 
   return (
-    <div className="relative flex h-screen items-center justify-center">
+    <div className="relative flex h-[40vh] items-center justify-center">
       <motion.div
         className="absolute inset-0 bg-[#c4c4c4]"
         initial={{ opacity: 0 }}
@@ -31,7 +31,7 @@ export default function NotFound() {
       />
       <TVStage fastForward />
       <Marquee
-        className="text-background font-sans text-[68px] font-medium tracking-[0.015em]"
+        className="text-background -mt-12 font-sans text-[64px] font-medium tracking-[0.015em]"
         options={{
           baseVelocity: 90,
           scrollBoost: false,

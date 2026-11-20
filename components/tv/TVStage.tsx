@@ -7,18 +7,27 @@ import Blur from "../ui/Blur";
 
 import {
   AnimatePresence,
+  animate,
   motion,
+  motionValue,
+  useMotionValue,
   useMotionValueEvent,
   useScroll,
   useTransform,
   type MotionStyle,
 } from "motion/react";
-import { useState } from "react";
-import { motionValue } from "motion/react";
-import { CONTACT_HEIGHT } from "@/lib/layoutHeights";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useMediaQuery } from "@/providers/MediaQueryContext";
+import {
+  CONTACT_HEIGHT,
+  MOBILE_CONTACT_HEIGHT,
+  MOBILE_TV_TRIGGER,
+  MOBILE_TV_DURATION,
+  TV_FINAL_SCALE,
+  TV_TRANSFORM_ORIGIN_Y,
+} from "@/lib/layoutHeights";
 
-const finalScale = 0.4;
-const mobileScaleTarget = 1.2;
+const MOBILE_SCALE_TARGET = 1.2;
 
 const TVStage = ({
   fastForward,
@@ -27,21 +36,54 @@ const TVStage = ({
   fastForward?: boolean;
   buttons?: React.ReactNode;
 }) => {
+  const { isMobile } = useMediaQuery();
+  const contactHeight = isMobile ? MOBILE_CONTACT_HEIGHT : CONTACT_HEIGHT;
   const { scrollYProgress } = useScroll({
-    offset: [`end ${CONTACT_HEIGHT}`, "end end"],
+    offset: [`end ${contactHeight}`, "end end"],
   });
+  const fastProgress = useMemo(() => motionValue(1), []);
+  const mobileProgress = useMotionValue(0);
+  const mobileTarget = useRef(0);
+  const mobileAnimation = useRef<{ stop: () => void } | null>(null);
+  const progress = fastForward
+    ? fastProgress
+    : isMobile
+      ? mobileProgress
+      : scrollYProgress;
 
-  const progress = fastForward ? motionValue(1) : scrollYProgress;
-
-  const desktopScaleX = useTransform(progress, [0, 1], [1, finalScale]);
-  const mobileScaleX = useTransform(progress, [0, 1], [1, mobileScaleTarget]);
+  const desktopScaleX = useTransform(progress, [0, 1], [1, TV_FINAL_SCALE]);
+  const mobileScaleX = useTransform(progress, [0, 1], [1, MOBILE_SCALE_TARGET]);
   const mobileCounterScaleX = useTransform(
     progress,
     [0, 1],
-    [1, finalScale / mobileScaleTarget],
+    [1, TV_FINAL_SCALE / MOBILE_SCALE_TARGET],
   );
-  const scaleY = useTransform(progress, [0, 1], [1, finalScale]);
+  const scaleY = useTransform(progress, [0, 1], [1, TV_FINAL_SCALE]);
   const [visible, setVisible] = useState(false);
+
+  useMotionValueEvent(scrollYProgress, "change", (value) => {
+    if (!isMobile || fastForward) return;
+
+    const target = value >= MOBILE_TV_TRIGGER ? 1 : 0;
+    if (mobileTarget.current === target) return;
+
+    mobileTarget.current = target;
+    mobileAnimation.current?.stop();
+    mobileAnimation.current = animate(mobileProgress, target, {
+      duration: MOBILE_TV_DURATION,
+      ease: [0.22, 1, 0.36, 1],
+    });
+  });
+
+  useEffect(() => {
+    if (!isMobile) {
+      mobileAnimation.current?.stop();
+      mobileProgress.set(0);
+      mobileTarget.current = 0;
+    }
+
+    return () => mobileAnimation.current?.stop();
+  }, [isMobile, mobileProgress]);
 
   useMotionValueEvent(progress, "change", (value) => {
     setVisible((isVisible) => {
@@ -59,7 +101,7 @@ const TVStage = ({
           "--tv-mobile-scale-x": mobileScaleX,
           "--tv-mobile-counter-scale-x": mobileCounterScaleX,
           scaleY,
-          transformOrigin: "center center",
+          transformOrigin: `center ${TV_TRANSFORM_ORIGIN_Y}%`,
         } as MotionStyle
       }
     >
@@ -72,7 +114,7 @@ const TVStage = ({
         <Blur className="absolute inset-x-0 top-(--gap) h-28 -scale-y-100" />
         <div className="screen-frame" />
         <AnimatePresence>
-          {visible && (
+          {!isMobile && visible && (
             <motion.div
               className="pointer-events-none absolute inset-0 rounded-[48px]"
               aria-hidden

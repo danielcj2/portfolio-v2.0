@@ -9,25 +9,22 @@ const TVShell = ({
   children?: React.ReactNode;
 }) => {
   const radius = useTransform(progress, [0, 0.05], [0, 36]);
-  const shellOpacity = useTransform(progress, [0, 0.01], [0, 1]);
 
   return (
     <>
-      <motion.div
+      <div
         id="tv"
         aria-hidden="true"
-        className="absolute top-[calc(50%+92px)] left-1/2 z-101 aspect-14/9 h-min w-auto -translate-x-1/2 -translate-y-1/2 rounded-[96px] p-18 pb-64"
-        style={{ opacity: shellOpacity }}
+        className="absolute top-[calc(50%+92px)] left-1/2 z-101 h-min w-auto -translate-x-1/2 -translate-y-1/2 rounded-[96px] p-18 pb-64"
       >
         <div className="h-auto w-auto px-12 py-14">
           <div className="h-screen w-screen" />
         </div>
-      </motion.div>
-      <motion.div
+      </div>
+      <div
         id="tv-shell"
-        className="absolute top-[calc(50%+92px)] left-1/2 z-102 aspect-14/9 h-min w-auto -translate-x-1/2 -translate-y-1/2 overflow-clip rounded-[96px] bg-[#7A7A7A] p-18 pb-64"
+        className="absolute top-[calc(50%+92px)] left-1/2 z-102 h-min w-auto -translate-x-1/2 -translate-y-1/2 rounded-[96px] bg-[#7A7A7A] p-18 pb-64"
         style={{
-          opacity: shellOpacity,
           maskImage: `linear-gradient(#fff 0 0), url(${r48Mask})`,
           WebkitMaskImage: `linear-gradient(#fff 0 0), url(${r48Mask})`,
           maskPosition: "0 0, 120px 128px",
@@ -53,7 +50,7 @@ const TVShell = ({
           />
         </div>
         {children}
-      </motion.div>
+      </div>
     </>
   );
 };

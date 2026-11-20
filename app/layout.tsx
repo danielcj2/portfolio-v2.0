@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import { baseNeue, oxanium } from "@/lib/fonts";
 import { MediaQueryProvider } from "@/providers/MediaQueryContext";
 import { SmoothScroll } from "@/ui/SmoothScroll";
+import { getInitialMobile } from "@/lib/getInitialMobile";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 const sameAs = [
@@ -65,9 +66,22 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialMobile = await getInitialMobile();
+
   return (
     <html lang="en">
       <body className={`${baseNeue.variable} ${oxanium.variable} antialiased`}>
+        <Script id="reload-scroll-restoration" strategy="beforeInteractive">
+          {`(() => {
+            const navigation = performance.getEntriesByType("navigation")[0];
+            if (!navigation || navigation.type !== "reload") return;
+
+            history.scrollRestoration = "manual";
+            const resetScroll = () => window.scrollTo(0, 0);
+            resetScroll();
+            window.addEventListener("load", resetScroll, { once: true });
+          })();`}
+        </Script>
         <Script
           id="ld-person"
           type="application/ld+json"
@@ -76,10 +90,12 @@ export default async function RootLayout({
           }}
         />
         <SmoothScroll>
-          <MediaQueryProvider>
+          <MediaQueryProvider initialMobile={initialMobile}>
             <div className="bg-background w-screen">
               <Header />
-              <main className="relative z-0 h-min font-sans">{children}</main>
+              <main className="bg-background relative z-0 font-sans">
+                {children}
+              </main>
             </div>
           </MediaQueryProvider>
         </SmoothScroll>
