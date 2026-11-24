@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import {
   CircleHalfTiltIcon,
   GlobeIcon,
@@ -16,15 +18,15 @@ import TextFade from "@/components/animations/TextFade";
 import Recorder from "./parts/Recorder";
 import Table from "./parts/Table";
 
-import { experience, services } from "./parts/bio";
+import { experience, services, tools } from "./parts/bio";
 
 const About = () => {
   return (
     <section
       id="about"
-      className="relative z-0 -mt-12 h-min w-full overflow-x-clip pt-48 lg:-mt-48 xl:-mt-28"
+      className="relative -mt-12 h-min w-full overflow-x-clip pt-48 lg:-mt-48 xl:-mt-28"
     >
-      <div className="mx relative z-1 pr-2 pl-2 md:mx-auto! md:w-min md:pb-16 lg:pb-32">
+      <div className="mx relative z-2 pr-2 pl-2 md:mx-auto! md:w-min md:pb-16 lg:pb-32">
         <HeadingFade text="02" />
         <div className="flex justify-between gap-1 uppercase md:justify-center md:gap-0">
           <HeadingTranslate
@@ -33,7 +35,7 @@ const About = () => {
             text="About"
           />
           <LogoSpin
-            className="md:-translate-x-1/2"
+            className="md:-translate-x-1/5"
             text="I'm still spinning ✦ don't mind me ✦"
           />
           <HeadingTranslate
@@ -119,6 +121,19 @@ const About = () => {
         </div>
         <div className="col-span-full lg:col-start-7 lg:pr-5">
           <Table {...services} />
+          <div className="text-muted border-foreground/30 mt-16 flex flex-wrap gap-1.25 font-mono text-[0.8125rem] font-semibold tracking-wide uppercase md:text-[14.5px]">
+            <p className="text-foreground/50">
+              Some of the tools I've picked along the way:{" "}
+            </p>
+            {tools.map((tool, index) => (
+              <React.Fragment key={index}>
+                <span>{tool}</span>
+                {index < tools.length - 1 && (
+                  <span className="text-foreground/50">&#8226;</span>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -7,27 +7,21 @@ import Blur from "../ui/Blur";
 
 import {
   AnimatePresence,
-  animate,
   motion,
   motionValue,
-  useMotionValue,
   useMotionValueEvent,
   useScroll,
   useTransform,
   type MotionStyle,
 } from "motion/react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
 import {
   CONTACT_HEIGHT,
   MOBILE_CONTACT_HEIGHT,
-  MOBILE_TV_TRIGGER,
-  MOBILE_TV_DURATION,
   TV_FINAL_SCALE,
   TV_TRANSFORM_ORIGIN_Y,
 } from "@/lib/layoutHeights";
-
-const MOBILE_SCALE_TARGET = 1.2;
 
 const TVStage = ({
   fastForward,
@@ -42,48 +36,12 @@ const TVStage = ({
     offset: [`end ${contactHeight}`, "end end"],
   });
   const fastProgress = useMemo(() => motionValue(1), []);
-  const mobileProgress = useMotionValue(0);
-  const mobileTarget = useRef(0);
-  const mobileAnimation = useRef<{ stop: () => void } | null>(null);
-  const progress = fastForward
-    ? fastProgress
-    : isMobile
-      ? mobileProgress
-      : scrollYProgress;
+  const progress = fastForward ? fastProgress : scrollYProgress;
 
   const desktopScaleX = useTransform(progress, [0, 1], [1, TV_FINAL_SCALE]);
-  const mobileScaleX = useTransform(progress, [0, 1], [1, MOBILE_SCALE_TARGET]);
-  const mobileCounterScaleX = useTransform(
-    progress,
-    [0, 1],
-    [1, TV_FINAL_SCALE / MOBILE_SCALE_TARGET],
-  );
+  const mobileTranslateY = useTransform(progress, [0, 1], ["0vh", "-65vh"]);
   const scaleY = useTransform(progress, [0, 1], [1, TV_FINAL_SCALE]);
   const [visible, setVisible] = useState(false);
-
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (!isMobile || fastForward) return;
-
-    const target = value >= MOBILE_TV_TRIGGER ? 1 : 0;
-    if (mobileTarget.current === target) return;
-
-    mobileTarget.current = target;
-    mobileAnimation.current?.stop();
-    mobileAnimation.current = animate(mobileProgress, target, {
-      duration: MOBILE_TV_DURATION,
-      ease: [0.22, 1, 0.36, 1],
-    });
-  });
-
-  useEffect(() => {
-    if (!isMobile) {
-      mobileAnimation.current?.stop();
-      mobileProgress.set(0);
-      mobileTarget.current = 0;
-    }
-
-    return () => mobileAnimation.current?.stop();
-  }, [isMobile, mobileProgress]);
 
   useMotionValueEvent(progress, "change", (value) => {
     setVisible((isVisible) => {
@@ -98,14 +56,13 @@ const TVStage = ({
       style={
         {
           "--tv-desktop-scale-x": desktopScaleX,
-          "--tv-mobile-scale-x": mobileScaleX,
-          "--tv-mobile-counter-scale-x": mobileCounterScaleX,
-          scaleY,
+          scaleY: isMobile ? 1 : scaleY,
+          y: isMobile ? mobileTranslateY : 0,
           transformOrigin: `center ${TV_TRANSFORM_ORIGIN_Y}%`,
         } as MotionStyle
       }
     >
-      <TVShell progress={progress}>
+      <TVShell progress={isMobile ? motionValue(0) : progress}>
         <TVNav buttons={buttons} />
       </TVShell>
       <div className="relative h-screen w-screen">

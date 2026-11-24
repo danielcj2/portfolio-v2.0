@@ -22,24 +22,26 @@ export default function NotFound() {
     ));
 
   return (
-    <div className="relative flex h-[40vh] items-center justify-center">
-      <motion.div
-        className="absolute inset-0 bg-[#c4c4c4]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1.2 }}
-        transition={{ duration: 1, ease: "easeInOut" }}
-      />
-      <TVStage fastForward />
-      <Marquee
-        className="text-background -mt-12 font-sans text-[64px] font-medium tracking-[0.015em]"
-        options={{
-          baseVelocity: 90,
-          scrollBoost: false,
-          gap: 24,
-        }}
-      >
-        {createMarquee(items)}
-      </Marquee>
+    <div className="h-screen">
+      <div className="relative flex h-[40vh] items-center justify-center">
+        <motion.div
+          className="absolute inset-0 bg-[#c4c4c4]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1.2 }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        />
+        <TVStage fastForward />
+        <Marquee
+          className="text-background -mt-12 font-sans text-[64px] font-medium tracking-[0.015em]"
+          options={{
+            baseVelocity: 90,
+            scrollBoost: false,
+            gap: 24,
+          }}
+        >
+          {createMarquee(items)}
+        </Marquee>
+      </div>
     </div>
   );
 }

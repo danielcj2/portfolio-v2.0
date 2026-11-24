@@ -50,7 +50,7 @@ const variants = cva(
     variants: {
       aspect: {
         square: "w-auto aspect-square justify-center px-0",
-        wide: "w-min px-10",
+        wide: "w-min px-8",
       },
     },
     defaultVariants: {

@@ -25,11 +25,11 @@ export const Wrapper = ({
 }) => (
   <div
     className={cn(
-      "pointer-events-auto h-28 w-min justify-self-end overflow-hidden rounded-2xl bg-[#545454]/80 p-1.5 shadow-[inset_-12px_-12px_6px_#8c8c8c]",
+      "pointer-events-auto h-26.5 w-min justify-self-end overflow-hidden rounded-2xl bg-[#545454]/80 p-1.25 shadow-[inset_-12px_-12px_6px_#8c8c8c]",
       className,
     )}
   >
-    <div className="bg-background flex h-full w-min gap-1 overflow-hidden rounded-xl px-1 py-1">
+    <div className="bg-background flex h-full w-min gap-1 overflow-hidden rounded-[11px] px-1 py-1">
       {children}
     </div>
   </div>
@@ -45,7 +45,7 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
   };
 
   return (
-    <motion.div className="tv-nav absolute -inset-x-1/3 bottom-0 grid h-64 grid-cols-[auto_auto_1fr] items-center gap-4 px-18 md:inset-x-0 md:px-32 lg:grid-cols-[auto_auto_1fr_auto] xl:grid-cols-[auto_auto_1fr_auto_auto]">
+    <motion.div className="tv-nav absolute inset-x-[-30%] bottom-0 grid h-64 origin-bottom scale-38 grid-cols-[auto_auto_1fr] items-center gap-4 px-18 md:inset-x-0 md:scale-100 md:px-32 lg:grid-cols-[auto_auto_1fr_auto] xl:grid-cols-[auto_auto_1fr_auto_auto]">
       <Link
         className="pointer-events-auto ml-auto cursor-pointer md:mr-auto"
         href="/"
@@ -80,7 +80,7 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
           ></motion.div>
         </div>
       </div>
-      <div className="hidden h-full gap-2 justify-self-center pt-16 xl:flex">
+      <div className="hidden h-full gap-2 justify-self-center pt-16 xl:flex xl:pr-16">
         {CHANNEL_BARS.map((barId) => (
           <div
             key={barId}
@@ -100,7 +100,7 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
               href="/#work"
               onClick={(event) => handleNav(event, "#work")}
             >
-              <p className="text-background font-mono text-[38px] font-semibold tracking-[-0.015em] text-nowrap uppercase">
+              <p className="text-background font-mono text-4xl font-semibold tracking-[-0.015em] text-nowrap uppercase">
                 Work
               </p>
             </TVButton>
@@ -109,7 +109,7 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
               href="/#about"
               onClick={(event) => handleNav(event, "#about")}
             >
-              <p className="text-background font-mono text-[38px] font-semibold tracking-[-0.015em] text-nowrap uppercase">
+              <p className="text-background font-mono text-4xl font-semibold tracking-[-0.015em] text-nowrap uppercase">
                 About me
               </p>
             </TVButton>
@@ -122,9 +122,9 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
               aria-label="Email"
             >
               <EnvelopeIcon
-                className="text-background h-16 w-16"
+                className="text-background h-15 w-15"
                 weight="duotone"
-                style={{ filter: "drop-shadow(0px 0px 4px #4c4c4c)" }}
+                style={{ filter: "drop-shadow(0px 0px 4px #5c5c5c)" }}
               />
             </TVButton>
             <TVButton
@@ -136,9 +136,9 @@ const TVNav = ({ buttons }: { buttons?: React.ReactNode }) => {
               aria-label="LinkedIn"
             >
               <LinkedinLogoIcon
-                className="text-background h-16 w-16"
+                className="text-background h-14.5 w-14.5"
                 weight="duotone"
-                style={{ filter: "drop-shadow(0px 0px 4px #4c4c4c)" }}
+                style={{ filter: "drop-shadow(0px 0px 4px #5c5c5c)" }}
               />
             </TVButton>
           </Wrapper>

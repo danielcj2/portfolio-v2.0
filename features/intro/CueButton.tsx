@@ -26,7 +26,7 @@ const CueButton = () => {
           initial: { width: "100%", borderRadius: 18 },
           hover: {
             width: "90%",
-            borderRadius: 0,
+            borderRadius: 8,
             transition: { duration: 0.25, ease: "easeInOut" },
           },
         }}

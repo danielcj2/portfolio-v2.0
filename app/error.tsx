@@ -22,11 +22,13 @@ export default function Error({
   );
 
   return (
-    <div className="flex h-[40vh] items-center justify-center bg-[#c4c4c4]">
-      <TVStage fastForward buttons={buttons} />
-      <p className="text-background -mt-12 font-sans text-[72px] font-medium tracking-[0.015em] uppercase">
-        Error
-      </p>
+    <div className="h-screen">
+      <div className="flex h-[40vh] items-center justify-center bg-[#c4c4c4]">
+        <TVStage fastForward buttons={buttons} />
+        <p className="text-background -mt-12 font-sans text-[72px] font-medium tracking-[0.015em] uppercase">
+          Error
+        </p>
+      </div>
     </div>
   );
 }

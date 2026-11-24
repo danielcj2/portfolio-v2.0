@@ -10,7 +10,7 @@ const Work = () => {
   return (
     <section
       id="work"
-      className="relative z-1 -mt-16 h-min w-full pt-32 pb-10 md:pb-0 lg:pt-48"
+      className="relative -mt-16 h-min w-full pt-32 pb-10 md:pb-0 lg:pt-48"
     >
       <div className="mx relative overflow-x-clip">
         <div className="relative mb-6 pr-3.5 pl-2 md:mx-auto! md:mb-8 md:w-min md:pb-8 lg:pb-36">
@@ -22,7 +22,7 @@ const Work = () => {
               text="Recent"
             />
             <LogoSpin
-              className="shrink-0 translate-x-0.5 md:-translate-x-1"
+              className="shrink-0 translate-x-0.5 md:translate-x-0"
               text="I'm still spinning ✦ don't mind me ✦"
             />
             <HeadingTranslate

@@ -5,21 +5,12 @@ import Logo from "@/images/asterisk.svg";
 import {
   CONTACT_HEIGHT,
   MOBILE_CONTACT_HEIGHT,
-  MOBILE_TV_DURATION,
-  MOBILE_TV_TRIGGER,
   TV_FINAL_SCALE,
   TV_TRANSFORM_ORIGIN_Y,
 } from "@/lib/layoutHeights";
 
-import React, { useEffect, useRef } from "react";
-import {
-  animate,
-  motion,
-  useMotionValue,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "motion/react";
+import React from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import RowFade from "@/animations/RowFade";
 import Marquee from "@/animations/Marquee";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
@@ -39,46 +30,32 @@ const Contact = () => {
   const { scrollYProgress } = useScroll({
     offset: [`end ${contactHeight}`, "end end"],
   });
-  const mobileProgress = useMotionValue(0);
-  const mobileTarget = useRef(0);
-  const mobileAnimation = useRef<{ stop: () => void } | null>(null);
-  const animationProgress = isMobile ? mobileProgress : scrollYProgress;
 
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (!isMobile) return;
-
-    const target = value >= MOBILE_TV_TRIGGER ? 1 : 0;
-    if (mobileTarget.current === target) return;
-
-    mobileTarget.current = target;
-    mobileAnimation.current?.stop();
-    mobileAnimation.current = animate(mobileProgress, target, {
-      duration: MOBILE_TV_DURATION,
-      ease: [0.22, 1, 0.36, 1],
-    });
-  });
-
-  useEffect(() => {
-    if (!isMobile) {
-      mobileAnimation.current?.stop();
-      mobileProgress.set(0);
-      mobileTarget.current = 0;
-    }
-
-    return () => mobileAnimation.current?.stop();
-  }, [isMobile, mobileProgress]);
-
-  const marqueeY = useTransform(
-    animationProgress,
+  const desktopMarqueeY = useTransform(
+    scrollYProgress,
     [0, 1],
     ["0vh", `${(50 - TV_TRANSFORM_ORIGIN_Y) * (TV_FINAL_SCALE - 1)}vh`],
   );
+
+  const mobileMarqueeY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0vh", "-35vh"],
+  );
+
+  const marqueeY = isMobile ? mobileMarqueeY : desktopMarqueeY;
 
   const createMarquee = (items: string[]) =>
     [...items, ...items].map((item, index) => (
       <React.Fragment key={`${item}-${index}`}>
         <span>{item}</span>
-        <Logo className="text-background [&_path]:fill-background/95 [&_path]:stroke-muted inline h-13 w-13 lg:h-15 lg:w-15" />
+        <motion.div
+          className="flex items-center justify-center"
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
+        >
+          <Logo className="text-background [&_path]:stroke-background/50 block h-10.5 w-10.5 lg:h-15 lg:w-15" />
+        </motion.div>
       </React.Fragment>
     ));
 
@@ -95,11 +72,11 @@ const Contact = () => {
         style={{ y: marqueeY }}
       >
         <Marquee
-          className="text-background font-sans text-[52px] font-medium tracking-[0.015em] lg:text-[64px]"
+          className="text-background font-sans text-[48px] font-medium tracking-[0.015em] lg:text-[64px]"
           options={{
-            baseVelocity: isMobile ? 40 : 80,
+            baseVelocity: 80,
             scrollBoost: false,
-            gap: 24,
+            gap: 20,
           }}
         >
           {createMarquee(items)}

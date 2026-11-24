@@ -1,7 +1,8 @@
 import "./globals.css";
 
-import Header from "@/navigation/Header";
 import Script from "next/script";
+import Header from "@/navigation/Header";
+import Footer from "@/navigation/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -24,13 +25,13 @@ const jsonLd = {
   url: siteUrl,
   jobTitle: "Frontend Developer",
   description:
-    "Frontend Developer specializing in engaging, user-friendly web experiences.",
+    "Daniel Cojocea is a frontend developer based in Toronto, Canada. Have a question or want to get in touch? Feel free to reach out.",
   ...(sameAs.length > 0 ? { sameAs } : {}),
 };
 
-const title = "Daniel Cojocea | Frontend Developer | Portfolio 2026";
+const title = "Daniel Cojocea | Portfolio 2026";
 const description =
-  "Portfolio website of Daniel Cojocea, a Frontend Developer specializing in creating engaging and user-friendly web experiences. Explore my projects, skills, and get in touch!";
+  "Portfolio website of Daniel Cojocea, a frontend developer based in Toronto, Canada. This is a collection of projects, ideas, and things built for the web. Take a look around, and feel free to get in touch.";
 
 export const metadata: Metadata = {
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
@@ -95,6 +96,7 @@ export default async function RootLayout({
               <Header />
               <main className="bg-background relative z-0 font-sans">
                 {children}
+                <Footer />
               </main>
             </div>
           </MediaQueryProvider>

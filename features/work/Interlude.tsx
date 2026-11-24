@@ -49,7 +49,7 @@ const Interlude = () => {
               />
               <div className="absolute inset-0 [clip-path:inset(50%_0_0_0)]">
                 <Shape
-                  className="fill-foreground/1 absolute inset-0 h-auto w-full stroke-1"
+                  className="fill-muted/2 absolute inset-0 h-auto w-full stroke-1"
                   aria-hidden
                 />
               </div>

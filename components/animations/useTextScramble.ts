@@ -49,6 +49,14 @@ export const useTextScramble = (text: string) => {
     [],
   );
 
+  const reset = () => {
+    animation.current?.stop();
+    animation.current = null;
+    isAnimating.current = false;
+    progress.set(1);
+    setDisplayText(text);
+  };
+
   const scramble = () => {
     if (isAnimating.current) return;
 
@@ -72,5 +80,37 @@ export const useTextScramble = (text: string) => {
     });
   };
 
-  return { displayText, scramble };
+  const scrambleTo = (nextText: string, onComplete?: () => void) => {
+    const nextLetters = Array.from(nextText);
+    const randomLetters = nextLetters.map((letter) =>
+      letter === " " ? " " : CHARS[Math.floor(Math.random() * CHARS.length)],
+    );
+
+    animation.current?.stop();
+    isAnimating.current = true;
+    progress.set(0);
+    setDisplayText(randomLetters.join(""));
+    animation.current = animate(progress, 1, {
+      duration: Math.min(0.6, nextLetters.length * SCRAMBLE_TIME_PER_CHARACTER),
+      ease: "linear",
+      onUpdate: (value) => {
+        const resolvedCount = Math.floor(value * nextLetters.length);
+        setDisplayText(
+          nextLetters
+            .map((letter, index) =>
+              index < resolvedCount ? letter : randomLetters[index],
+            )
+            .join(""),
+        );
+      },
+      onComplete: () => {
+        isAnimating.current = false;
+        animation.current = null;
+        setDisplayText(nextText);
+        onComplete?.();
+      },
+    });
+  };
+
+  return { displayText, scramble, scrambleTo, reset };
 };
