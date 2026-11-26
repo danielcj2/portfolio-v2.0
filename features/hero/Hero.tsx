@@ -25,7 +25,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="z-0 flex min-h-[96vh] w-full flex-1 flex-col justify-between overflow-hidden py-4 md:h-screen md:min-h-screen md:py-12"
+      className="z-0 flex h-[96svh] w-full flex-1 flex-col justify-between overflow-hidden py-4 md:h-screen md:min-h-svh md:py-12"
       ref={target}
     >
       <MotionConfig reducedMotion="user">

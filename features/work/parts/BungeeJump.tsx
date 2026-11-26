@@ -97,22 +97,26 @@ const BungeeJump = ({ rotate, pendulumProgress }: BungeeProps) => {
   return (
     <motion.div
       ref={pendulumRef}
-      className="[pointer-events:all] absolute top-1/2 left-1/2 origin-top -translate-x-1/2 backface-hidden"
+      className="[pointer-events:all] absolute top-1/2 left-1/2 origin-top -translate-x-1/2 backface-hidden will-change-transform"
       onMouseEnter={(event) => swing(event.clientX)}
       onTapStart={(_, info) => swing(info.point.x - window.scrollX)}
     >
       <motion.div
-        className="mx-auto w-px bg-[rgba(255,255,255,0.05)]"
-        style={{ height: ropeHeight }}
+        className="absolute top-0 left-1/2 h-px w-px origin-top -translate-x-1/2 bg-[rgba(255,255,255,0.05)] will-change-transform"
+        style={{ scaleY: ropeHeight }}
       />
-      <div ref={imgRef} className="h-min w-22 grayscale">
+      <motion.div
+        ref={imgRef}
+        className="relative h-min w-22 grayscale will-change-transform"
+        style={{ y: ropeHeight }}
+      >
         <Image
           className="h-auto w-full opacity-60"
           src={imgSrc}
           alt="Jump"
           fetchPriority="high"
         />
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

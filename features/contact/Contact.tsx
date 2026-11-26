@@ -10,7 +10,7 @@ import {
 } from "@/lib/layoutHeights";
 
 import React from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import RowFade from "@/animations/RowFade";
 import Marquee from "@/animations/Marquee";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
@@ -40,7 +40,11 @@ const Contact = () => {
 
   const mobileMarqueeY = useTransform(scrollYProgress, [0, 1], ["0vh", "32vh"]);
 
-  const marqueeY = isMobile ? mobileMarqueeY : desktopMarqueeY;
+  const marqueeY = useSpring(isMobile ? mobileMarqueeY : desktopMarqueeY, {
+    stiffness: 180,
+    damping: 32,
+    mass: 0.35,
+  });
 
   const createMarquee = (items: string[]) =>
     [...items, ...items].map((item, index) => (
@@ -65,7 +69,7 @@ const Contact = () => {
       <RowFade className="top-[-30vh] h-[60vh]" color={"[#c4c4c4]"} />
       <div className="absolute inset-x-0 top-[30vh] bottom-0 bg-[#c4c4c4]" />
       <motion.div
-        className="sticky top-0 flex h-screen w-full items-center"
+        className="sticky top-0 flex h-screen w-full items-center will-change-transform"
         style={{ y: marqueeY }}
       >
         <Marquee
