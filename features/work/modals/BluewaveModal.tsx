@@ -14,6 +14,7 @@ import {
   Subheading,
   Wrapper,
   type ModalContentProps,
+  TechStack,
 } from "./shared";
 
 const carouselBg =
@@ -30,6 +31,8 @@ const IMAGES = [
 const outline = (
   <div className="bg-foreground/10 absolute -inset-2 -z-1 hidden w-auto rounded-3xl xl:block" />
 );
+
+const tools = ["React", "JavaScript", "CSS", "Redux", "Material UI", "Joi", "Git", "styled-components", "Docker Images"];
 
 type ImageProps = React.ComponentProps<typeof Image>;
 
@@ -121,34 +124,39 @@ const BluewaveModal = ({
           theme="light"
         >
           <Paragraph>
-            An organization building <Highlight>web-based tools</Highlight>{" "}
-            across multiple teams and projects. I worked on{" "}
-            <Highlight>BlueWave Uptime</Highlight>, a monitoring platform that
-            tracks website and API uptime, performance, and reliability through{" "}
-            <Highlight>customizable monitors</Highlight>, real-time alerts, and
-            analytics.
+            An organization developing web-based tools across multiple teams and
+            projects. I worked on <Highlight>BlueWave Uptime</Highlight>, a
+            monitoring platform for tracking website and API availability,
+            performance, and reliability through configurable monitors,
+            real-time alerts, and analytics.
           </Paragraph>
           <div className="flex flex-col gap-2">
             <Subheading>What I worked on</Subheading>
             <List>
               <ListItem>
-                Standardized the <Highlight>user interface</Highlight> using
-                Material UI, while refactoring parts of the codebase, removing
-                redundancy and dead code.
+                Standardized the interface around{" "}
+                <Highlight>Material UI</Highlight>, refactoring existing
+                components and removing redundant code across the application.
               </ListItem>
               <ListItem>
-                Suggested and implemented small design improvements across the
-                interface (spacing, layout, and component behavior).
+                Made ongoing UI improvements, refining spacing, layouts, and
+                component behavior throughout the platform.
               </ListItem>
               <ListItem>
-                Collaborated with backend developers to align on API structure
-                and ensure reliable data flow.
+                Worked through <Highlight>API changes</Highlight> alongside
+                backend developers as new features and functionality were added
+                to the platform.
               </ListItem>
               <ListItem>
-                Reviewed <Highlight>pull requests</Highlight> to maintain code
-                quality and enforce consistent patterns across the codebase.
+                Was involved in reviewing and discussing changes across the
+                codebase, looking at implementation details, component
+                structure, and opportunities to keep things consistent.
               </ListItem>
             </List>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Subheading>Tech Stack</Subheading>
+            <TechStack tools={tools} />
           </div>
         </Card>
       </Card>

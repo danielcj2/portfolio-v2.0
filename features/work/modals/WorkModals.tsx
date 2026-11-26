@@ -11,7 +11,7 @@ import { useMediaQuery } from "@/providers/MediaQueryContext";
 import Image from "next/image";
 
 type Project = {
-  id: "quickqr" | "bluewave" | "bogue";
+  id: "quickqr" | "bluewave" | "ravensview";
   name: string;
   year: string;
   title: string;
@@ -34,7 +34,7 @@ const PROJECTS: Project[] = [
     color: "bg-[#CF1736]",
     overlay: "bg-[#CF1736]/70",
     video: `${r2Url}/quickqr.webm`,
-    placeholder: `${r2Url}/quickqr.png`,
+    placeholder: `${r2Url}/quickqr.webp`,
   },
   {
     id: "bluewave",
@@ -45,24 +45,24 @@ const PROJECTS: Project[] = [
     color: "bg-[#1777CF]",
     overlay: "bg-[#1777CF]/70",
     video: `${r2Url}/bluewave.webm`,
-    placeholder: `${r2Url}/bluewave.png`,
+    placeholder: `${r2Url}/bluewave.webp`,
   },
   {
-    id: "bogue",
-    name: "Bogue",
-    year: "2023",
-    title: "Modern Commerce",
-    subtitle: "A Personal Retail Experiment",
+    id: "ravensview",
+    name: "Ravensview Farm",
+    year: "2026",
+    title: "Locally Sourced",
+    subtitle: "A Family-Owned Business",
     color: "bg-[#CF9117]",
     overlay: "bg-[#CF9117]/70",
-    video: `${r2Url}/bogue.webm`,
-    placeholder: `${r2Url}/bogue.png`,
+    video: `${r2Url}/ravensview.webm`,
+    placeholder: `${r2Url}/ravensview.webp`,
   },
 ];
 
 const QuickQRModal = dynamic(() => import("./QuickQRModal"));
 const BluewaveModal = dynamic(() => import("./BluewaveModal"));
-const BogueModal = dynamic(() => import("./BogueModal"));
+const RavensviewModal = dynamic(() => import("./RavensviewModal"));
 
 const MODAL_CONTENT: Record<
   Project["id"],
@@ -70,7 +70,7 @@ const MODAL_CONTENT: Record<
 > = {
   quickqr: QuickQRModal,
   bluewave: BluewaveModal,
-  bogue: BogueModal,
+  ravensview: RavensviewModal,
 };
 
 const SPACING = ["pr-0 xl:pr-3", "px-0 xl:px-4", "pl-0 xl:pl-3"] as const;

@@ -4,9 +4,9 @@ import Logo from "@/images/asterisk.svg";
 
 import {
   CONTACT_HEIGHT,
-  MOBILE_CONTACT_HEIGHT,
   TV_FINAL_SCALE,
   TV_TRANSFORM_ORIGIN_Y,
+  TV_OFFSET,
 } from "@/lib/layoutHeights";
 
 import React from "react";
@@ -26,9 +26,10 @@ const items = [
 
 const Contact = () => {
   const { isMobile } = useMediaQuery();
-  const contactHeight = isMobile ? MOBILE_CONTACT_HEIGHT : CONTACT_HEIGHT;
+  const offset = isMobile ? "165vh" : TV_OFFSET;
+  const contactHeight = isMobile ? "100vh" : CONTACT_HEIGHT;
   const { scrollYProgress } = useScroll({
-    offset: [`end ${contactHeight}`, "end end"],
+    offset: [`end ${offset}`, "end end"],
   });
 
   const desktopMarqueeY = useTransform(
@@ -37,11 +38,7 @@ const Contact = () => {
     ["0vh", `${(50 - TV_TRANSFORM_ORIGIN_Y) * (TV_FINAL_SCALE - 1)}vh`],
   );
 
-  const mobileMarqueeY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0vh", "-35vh"],
-  );
+  const mobileMarqueeY = useTransform(scrollYProgress, [0, 1], ["0vh", "32vh"]);
 
   const marqueeY = isMobile ? mobileMarqueeY : desktopMarqueeY;
 

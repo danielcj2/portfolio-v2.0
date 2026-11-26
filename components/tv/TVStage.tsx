@@ -17,8 +17,7 @@ import {
 import { useMemo, useState } from "react";
 import { useMediaQuery } from "@/providers/MediaQueryContext";
 import {
-  CONTACT_HEIGHT,
-  MOBILE_CONTACT_HEIGHT,
+  TV_OFFSET,
   TV_FINAL_SCALE,
   TV_TRANSFORM_ORIGIN_Y,
 } from "@/lib/layoutHeights";
@@ -31,19 +30,20 @@ const TVStage = ({
   buttons?: React.ReactNode;
 }) => {
   const { isMobile } = useMediaQuery();
-  const contactHeight = isMobile ? MOBILE_CONTACT_HEIGHT : CONTACT_HEIGHT;
   const { scrollYProgress } = useScroll({
-    offset: [`end ${contactHeight}`, "end end"],
+    offset: [`end ${TV_OFFSET}`, "end end"],
   });
   const fastProgress = useMemo(() => motionValue(1), []);
+  const mobileProgress = useMemo(() => motionValue(0), []);
   const progress = fastForward ? fastProgress : scrollYProgress;
 
   const desktopScaleX = useTransform(progress, [0, 1], [1, TV_FINAL_SCALE]);
-  const mobileTranslateY = useTransform(progress, [0, 1], ["0vh", "-65vh"]);
   const scaleY = useTransform(progress, [0, 1], [1, TV_FINAL_SCALE]);
   const [visible, setVisible] = useState(false);
 
   useMotionValueEvent(progress, "change", (value) => {
+    if (isMobile) return;
+
     setVisible((isVisible) => {
       const nextVisible = value > 0;
       return isVisible === nextVisible ? isVisible : nextVisible;
@@ -52,17 +52,16 @@ const TVStage = ({
 
   return (
     <motion.div
-      className="screen-viewport pointer-events-none fixed top-0 z-50"
+      className="screen-viewport pointer-events-none sticky top-0 z-50 h-screen"
       style={
         {
           "--tv-desktop-scale-x": desktopScaleX,
           scaleY: isMobile ? 1 : scaleY,
-          y: isMobile ? mobileTranslateY : 0,
           transformOrigin: `center ${TV_TRANSFORM_ORIGIN_Y}%`,
         } as MotionStyle
       }
     >
-      <TVShell progress={isMobile ? motionValue(0) : progress}>
+      <TVShell progress={isMobile ? mobileProgress : progress}>
         <TVNav buttons={buttons} />
       </TVShell>
       <div className="relative h-screen w-screen">

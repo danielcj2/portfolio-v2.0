@@ -12,6 +12,7 @@ import {
   ModalHeader,
   Paragraph,
   Subheading,
+  TechStack,
   Wrapper,
   type ModalContentProps,
 } from "./shared";
@@ -19,15 +20,20 @@ import {
 const carouselBg =
   "bg-linear-[180deg,#ab7a18,#a97528,#925554,#3f2c46,#1d1c24,transparent_45%]";
 
-const r2Url = process.env.NEXT_PUBLIC_BOGUE;
+const r2Url = process.env.NEXT_PUBLIC_PORTFOLIO;
 const IMAGES = [
-  { src: `${r2Url}/mockup.png`, alt: "Bogue screenshot 1" },
-  { src: `${r2Url}/mockup2.png`, alt: "Bogue screenshot 2" },
-  { src: `${r2Url}/mockup3.png`, alt: "Bogue screenshot 3" },
-  { src: `${r2Url}/mockup4.png`, alt: "Bogue screenshot 4" },
+  { src: `${r2Url}/ravensview_mockup.png`, alt: "Ravensview screenshot 0" },
+  { src: `${r2Url}/ravensview_mockup1.png`, alt: "Ravensview screenshot 1" },
+  { src: `${r2Url}/ravensview_mockup2.png`, alt: "Ravensview screenshot 2" },
+  { src: `${r2Url}/ravensview_mockup3.png`, alt: "Ravensview screenshot 3" },
+  { src: `${r2Url}/ravensview_mockup4.png`, alt: "Ravensview screenshot 4" },
+  { src: `${r2Url}/ravensview_mockup5.png`, alt: "Ravensview screenshot 5" },
+  { src: `${r2Url}/ravensview_mockup6.png`, alt: "Ravensview screenshot 6" },
 ];
 
 type ImageProps = React.ComponentProps<typeof Image>;
+
+const tools = ["Next.js", "React", "TypeScript", "Tailwind CSS", "Motion", "Sanity", "Instagram Graph API", "Mailchimp", "Figma", "Vercel"];
 
 /* eslint-disable jsx-a11y/alt-text */
 const getSlides = (images: ImageProps[]) =>
@@ -41,7 +47,12 @@ const getSlides = (images: ImageProps[]) =>
   ));
 /* eslint-enable jsx-a11y/alt-text */
 
-const BogueModal = ({ projectId, name, year, onClose }: ModalContentProps) => {
+const RavensviewModal = ({
+  projectId,
+  name,
+  year,
+  onClose,
+}: ModalContentProps) => {
   const { isReady: imagesReady, dimensions } = useImagePreloader(
     IMAGES.map((img) => img.src),
     1500,
@@ -83,32 +94,40 @@ const BogueModal = ({ projectId, name, year, onClose }: ModalContentProps) => {
           theme="light"
         >
           <Paragraph>
-            A personal <Highlight>e-commerce project</Highlight> built from
-            scratch, covering the core pieces of a modern online store. It
-            includes{" "}
-            <Highlight>
-              product browsing, cart functionality, and a checkout flow
-            </Highlight>
-            . The project also served as a space to explore and apply new tools
-            in a real-world style build.
+            A <Highlight>website redesign</Highlight> for a family-owned local
+            farm, commissioned to replace their existing website with a more
+            modern and engaging online presence.
+          </Paragraph>
+          <Paragraph>
+            I handled the entire project, from initial design and layout through
+            to <Highlight>frontend development</Highlight>, CMS integration, and deployment.
           </Paragraph>
           <div className="flex flex-col gap-2">
             <Subheading>What I worked on</Subheading>
             <List>
               <ListItem>
-                Implemented product browsing, cart functionality, and a checkout
-                flow.
+                Built the frontend with Next.js, React, and{" "}
+                <Highlight>TypeScript</Highlight>, using Tailwind CSS for
+                styling and Motion for animations and interactive elements.
               </ListItem>
               <ListItem>
-                Designed and built the{" "}
-                <Highlight>full user interface</Highlight> for a smooth
-                end-to-end shopping experience.
+                Set up Sanity as the <Highlight>CMS</Highlight> behind the
+                recipe section, giving the client a straightforward way to add,
+                edit, and manage recipes themselves.
               </ListItem>
               <ListItem>
-                Used <Highlight>Supabase</Highlight> for authentication,
-                database management, and backend services.
+                Brought Instagram content and <Highlight>Mailchimp</Highlight>{" "}
+                newsletter signup into the website.
+              </ListItem>
+              <ListItem>
+                Worked through the layouts and interactions across mobile and
+                desktop.
               </ListItem>
             </List>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Subheading>Tech Stack</Subheading>
+            <TechStack tools={tools} />
           </div>
         </Card>
       </Card>
@@ -116,4 +135,4 @@ const BogueModal = ({ projectId, name, year, onClose }: ModalContentProps) => {
   );
 };
 
-export default BogueModal;
+export default RavensviewModal;

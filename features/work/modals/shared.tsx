@@ -7,16 +7,14 @@ type ModalHeaderProps = { name: string; year: string; onClose: () => void };
 export const ModalHeader = ({ name, year, onClose }: ModalHeaderProps) => (
   <div className="flex h-min gap-2">
     <Card
-      className="bg-foreground/5 flex items-baseline justify-between rounded-xl px-5 pt-3.5 pb-3"
+      className="bg-foreground/8 flex items-baseline justify-between rounded-xl px-5 pt-3.5 pb-3"
       theme="light"
     >
       <p className="text-lg tracking-[0.03em]">{name}</p>
-      <p className="text-foreground/28 font-mono text-lg font-medium tracking-tight">
-        {year}
-      </p>
+      <p className="font-mono text-lg font-semibold text-[#747474]">{year}</p>
     </Card>
     <Card
-      className="hover:bg-foreground/4 active:bg-foreground/8 hover:text-foreground flex aspect-square h-full w-auto shrink-0 cursor-pointer items-center justify-center rounded-xl text-[#959595] transition-colors duration-200"
+      className="hover:bg-foreground/4 active:bg-foreground/8 hover:text-foreground border-foreground/5 bg-foreground/2 flex aspect-square h-full w-auto shrink-0 cursor-pointer items-center justify-center rounded-xl border text-[#959595] transition-colors duration-200"
       role="button"
       tabIndex={0}
       aria-label="Close modal"
@@ -38,7 +36,7 @@ export const Wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const Paragraph = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-[14.5px] leading-relaxed font-medium tracking-wider text-[#686868]">
+  <p className="text-[0.9rem] leading-relaxed tracking-wider text-[#747474]">
     {children}
   </p>
 );
@@ -55,9 +53,22 @@ export const List = ({ children }: { children: React.ReactNode }) => (
 
 export const ListItem = ({ children }: { children: React.ReactNode }) => (
   <li className="mb-2 flex list-none gap-2">
-    <span className="bg-muted mt-1.75 block size-1.25 shrink-0 self-baseline" />
+    <span className="bg-foreground/50 mt-1.75 block size-1.25 shrink-0 self-baseline" />
     <Paragraph>{children}</Paragraph>
   </li>
+);
+
+export const TechStack = ({ tools }: { tools: string[] }) => (
+  <span className="flex flex-wrap gap-2 gap-y-1.25 text-[0.9rem] leading-snug tracking-wider text-[#747474]">
+    {tools.map((tool, index) => (
+      <React.Fragment key={index}>
+        <span>{tool}</span>
+        {index < tools.length - 1 && (
+          <span className="bg-foreground/50 block size-1 shrink-0 self-center" />
+        )}
+      </React.Fragment>
+    ))}
+  </span>
 );
 
 export type ModalContentProps = {

@@ -49,9 +49,11 @@ const nextConfig: NextConfig = {
           as: "*.js",
         },
       ],
-      "*.{webm|mp4}": {
-        as: "*.js",
-        loaders: [],
+      "*.mp4": {
+        type: "asset",
+      },
+      "*.webm": {
+        type: "asset",
       },
     },
   },

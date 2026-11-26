@@ -11,6 +11,7 @@ import {
   ModalHeader,
   Paragraph,
   Subheading,
+  TechStack,
   Wrapper,
   type ModalContentProps,
 } from "./shared";
@@ -29,6 +30,8 @@ const IMAGES = [
 
 type ImageProps = React.ComponentProps<typeof Image>;
 
+const tools = ["Next.js", "React.js", "JavaScript", "Sass", "Sentry", "Zustand", "RHF", "Zod", "Figma", "Git", "REST API"];
+
 /* eslint-disable jsx-a11y/alt-text */
 const getSlides = (images: ImageProps[]) => [
   <Wrapper key={images[0].alt}>
@@ -37,7 +40,7 @@ const getSlides = (images: ImageProps[]) => [
         className="h-auto w-full object-cover select-none"
         {...images[0]}
       />
-      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden w-auto rounded-[clamp(0.75rem,2.3vw,3rem)] rounded-tl-[clamp(0.5rem,1.5vw,1.5rem)] xl:block" />
+      <div className="bg-foreground/10 absolute -inset-2 -z-1 hidden w-auto rounded-[clamp(0.75rem,2.3vw,3rem)] rounded-tl-[clamp(0.5rem,1.5vw,1.5rem)] xl:block" />
     </div>
   </Wrapper>,
   <Wrapper key={images[1].alt}>
@@ -46,7 +49,7 @@ const getSlides = (images: ImageProps[]) => [
         className="h-full w-auto object-cover select-none"
         {...images[1]}
       />
-      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden rounded-b-[clamp(0.75rem,2.3vw,3rem)] xl:block" />
+      <div className="bg-foreground/10 absolute -inset-2 -z-1 hidden rounded-b-[clamp(0.75rem,2.5vw,3rem)] xl:block" />
     </div>
   </Wrapper>,
   <Wrapper key={images[2].alt}>
@@ -55,7 +58,7 @@ const getSlides = (images: ImageProps[]) => [
         className="h-auto w-full object-cover select-none"
         {...images[2]}
       />
-      <div className="bg-foreground/10 absolute -inset-3 -z-1 hidden w-auto rounded-[clamp(0.25rem,2vw,2.5rem)] rounded-tl-[clamp(0.5rem,1.5vw,1.5rem)] xl:block" />
+      <div className="bg-foreground/10 absolute -inset-2 -z-1 hidden w-auto rounded-[clamp(0.25rem,2vw,2.25rem)] rounded-tl-[clamp(0.5rem,1.5vw,1.25rem)] xl:block" />
     </div>
   </Wrapper>,
   <Wrapper key={images[3].alt}>
@@ -72,7 +75,7 @@ const getSlides = (images: ImageProps[]) => [
           {...images[4]}
         />
       </div>
-      <div className="from-foreground/20 via-foreground/5 absolute -inset-2 -z-1 hidden w-auto rounded-tl-3xl rounded-tr-[38px] rounded-b-[38px] bg-linear-to-r from-0% via-50% to-[#cac9cd]/3 to-100% xl:-inset-3 xl:block" />
+      <div className="from-foreground/20 via-foreground/5 absolute -inset-2 -z-1 hidden w-auto rounded-tl-[22px] rounded-tr-4xl rounded-b-4xl bg-linear-to-r from-0% via-75% to-[#cac9cd]/1 to-100% xl:block" />
     </div>
   </Wrapper>,
 ];
@@ -125,40 +128,47 @@ const QuickQRModal = ({
           theme="light"
         >
           <Paragraph>
-            A QR code platform that brings{" "}
-            <Highlight>eight microservices</Highlight> into one single system,
-            helping businesses create, manage, and track QR-based interactions.
-            It supports use cases like marketing, product info, and contactless
-            experiences, with <Highlight>built-in analytics</Highlight> to
-            understand how people engage.
+            A QR code platform connecting{" "}
+            <Highlight>eight microservices</Highlight> into a single
+            application, allowing businesses to create, manage, and track
+            QR-based interactions. The platform supports marketing, product
+            information, and contactless experiences, with built-in analytics to
+            track engagement.
+          </Paragraph>
+          <Paragraph>
+            I led the frontend development and <Highlight>UI/UX</Highlight>,
+            working directly with the CTO on the application's architecture,
+            technical direction, and overall experience.
           </Paragraph>
           <div className="flex flex-col gap-2">
             <Subheading>What I worked on</Subheading>
             <ul>
               <ListItem>
-                Took <Highlight>ownership</Highlight> of the frontend, working
-                closely with the CTO to shape how the product is built and
-                maintained.
+                Established the <Highlight>Next.js application</Highlight>{" "}
+                architecture and built the API layer connecting the frontend to
+                eight backend microservices.
               </ListItem>
               <ListItem>
-                Led the <Highlight>UI/UX design</Highlight> across the
-                application, defining how users navigate and interact with the
-                product.
+                Developed shared React components across the platform, covering
+                everything from common <Highlight>interface elements</Highlight>{" "}
+                to more involved forms and application features.
               </ListItem>
               <ListItem>
-                Set up the frontend architecture and selected libraries for
-                state management, forms, and routing.
+                Was involved from the early stages of the product, taking
+                initial concepts through <Highlight>wireframes</Highlight> and
+                high-fidelity designs before bringing them into the application.
               </ListItem>
               <ListItem>
-                Designed{" "}
-                <Highlight>wireframes and high-fidelity mockups</Highlight> to
-                define clear, usable workflows.
-              </ListItem>
-              <ListItem>
-                Implemented API routes for client-side data fetching and
-                server-side rendering for direct microservice integration.
+                Worked closely with the CTO throughout development, contributing
+                to <Highlight>product decisions</Highlight>, technical
+                discussions, and how new features were approached and
+                implemented.
               </ListItem>
             </ul>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Subheading>Tech Stack</Subheading>
+            <TechStack tools={tools} />
           </div>
         </Card>
       </Card>

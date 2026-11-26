@@ -7,13 +7,15 @@ import TVStage from "@/components/tv/TVStage";
 
 export default function Home() {
   return (
-    <>
-      <Hero />
-      <Introduction />
-      <Work />
-      <About />
-      <Contact />
+    <div className="relative">
       <TVStage />
-    </>
+      <div className="mt-[-100vh]">
+        <Hero />
+        <Introduction />
+        <Work />
+        <About />
+        <Contact />
+      </div>
+    </div>
   );
 }

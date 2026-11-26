@@ -16,11 +16,11 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="pointer-events-none relative z-52 flex h-0 items-end"
+      className="pointer-events-none relative z-52 flex h-[65vh] items-end md:h-[27vh]"
     >
       <div className="grid-12 relative w-full px-3.5 py-3 md:px-4">
         <motion.div
-          className="text-foreground/50 pointer-events-auto col-span-6 col-start-1 w-max font-mono text-[0.8125rem] leading-snug tracking-[0.015em] uppercase md:text-[15px]"
+          className="text-muted font-semibold pointer-events-auto col-span-6 col-start-1 w-max font-mono text-[0.8125rem] leading-snug tracking-[0.015em] uppercase md:text-[15px]"
           onHoverStart={() => {
             setIsScrambleVisible(true);
             scrambleTo(text2);
