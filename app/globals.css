@@ -247,6 +247,12 @@ html {
   .mx {
     margin-inline: calc(var(--gap) * 2.5);
   }
+
+  .scanlines-grid {
+    background: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.016) 51%)
+      0% 0% / 100% 4px;
+    animation: none;
+  }
 }
 
 @supports (animation-timeline: view()) {

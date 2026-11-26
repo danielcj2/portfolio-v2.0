@@ -91,6 +91,7 @@ const RavensviewModal = ({
         <ModalHeader name={name} year={year} onClose={onClose} />
         <Card
           className="flex h-full flex-col gap-6 overflow-auto rounded-xl p-5 pb-12"
+          data-lenis-prevent
           theme="light"
         >
           <Paragraph>

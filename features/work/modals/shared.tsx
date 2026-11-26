@@ -7,11 +7,13 @@ type ModalHeaderProps = { name: string; year: string; onClose: () => void };
 export const ModalHeader = ({ name, year, onClose }: ModalHeaderProps) => (
   <div className="flex h-min gap-2">
     <Card
-      className="bg-foreground/8 flex items-baseline justify-between rounded-xl px-5 pt-3.5 pb-3"
+      className="bg-foreground/8 flex items-baseline justify-between rounded-xl px-4 pt-3.5 pb-3 md:px-5"
       theme="light"
     >
       <p className="text-lg tracking-[0.03em]">{name}</p>
-      <p className="font-mono text-lg font-semibold text-[#747474]">{year}</p>
+      <p className="font-mono text-[17px] font-semibold text-[#747474] md:text-lg">
+        {year}
+      </p>
     </Card>
     <Card
       className="hover:bg-foreground/4 active:bg-foreground/8 hover:text-foreground border-foreground/5 bg-foreground/2 flex aspect-square h-full w-auto shrink-0 cursor-pointer items-center justify-center rounded-xl border text-[#959595] transition-colors duration-200"
